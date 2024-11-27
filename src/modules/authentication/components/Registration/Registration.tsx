@@ -1,19 +1,30 @@
 import styles from './register.module.css'
 import logo from '../../../../assets/images/PMS 3.svg'
 import profileImg from '../../../../assets/images/profile.svg'
-import {useForm ,SubmitHandler }  from 'react-hook-form'
 import { toast } from "react-toastify";
 import { useState , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AUTH_URLS, axiosInstance, BASE_AUTH} from '../../../../api';
+import { emailValidation, PasswordValidation, userNameValidation } from '../../../../validations';
+import { useForm ,SubmitHandler} from 'react-hook-form';
 
-
+type FormFields = {
+	userName : string, 
+	email: string,
+	phoneNumber:string |number,
+	password: number | string,
+	confirmPassword : number | string,
+	country : string , 
+	profileImage : string | File | HTMLImageElement
+}
 export default function Registration() {
+
 
 	const [isVisible, setVisible] = useState<boolean>(false);  
 	const [isRePasswordVisible, setIsRePasswordVisible] = useState<boolean>(false);  
 	const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false)
 	const [isRePasswordShown, setIsRePasswordShown] = useState<boolean>(false)
+	const [imageFile, setImageFile] = useState<string|File|HTMLImageElement|null>();
 
 	const toggleHideShowPassword = ():void => {
 		setVisible(!isVisible);
@@ -30,20 +41,13 @@ export default function Registration() {
 
 
 const navigate = useNavigate()
-type FormFields = {
-	userName : string , 
-	email: string,
-	phoneNumber : number ,
-	password: number | string,
-	confirmPassword : number | string,
-	country : string , 
-	profileImage : string | File | HTMLImageElement
-}
+
 
 const{ 
 	formState:{errors,isSubmitting },
 	register  ,
-	handleSubmit,watch
+	handleSubmit,watch,
+	setValue
 }=	useForm <FormFields>({ mode:'onChange'})
 
 useEffect(()=>{
@@ -53,19 +57,41 @@ useEffect(()=>{
 	}
   },[watch('password')])
 
+  const uploadImage = (selectorFiles:string) => {
+    if (selectorFiles) {
+      setImageFile(selectorFiles[0]);
+     setValue('profileImage',selectorFiles[0])
+    }
+  };
+  const discardProfileImage = ()=> {
+    setValue('profileImage',null)
+    setImageFile(null)
+  }
+
 
 const onSubmit : SubmitHandler<FormFields> = async (data)=> {
 
-	await axiosInstance.post(BASE_AUTH+AUTH_URLS.register , data).then((resp)=>{
+	const formData = new FormData()
+    formData.append('userName',data?.userName)
+	formData.append('country' , data.country)
+	formData.append('phoneNumber',data.phoneNumber)
+    formData.append('password',data.password)
+   formData.append('confirmPassword',data.confirmPassword)
+    formData.append('profileImage',data?.profileImage)
+     formData.append('email',data.email)
+
+
+
+	await axiosInstance.post(BASE_AUTH+AUTH_URLS.register , formData).then((resp)=>{
 		console.log(resp)
 		toast.success(resp?.data?.message || 'account created successfully')
 		navigate('/verify-user')
 
 	}).catch((error)=>{
 		console.log(error)
-			toast.error(error.response.data.message || 'something wrong went please try again')
+			toast.error(error?.response?.data?.message || 'something wrong went please try again')
 	})
-	console.log(data)
+	console.log(data?.profileImage)
 	
 }
 	
@@ -88,25 +114,60 @@ return <>
 			<h2 className={`${styles.textWrapper} position-relative`}>Create New Account</h2>
 		</div>
 
-		<div className={`${styles.logo} profileImage text-center`}>
-			<img src={profileImg} alt="form profile image" />
-		</div>
+	
+	
 
+
+		
 		<form onSubmit={handleSubmit(onSubmit)}>
+
+
+
+
 		<div className="container">
+
+		{imageFile ? <>{imageFile && (
+  <div  className={`${styles.formImage}  position-relative`}>
+    <img className='w-75' src={URL.createObjectURL(imageFile) }  
+
+    />
+    <button className={`${styles.discardBtn} btn`}
+  
+    onClick={discardProfileImage}>
+    <i className="fa-solid fa-xmark "></i>
+    <span className='sr-only'>{imageFile ? 'discard upload profile image' : 'upload profile image'}</span>
+
+    </button>
+  </div>
+)}</> :  <div className="profileImageField mx-2">
+<label htmlFor="file-upload" className={`${styles.customFileUpload}`}>
+<div className={styles.cameraIcon}>
+<img src={profileImg} alt="form profile image" />
+
+</div>
+
+
+
+               </label>
+     <input  
+   
+     {...register('profileImage')}
+     className={styles.fileUpload} id="file-upload" type="file" onChange={(e) => uploadImage(e.target.files)
+     
+   
+   
+   }
+   
+   
+   />
+</div>}
+
 		<div className={`${styles.rowInputs} row` }>
 				<div className="col-md-6">
 				<div className="input">
 				<label className={styles.formLabel} htmlFor="userName">User Name</label>
 				<input   id='userName' type="text" className={`${styles.formInputs} form-control`} placeholder='Enter your Name' 
-				{...register ( 'userName', {required :'name cannot be empty' , pattern : {
-					value : /^\S+\d$/,
-				  
-					message : 'The user name must end with numbers without spaces'
-				  } ,  maxLength : {
-					value : 8,
-					message : 'maximum 8 characters'
-				  }} ) }
+				{...register ( 'userName', userNameValidation ) }
 				/>
 
 		{errors.userName && <span className='text-danger'>{errors?.userName?.message}</span>}
@@ -117,13 +178,7 @@ return <>
 				<label className={styles.formLabel} htmlFor="email">E-mail</label>
 				<input id='email' type="email" className={`${styles.formInputs} form-control`} placeholder='Enter your E-mail'
 				
-				{...register('email',{
-					required : 'email cannot be empty',
-					pattern : {
-					  value : /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-					  message : 'please enter a valid email'
-					}
-				  })}
+				{...register('email',emailValidation)}
 				/>
 						{errors.email && <span className='text-danger'>{errors?.email?.message}</span>}
 
@@ -158,14 +213,7 @@ return <>
 
 				  <input    id='password' type={!isVisible ? "password" : "text"} className={`${styles.formInputs} form-control`} placeholder='Enter your password ' 
 				
-				{...register('password' , {
-					required : 'password cannot be empty',
-					pattern : { value : /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
-					  message : "The password must include at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 6 characters long."
-				  
-				  
-					}
-				   })}
+				{...register('password' , PasswordValidation)}
 				/>
 
 	<button onMouseUp={(e)=>{e.preventDefault()}} onMouseDown={(e)=>{e.preventDefault()}} type='button' onClick={toggleHideShowPassword} className={styles.iconsBtn}>

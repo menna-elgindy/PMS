@@ -82,6 +82,19 @@
     color: white;
     
 }
+.fileUpload{
+    display: none;
+
+  }
+.customFileUpload {
+   
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
 .rowInputs{
     margin-inline: 5.18rem;
@@ -92,6 +105,17 @@
     box-shadow: unset;
     background-color: transparent;
     color: white;
+}
+
+.formImage {
+    width: 10rem;
+    height: 10rem;
+    cursor: pointer;
+    margin: auto;
+}
+
+.formImage img {
+    border-radius: 50%;
 }
 
 .saveBtn button {

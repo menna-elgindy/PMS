@@ -17,3 +17,17 @@ export const PasswordValidation = {
 			'At least 6 characters: UPPER/lowercase, numbers and special characters',
 	},
 };
+
+const userNameRegex = /^\S+\d$/
+export const userNameValidation = {
+	required: 'This field is required',
+	pattern: {
+		value: userNameRegex,
+		message:
+			'The user name must end with numbers without spaces',
+	},
+	maxLength : {
+		value : 8,
+					message : 'maximum 8 characters'
+	}
+};
