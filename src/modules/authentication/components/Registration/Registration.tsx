@@ -7,12 +7,14 @@ import { useNavigate } from 'react-router-dom';
 import { AUTH_URLS, axiosInstance, BASE_AUTH} from '../../../../api';
 import { emailValidation, PasswordValidation, userNameValidation } from '../../../../validations';
 import { useForm ,SubmitHandler} from 'react-hook-form';
+import useToggle from '../../../../hooks/useToggle';
+
 
 type FormFields = {
 	userName : string, 
 	email: string,
 	phoneNumber:string |number,
-	password: number | string,
+	password: number | string | Blob,
 	confirmPassword : number | string,
 	country : string , 
 	profileImage : string | File | HTMLImageElement
@@ -20,18 +22,18 @@ type FormFields = {
 export default function Registration() {
 
 
-	const [isVisible, setVisible] = useState<boolean>(false);  
 	const [isRePasswordVisible, setIsRePasswordVisible] = useState<boolean>(false);  
-	const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false)
 	const [isRePasswordShown, setIsRePasswordShown] = useState<boolean>(false)
 	const [imageFile, setImageFile] = useState<string|File|HTMLImageElement|null>();
 
-	const toggleHideShowPassword = ():void => {
-		setVisible(!isVisible);
-		
-		setIsPasswordShown(!isPasswordShown)
-		
-	  };
+
+
+	const{toggledElement,toggleFunction}=useToggle(false)
+
+
+	
+
+
 	const toggleHideShowRePassword = ():void => {
 		setIsRePasswordVisible(!isRePasswordVisible);
 		
@@ -47,7 +49,7 @@ const{
 	formState:{errors,isSubmitting },
 	register  ,
 	handleSubmit,watch,
-	setValue
+	setValue,trigger
 }=	useForm <FormFields>({ mode:'onChange'})
 
 useEffect(()=>{
@@ -211,14 +213,14 @@ return <>
 				  <div className="position-relative">
 				  <label className={styles.formLabel} htmlFor="password">Password</label>
 
-				  <input    id='password' type={!isVisible ? "password" : "text"} className={`${styles.formInputs} form-control`} placeholder='Enter your password ' 
+				  <input    id='password' type={!toggledElement ? "password" : "text"} className={`${styles.formInputs} form-control`} placeholder='Enter your password ' 
 				
 				{...register('password' , PasswordValidation)}
 				/>
 
-	<button onMouseUp={(e)=>{e.preventDefault()}} onMouseDown={(e)=>{e.preventDefault()}} type='button' onClick={toggleHideShowPassword} className={styles.iconsBtn}>
-<i  aria-label="password-toggle"   className={isPasswordShown ?"fa-regular fa-eye-slash text-white position-absolute end-0 top-50 translate-middle confirm" : "text-white fa-solid fa-eye position-absolute end-0 top-50 translate-middle confirm"}></i>
-<span className='sr-only'>{isPasswordShown ? 'hide  password' : 'show  password'}</span>
+	<button onMouseUp={(e)=>{e.preventDefault()}} onMouseDown={(e)=>{e.preventDefault()}} type='button' onClick={toggleFunction} className={styles.iconsBtn}>
+<i  aria-label="password-toggle"   className={toggledElement ?"fa-regular fa-eye-slash text-white position-absolute end-0 top-50 translate-middle confirm" : "text-white fa-solid fa-eye position-absolute end-0 top-50 translate-middle confirm"}></i>
+<span className='sr-only'>{toggledElement ? 'hide  password' : 'show  password'}</span>
 
 </button>
 
