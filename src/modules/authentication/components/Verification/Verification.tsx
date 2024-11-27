@@ -1,5 +1,6 @@
-function Verification() {
-	return <div></div>;
-}
 
-export default Verification;
+export default function Verification() {
+  return (
+    <div>Verification</div>
+  )
+}
