@@ -2,10 +2,10 @@ import styles from './register.module.css'
 import logo from '../../../../assets/images/PMS 3.svg'
 import profileImg from '../../../../assets/images/profile.svg'
 import {useForm ,SubmitHandler }  from 'react-hook-form'
-import axios from "axios";
 import { toast } from "react-toastify";
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AUTH_URLS, axiosInstance, BASE_AUTH} from '../../../../api';
 
 
 export default function Registration() {
@@ -27,7 +27,8 @@ export default function Registration() {
 		setIsRePasswordShown(!isRePasswordShown)
 		
 	  };
-	
+
+
 const navigate = useNavigate()
 type FormFields = {
 	userName : string , 
@@ -45,11 +46,17 @@ const{
 	handleSubmit,watch
 }=	useForm <FormFields>({ mode:'onChange'})
 
+useEffect(()=>{
+	if(watch('confirmPassword')) {
+	  trigger('confirmPassword')
+
+	}
+  },[watch('password')])
 
 
 const onSubmit : SubmitHandler<FormFields> = async (data)=> {
 
-	await axios.post(`https://upskilling-egypt.com:3003/api/v1/Users/Register` , data).then((resp)=>{
+	await axiosInstance.post(BASE_AUTH+AUTH_URLS.register , data).then((resp)=>{
 		console.log(resp)
 		toast.success(resp?.data?.message || 'account created successfully')
 		navigate('/verify-user')
