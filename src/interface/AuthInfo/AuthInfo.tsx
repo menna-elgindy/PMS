@@ -15,7 +15,7 @@ export interface AxiosErrorResponse {
     country: string;
     phoneNumber: string;
     confirmPassword: string;
-    profileImage: File | null; // توضيح نوع الصورة بدلاً من استخدام any.
+    profileImage: File | null; 
   }
   
   export interface ForgetPasswordFormData {
@@ -24,7 +24,7 @@ export interface AxiosErrorResponse {
   
   export interface ResetPasswordFormData
     extends LoginFormData,
-      Pick<RegisterFormData, "confirmPassword"> {
+      Pick<RegisterFormData,  "confirmPassword"> {
     seed: string; 
   }
    

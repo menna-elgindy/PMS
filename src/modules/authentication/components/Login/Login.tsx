@@ -28,8 +28,9 @@ const Login = () => {
 			toast.success('Login Successfully')
 			localStorage.setItem('token',response?.data?.token)	
 			saveLoginData()
-		} catch (error) {
+		} catch (error :any) {
 			console.log(error)
+			toast.error(error.response?.data?.message || "Error")
 			
 		}
 	}
