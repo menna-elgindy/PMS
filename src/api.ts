@@ -15,7 +15,7 @@ export const HEADERS = {
 //* USER AUTHENTICATION
 const BASE_AUTH = `${BASE_URL}/Users`;
 export const AUTH_URLS = {
-  login: ``,
+  login: `${BASE_AUTH}/Login`,
   register: ``,
   verify: ``,
   forgetPassword: ``,

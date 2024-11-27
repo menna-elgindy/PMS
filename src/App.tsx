@@ -1,6 +1,7 @@
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import AuthLayout from './modules/shared/components/AuthLayout/AuthLayout';
 import Login from './modules/authentication/components/Login/Login';
 import Registration from './modules/authentication/components/Registration/Registration';
@@ -9,6 +10,8 @@ import ResetPassword from './modules/authentication/components/ResetPassword/Res
 import Verification from './modules/authentication/components/Verification/Verification';
 import NotFound from './modules/shared/components/NotFound/NotFound';
 import Dashboard from './modules/Dashboard/components/Dashboard';
+import ProtectedComponent from './modules/shared/components/ProtectedComponent/ProtectedComponent';
+import MasterLayout from './modules/shared/components/MasterLayout/MasterLayout';
 
 function App() {
 	const routes = createBrowserRouter([
@@ -27,15 +30,22 @@ function App() {
 		},
 		{
 			path: 'dashboard',
-			element: <Dashboard />,
+			element:(
+			  <ProtectedComponent >
+				<MasterLayout />
+			  </ProtectedComponent>
+			) ,
 			errorElement: <NotFound />,
+			children: [
+				{ index: true, element: <Dashboard /> },
+			]
 		},
 	]);
 
 	return (
 		<>
-			<ToastContainer />
-			<RouterProvider router={routes} />
+			<ToastContainer position="top-center"  />
+			<RouterProvider router={routes}></RouterProvider>
 		</>
 	);
 }
