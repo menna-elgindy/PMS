@@ -1,6 +1,5 @@
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import AuthLayout from './modules/shared/components/AuthLayout/AuthLayout';
 import Login from './modules/authentication/components/Login/Login';
 import Registration from './modules/authentication/components/Registration/Registration';
@@ -9,6 +8,8 @@ import ResetPassword from './modules/authentication/components/ResetPassword/Res
 import Verification from './modules/authentication/components/Verification/Verification';
 import NotFound from './modules/shared/components/NotFound/NotFound';
 import Dashboard from './modules/Dashboard/components/Dashboard';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 	const routes = createBrowserRouter([

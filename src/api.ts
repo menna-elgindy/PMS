@@ -18,7 +18,7 @@ export const AUTH_URLS = {
   login: ``,
   register: ``,
   verify: ``,
-  forgetPassword: ``,
-  resetPassword: ``,
+  forgetPassword:`${BASE_AUTH}/Reset/Request`,
+  resetPassword: `${BASE_AUTH}/Reset`,
   changePassword: ``,
 };
