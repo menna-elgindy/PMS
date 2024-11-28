@@ -15,7 +15,7 @@ const useToggle =(defaultValue:boolean)=>{
     }
 
 
-    return [toggleFunction,value]
+    return [value,toggleFunction]
 
 }
 

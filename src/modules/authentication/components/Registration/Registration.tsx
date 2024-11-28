@@ -20,7 +20,7 @@ export default function Registration() {
 
 
 
-	const[toggleFunction,value]=useToggle(false)
+	const[value,toggleFunction]=useToggle(false)
 
 
 	
