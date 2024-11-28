@@ -1,0 +1,161 @@
+:root{
+    --mainColor :rgba(239, 155, 40, 1);
+
+}
+
+.registerWrapper {
+    background-color: rgba(14, 56, 47, 1);
+    height: 100vh;
+
+}
+
+.iconsBtn {
+ 
+        border: unset;
+        height: unset;
+        padding: unset;
+   
+    
+}
+
+.registerLayer{
+    background-image: url('../../../../assets/images/verify.svg') ;
+    background-position: right top ;
+    background-size: contain;
+    height: 100% ;
+    width: 100% ;
+    background-repeat: no-repeat;
+    right: 0;
+}
+
+.registerLayer::before {
+    content: "";
+    display: block;
+    background-image:  url('../../../../assets//images/coffe.svg');
+    width: 100%;
+    height: 70%;
+    background-repeat: no-repeat;
+    position: absolute;
+    bottom: 0;
+    background-size: contain;
+}
+
+
+
+.formContainer {
+    background-color: rgba(49, 89, 81, 0.9);
+    position: absolute;
+    border-radius: 1rem;
+
+    
+}
+
+.textWrapper {
+    color: var(--mainColor) ;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.textWrapper::before {
+    content:  "";
+    position: absolute;
+    width: 1rem;
+    height: 3.75px;
+    background-color:  var(--mainColor);
+    bottom: 0;
+}
+
+.formLabel {
+    color: var(--mainColor);
+}
+
+.formInputs {
+    border: unset;
+    border-radius: unset;
+    background-color: transparent;
+    border-bottom: 0.3px solid rgba(255, 255, 255, 0.405);
+    padding-inline: unset !important;
+    padding-bottom: 0.7rem;
+   
+}
+.formInputs::placeholder {
+    color: white;
+    
+}
+.fileUpload{
+    display: none;
+
+  }
+.customFileUpload {
+   
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+.rowInputs{
+    margin-inline: 5.18rem;
+}
+
+.formInputs:focus {
+    outline: unset;
+    box-shadow: unset;
+    background-color: transparent;
+    color: white;
+}
+
+.formImage {
+    width: 10rem;
+    height: 10rem;
+    cursor: pointer;
+    margin: auto;
+}
+
+.formImage img {
+    border-radius: 50%;
+}
+
+.saveBtn button {
+    background-color: var(--mainColor);
+    padding-block: 10px;
+    padding-inline: 14rem;
+    border-radius: 6rem;
+    color: white;
+    margin-block: 4rem;
+    border: unset;
+
+}
+button:disabled,
+button[disabled]{
+  background-color: rgb(255, 194, 108);
+}
+[type='password'] ,[type='text'] , [type='email'] , [type='tel']{
+   color: white ;
+}
+.title {
+    padding-left: 5rem;
+    padding-top: 3.25rem;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 0s 600000s, color 0s 600000s !important;
+}
+
+.logo img{
+    margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+
+.saveBtn button {
+    padding-inline: 6rem;
+}
+.rowInputs {
+    margin-inline: unset;
+}
+  
+}
+

@@ -8,17 +8,9 @@ import { AUTH_URLS, axiosInstance, BASE_AUTH} from '../../../../api';
 import { emailValidation, PasswordValidation, userNameValidation } from '../../../../validations';
 import { useForm ,SubmitHandler} from 'react-hook-form';
 import useToggle from '../../../../hooks/useToggle';
+import { FormFields } from '../../../../types/types';
 
 
-type FormFields = {
-	userName : string, 
-	email: string,
-	phoneNumber:string |number,
-	password: number | string | Blob,
-	confirmPassword : number | string,
-	country : string , 
-	profileImage : string | File | HTMLImageElement
-}
 export default function Registration() {
 
 
@@ -28,7 +20,7 @@ export default function Registration() {
 
 
 
-	const{toggledElement,toggleFunction}=useToggle(false)
+	const{value,toggleFunction}=useToggle(false)
 
 
 	
@@ -213,14 +205,14 @@ return <>
 				  <div className="position-relative">
 				  <label className={styles.formLabel} htmlFor="password">Password</label>
 
-				  <input    id='password' type={!toggledElement ? "password" : "text"} className={`${styles.formInputs} form-control`} placeholder='Enter your password ' 
+				  <input    id='password' type={!value ? "password" : "text"} className={`${styles.formInputs} form-control`} placeholder='Enter your password ' 
 				
 				{...register('password' , PasswordValidation)}
 				/>
 
 	<button onMouseUp={(e)=>{e.preventDefault()}} onMouseDown={(e)=>{e.preventDefault()}} type='button' onClick={toggleFunction} className={styles.iconsBtn}>
-<i  aria-label="password-toggle"   className={toggledElement ?"fa-regular fa-eye-slash text-white position-absolute end-0 top-50 translate-middle confirm" : "text-white fa-solid fa-eye position-absolute end-0 top-50 translate-middle confirm"}></i>
-<span className='sr-only'>{toggledElement ? 'hide  password' : 'show  password'}</span>
+<i  aria-label="password-toggle"   className={value ?"fa-regular fa-eye-slash text-white position-absolute end-0 top-50 translate-middle confirm" : "text-white fa-solid fa-eye position-absolute end-0 top-50 translate-middle confirm"}></i>
+<span className='sr-only'>{value ? 'hide  password' : 'show  password'}</span>
 
 </button>
 
