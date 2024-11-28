@@ -87,7 +87,7 @@ body {
 
 /* ---------------------- auth-layout ----------------------*/
 .auth-container {
-  background-image: url("../src/assets/images/bg2.png");
+  
   background-position: center center;
   background-size: cover;
   min-height: 120vh;
