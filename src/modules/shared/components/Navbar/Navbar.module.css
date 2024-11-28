@@ -1,0 +1,33 @@
+.navbar {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.logo {
+  width: 166px;
+  height: 43px;
+}
+.email {
+  max-width: 100px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.profile-container {
+  max-width: 220px;
+}
+.profile-container img {
+  width: 25%;
+}
+.bell {
+  color: #ef9b28;
+  font-size: 20px;
+}
+@media (max-width: 540px) {
+  .bell {
+    display: none;
+  }
+}

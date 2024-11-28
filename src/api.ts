@@ -13,7 +13,7 @@ export const HEADERS = {
 };
 
 //* USER AUTHENTICATION
-const BASE_AUTH = `${BASE_URL}/Users`;
+// const BASE_AUTH = `${BASE_URL}/Users`;
 export const AUTH_URLS = {
   login: ``,
   register: ``,
@@ -22,3 +22,17 @@ export const AUTH_URLS = {
   resetPassword: ``,
   changePassword: ``,
 };
+
+// tasks_enpoints
+const TASKS_URLS = {
+  COUNT_TASKS:'Task/count',
+}
+
+// users_enpoints
+const USERS_URLS={
+    COUNT_USERS:'Users/count'
+}
+export{
+  TASKS_URLS,
+  USERS_URLS
+}

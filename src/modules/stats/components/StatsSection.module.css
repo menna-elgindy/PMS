@@ -1,0 +1,17 @@
+.doughnut-chart {
+  max-width: 300px;
+  /* min-height: 300px; */
+  margin: 0 auto;
+}
+.border-container {
+  position: relative;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+.border-element {
+  position: absolute;
+  height: 50px;
+  width: 4px;
+  background-color: #ef9b28;
+}
