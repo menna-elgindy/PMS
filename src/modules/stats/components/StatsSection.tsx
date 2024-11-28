@@ -15,21 +15,27 @@ interface countTasksType {
   toDo: number;
   done: number;
 }
+interface countUsersType {
+  activatedEmployeeCount: number;
+  deactivatedEmployeeCount: number;
+}
 const StatsSection = () => {
   const countTasks = useCallback(async () => {
-    const response = await axiosInstance.get(TASKS_URLS.COUNT_TASKS, HEADERS);
+    const response = await axiosInstance.get<countTasksType>(
+      TASKS_URLS.COUNT_TASKS,
+      HEADERS
+    );
     return response?.data;
   }, []);
   const countUsers = useCallback(async () => {
-    const response = await axiosInstance.get(USERS_URLS.COUNT_USERS, HEADERS);
+    const response = await axiosInstance.get<countUsersType>(
+      USERS_URLS.COUNT_USERS,
+      HEADERS
+    );
     return response?.data;
   }, []);
   // const { loginData, removeLoginData } = useContext(AuthContext);
 
-  interface countUsersType {
-    activatedEmployeeCount: number;
-    deactivatedEmployeeCount: number;
-  }
   const { data: tasks, loading: tasksLoading } =
     useFetch<countTasksType>(countTasks);
   const { data: users, loading: usersLoading } =

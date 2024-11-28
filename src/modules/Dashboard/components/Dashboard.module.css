@@ -3,8 +3,12 @@
   height: 100%;
 }
 @media (max-width: 768px) {
+  .img-bashboard img {
+    width: 98%;
+  }
   .img-bashboard {
     height: 213px;
+    width: 98%;
   }
 }
 @media (max-width: 912px) {
