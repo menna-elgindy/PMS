@@ -5,10 +5,10 @@ import { toast } from "react-toastify";
 import { useState , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AUTH_URLS, axiosInstance, BASE_AUTH} from '../../../../api';
-import { emailValidation, PasswordValidation, userNameValidation } from '../../../../validations';
+import { emailValidation, PasswordValidation, RequiredField } from '../../../../validations';
 import { useForm ,SubmitHandler} from 'react-hook-form';
 import useToggle from '../../../../hooks/useToggle';
-import { FormFields } from '../../../../types/types';
+import { RegisterFormData } from '../../../../interface/AuthResponse/AuthResponse';
 
 
 export default function Registration() {
@@ -16,7 +16,7 @@ export default function Registration() {
 
 	const [isRePasswordVisible, setIsRePasswordVisible] = useState<boolean>(false);  
 	const [isRePasswordShown, setIsRePasswordShown] = useState<boolean>(false)
-	const [imageFile, setImageFile] = useState<string|File|HTMLImageElement|null>();
+	const [imageFile, setImageFile] = useState<string|null|FileList|string[]|Blob>();
 
 
 
@@ -42,7 +42,7 @@ const{
 	register  ,
 	handleSubmit,watch,
 	setValue,trigger
-}=	useForm <FormFields>({ mode:'onChange'})
+}=	useForm <RegisterFormData>({ mode:'onChange'})
 
 useEffect(()=>{
 	if(watch('confirmPassword')) {
@@ -51,7 +51,7 @@ useEffect(()=>{
 	}
   },[watch('password')])
 
-  const uploadImage = (selectorFiles:string) => {
+  const uploadImage = (selectorFiles:string|null|undefined|FileList|string[]) => {
     if (selectorFiles) {
       setImageFile(selectorFiles[0]);
      setValue('profileImage',selectorFiles[0])
@@ -63,7 +63,7 @@ useEffect(()=>{
   }
 
 
-const onSubmit : SubmitHandler<FormFields> = async (data)=> {
+const onSubmit : SubmitHandler<RegisterFormData> = async (data)=> {
 
 	const formData = new FormData()
     formData.append('userName',data?.userName)
@@ -161,7 +161,7 @@ return <>
 				<div className="input">
 				<label className={styles.formLabel} htmlFor="userName">User Name</label>
 				<input   id='userName' type="text" className={`${styles.formInputs} form-control`} placeholder='Enter your Name' 
-				{...register ( 'userName', userNameValidation ) }
+				{...register ( 'userName', RequiredField('userName') ) }
 				/>
 
 		{errors.userName && <span className='text-danger'>{errors?.userName?.message}</span>}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const emailValidation = {
 	required: 'Email is required',
 	pattern: {
@@ -18,16 +19,15 @@ export const PasswordValidation = {
 	},
 };
 
-const userNameRegex = /^\S+\d$/
-export const userNameValidation = {
-	required: 'This field is required',
-	pattern: {
-		value: userNameRegex,
-		message:
-			'The user name must end with numbers without spaces',
-	},
-	maxLength : {
+
+export const RequiredField = (fieldName:any) => ({
+	required: `${fieldName} is required`,
+	pattern : {
+		value : /^\S+\d$/,
+	  
+		message : 'The user name must end with numbers without spaces'
+	  } ,  maxLength : {
 		value : 8,
-					message : 'maximum 8 characters'
-	}
-};
+		message : 'maximum 8 characters'
+	  }
+  });

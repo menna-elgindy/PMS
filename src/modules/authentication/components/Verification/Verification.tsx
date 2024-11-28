@@ -87,7 +87,7 @@ console.log(data);
 			</div>
 
 			<div className={`${styles.saveBtn} text-center`}>
-			<button disabled={isSubmitting} >{isSubmitting ? <i className="fa-solid fa-spinner fa-spin"></i> : 'Save'}</button>
+			<button disabled={isSubmitting} >{isSubmitting ?  <><i className="fa-solid fa-spinner fa-spin"></i> </>: 'Save'}</button>
 			</div>
 		</div>
 

@@ -1,17 +1,16 @@
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
 
 
 const useToggle =(defaultValue:boolean)=>{
 
 
-     const [value, setValue] = useState<boolean>(defaultValue);  
+     const [value, setValue] = useState<boolean|MouseEventHandler<HTMLButtonElement>|undefined>(defaultValue);  
 
 
-    const toggleFunction=()=>{
+    const toggleFunction= ():void =>{
         
-        setValue(!value)        
-   
-
+        setValue(!value)     
+           
     }
 
 
