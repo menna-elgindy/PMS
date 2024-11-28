@@ -4,14 +4,15 @@ import SideBarMenu from "../SideBarMenu/SideBarMenu";
 
 const MasterLayout = () => {
   return (
-    <div className="d-flex flex-column w-100 ">
+    //col
+    <div className="d-flex flex-column master-content  ">
       <Navbar />
-      <div className="master-content d-flex mt-5 ">
-        <SideBarMenu />
-        <div className="main-content d-flex ">
-          <Outlet />
-        </div>
+      {/* <div className=" mt-5  w-100"> */}
+      <SideBarMenu />
+      <div className="main-content d-flex w-auto ps-3 mt-5">
+        <Outlet />
       </div>
+      {/* </div> */}
     </div>
   );
 };

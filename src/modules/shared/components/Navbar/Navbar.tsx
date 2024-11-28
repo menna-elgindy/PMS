@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className="d-flex align-items-center gap-3">
         <i className={`fa fa-bell ${styles["bell"]}  `} />
         <div
-          className={`${styles["profile-container"]} d-flex ps-3
+          className={`${styles["profile-container"]} d-flex ps-3  w-25
        align-items-center  border border-end-0  border-top-0 border-bottom-0`}
         >
           <img src={profileImg} className=" rounded-circle pe-1 " alt="" />

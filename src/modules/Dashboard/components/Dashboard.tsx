@@ -1,13 +1,13 @@
-import background from "../../../assets/images/backgd-dashboard.png";
+import DashboardHeader from "../../shared/components/DashboardHeader/DashboardHeader";
 import StatsSection from "../../stats/components/StatsSection";
-import styles from "./Dashboard.module.css";
 
 function Dashboard() {
   return (
-    <div className="ms-5 me-2 pt-5 w-100 ">
-      <div className={`${styles["img-bashboard"]}`}>
-        <img src={background} className=" img-fluid " alt="" />
-      </div>
+    <div className="ms-5 me-2 mx-auto pt-5 w-100  ">
+      <DashboardHeader
+        title="Upskilling"
+        description="You can add project and assign tasks to your team"
+      />
       <StatsSection />
     </div>
   );

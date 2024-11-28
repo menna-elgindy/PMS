@@ -16,3 +16,17 @@
   justify-content: center;
   align-items: center;
 }
+.arrow-menu-item.collapsed {
+  background-color: #ef9b28;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  position: absolute;
+  right: -16px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  width: 16px;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+}

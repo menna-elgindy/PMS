@@ -42,7 +42,7 @@ const StatsSection = () => {
     useFetch<countUsersType>(countUsers);
 
   return (
-    <div className="row w-100 gap-3  pt-3  mx-auto ">
+    <div className="row w-100 gap-3  pt-3  mx-auto">
       {(tasksLoading || usersLoading) && (
         <div className="d-flex mx-auto w-100 justify-content-center  pt-5">
           <div className="spinner-border text-warning " role="status">
@@ -108,7 +108,7 @@ const StatsSection = () => {
       {/* **************** users stats ***************** */}
       {/* {loginData?.userGroup !== "SystemUser" && ( */}
       <div className=" col-md-6 ">
-        {!usersLoading && (
+        {!usersLoading && users && (
           <div>
             <div
               className={`${styles["border-container "]} bg-white py-3 rounded-3  `}

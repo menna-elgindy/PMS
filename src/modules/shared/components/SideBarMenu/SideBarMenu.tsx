@@ -29,7 +29,7 @@ const SideBarMenu = () => {
 
   return (
     <div
-      className={`sidebar-container position-fixed d-flex ${
+      className={`sidebar-container position-fixed d-flex pt-5 ${
         isCollapsed ? "collapsed" : ""
       }`}
     >
@@ -38,10 +38,8 @@ const SideBarMenu = () => {
           <MenuItem
             onClick={toggleCollapse}
             icon={
-              <div className={styles["arrow-menu-item-wrapper"]}>
-                <div className={styles["arrow-menu-item"]}>
-                  <ToggleArrowIcon />
-                </div>
+              <div className={styles["arrow-menu-item"]}>
+                <ToggleArrowIcon />
               </div>
             }
             className={`${styles["collapsed-arrow"]} transation-all duration-300 ease-in-out`}
