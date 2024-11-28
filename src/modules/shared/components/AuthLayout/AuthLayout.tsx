@@ -1,7 +1,8 @@
+
 import { Outlet, useLocation } from "react-router-dom";
 import logo from "../../../../assets/images/Auth-logo.png";
 
-function AuthLayout() {
+export default function AuthLayout() {
   const location = useLocation();
 
   const isRegisrerRoute = location.pathname === "/register";
@@ -33,4 +34,3 @@ function AuthLayout() {
   );
 }
 
-export default AuthLayout;
