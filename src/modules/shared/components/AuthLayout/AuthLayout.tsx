@@ -14,7 +14,7 @@ export default function AuthLayout() {
           className={`row justify-content-center align-items-center ${isRegisrerRoute ? "h-100" : "vh-100"}`}
           style={{ minHeight: "100vh" }} 
         >
-          <div className={`col-md-5 ${isRegisrerRoute ? "w-100 mt-md-5" : ""}`}>
+          <div className={`col-md-5  ${isRegisrerRoute ? "w-100 mt-md-5" : ""}`}>
             {isRegisrerRoute ? (
               <Outlet />
             ) : (

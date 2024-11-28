@@ -3,11 +3,7 @@
 
 }
 
-.registerWrapper {
-    background-color: rgba(14, 56, 47, 1);
-    height: 100vh;
 
-}
 
 .iconsBtn {
  
@@ -18,37 +14,8 @@
     
 }
 
-.registerLayer{
-    background-image: url('../../../../assets/images/verify.svg') ;
-    background-position: right top ;
-    background-size: contain;
-    height: 100% ;
-    width: 100% ;
-    background-repeat: no-repeat;
-    right: 0;
-}
-
-.registerLayer::before {
-    content: "";
-    display: block;
-    background-image:  url('../../../../assets//images/coffe.svg');
-    width: 100%;
-    height: 70%;
-    background-repeat: no-repeat;
-    position: absolute;
-    bottom: 0;
-    background-size: contain;
-}
 
 
-
-.formContainer {
-    background-color: rgba(49, 89, 81, 0.9);
-    position: absolute;
-    border-radius: 1rem;
-
-    
-}
 
 .textWrapper {
     color: var(--mainColor) ;
@@ -77,28 +44,20 @@
     padding-inline: unset !important;
     padding-bottom: 0.7rem;
    
+    &:disabled{
+        background-color: rgba(181, 181, 181, 0.789);
+        border-radius: 5px;
+    }
 }
 .formInputs::placeholder {
     color: white;
     
 }
-.fileUpload{
-    display: none;
 
-  }
-.customFileUpload {
-   
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-.rowInputs{
-    margin-inline: 5.18rem;
+.verifyWrapper {
+    padding-top: 3.87rem;
 }
+
 
 .formInputs:focus {
     outline: unset;
@@ -107,16 +66,7 @@
     color: white;
 }
 
-.formImage {
-    width: 10rem;
-    height: 10rem;
-    cursor: pointer;
-    margin: auto;
-}
 
-.formImage img {
-    border-radius: 50%;
-}
 
 .saveBtn button {
     background-color: var(--mainColor);
@@ -124,20 +74,23 @@
     padding-inline: 14rem;
     border-radius: 6rem;
     color: white;
-    margin-block: 4rem;
     border: unset;
+    margin-top: 2rem;
 
+}
+
+[type='email'] {
+    margin-bottom: 1.8rem;
 }
 button:disabled,
 button[disabled]{
   background-color: rgb(255, 194, 108);
 }
-[type='password'] ,[type='text'] , [type='email'] , [type='tel']{
+ [type='text'] , [type='email'] {
    color: white ;
 }
 .title {
-    padding-left: 5rem;
-    padding-top: 3.25rem;
+    margin-bottom: 1.5rem;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
@@ -150,12 +103,19 @@ input:-webkit-autofill:focus {
 
 @media only screen and (max-width: 600px) {
 
-.saveBtn button {
-    padding-inline: 6rem;
-}
+
 .rowInputs {
     margin-inline: unset;
 }
-  
+  .saveBtn button {
+    padding-inline: 5rem;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1500px) {
+
+.saveBtn button {
+    padding-inline: 7rem;
+  }
 }
 

@@ -27,6 +27,11 @@ export interface AxiosErrorResponse {
       Pick<RegisterFormData, "confirmPassword"> {
     seed: string; 
   }
+
+  export interface VerifyRegister {
+    email : string,
+    code:string
+  }
    
   export interface AuthTitleProps {
     welcomeText: string;

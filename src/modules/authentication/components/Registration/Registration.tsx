@@ -79,7 +79,7 @@ const onSubmit : SubmitHandler<RegisterFormData> = async (data)=> {
 	await axiosInstance.post(BASE_AUTH+AUTH_URLS.register , formData).then((resp)=>{
 		console.log(resp)
 		toast.success(resp?.data?.message || 'account created successfully')
-		navigate('/verify-user')
+		navigate('/verify-user',{state:data?.email})
 
 	}).catch((error)=>{
 		console.log(error)
