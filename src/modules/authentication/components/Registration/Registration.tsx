@@ -98,7 +98,7 @@ return <>
 
 <div className={`${styles.formWrapper} `}>
 	
-		<div className="logo text-center">
+		<div className="logo text-center mb-3">
 		<img src={logo} alt="project management logo "  />
 		</div>
 	<div className=" d-flex justify-content-center">

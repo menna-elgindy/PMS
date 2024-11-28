@@ -22,3 +22,4 @@ export const AUTH_URLS = {
   resetPassword: `${BASE_AUTH}/Reset`,
   changePassword: ``,
 };
+

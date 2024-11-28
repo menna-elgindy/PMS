@@ -3,7 +3,11 @@
 
 }
 
+.registerWrapper {
+    background-color: rgba(14, 56, 47, 1);
+    height: 100vh;
 
+}
 
 .iconsBtn {
  
@@ -13,9 +17,50 @@
    
     
 }
+.formWrapper{
+}
+.formInputs:disabled {
+    background-color: rgba(196, 196, 196, 0.268);
+}
+[type='email'] {
+    margin-bottom: 1.8rem;
+}
+.registerLayer{
+    background-image: url('../../../../assets/images/verify.svg') ;
+    background-position: right top ;
+    background-size: contain;
+    height: 100% ;
+    width: 100% ;
+    background-repeat: no-repeat;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerLayer::before {
+    content: "";
+    display: block;
+    background-image:  url('../../../../assets//images/coffe.svg');
+    width: 100%;
+    height: 70%;
+    background-repeat: no-repeat;
+    position: absolute;
+    bottom: 0;
+    background-size: contain;
+}
 
 
 
+.formContainer {
+    background-color: rgba(49, 89, 81, 0.9);
+    border-radius: 1rem;
+    padding-inline: 4.9rem;
+    padding-block: 3.87rem;
+    position: static;
+    z-index: 99999;
+    
+}
 
 .textWrapper {
     color: var(--mainColor) ;
@@ -44,19 +89,25 @@
     padding-inline: unset !important;
     padding-bottom: 0.7rem;
    
-    &:disabled{
-        background-color: rgba(181, 181, 181, 0.789);
-        border-radius: 5px;
-    }
 }
 .formInputs::placeholder {
     color: white;
     
 }
+.fileUpload{
+    display: none;
 
-.verifyWrapper {
-    padding-top: 3.87rem;
-}
+  }
+.customFileUpload {
+   
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
 
 
 .formInputs:focus {
@@ -66,7 +117,16 @@
     color: white;
 }
 
+.formImage {
+    width: 10rem;
+    height: 10rem;
+    cursor: pointer;
+    margin: auto;
+}
 
+.formImage img {
+    border-radius: 50%;
+}
 
 .saveBtn button {
     background-color: var(--mainColor);
@@ -74,23 +134,19 @@
     padding-inline: 14rem;
     border-radius: 6rem;
     color: white;
-    border: unset;
-    margin-top: 2rem;
+        border: unset;
+        margin-top: 2rem;
 
-}
-
-[type='email'] {
-    margin-bottom: 1.8rem;
 }
 button:disabled,
 button[disabled]{
   background-color: rgb(255, 194, 108);
 }
- [type='text'] , [type='email'] {
+[type='password'] ,[type='text'] , [type='email'] , [type='tel']{
    color: white ;
 }
 .title {
-    margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
@@ -101,21 +157,20 @@ input:-webkit-autofill:focus {
     margin-bottom: 1rem;
 }
 
+
+
 @media only screen and (max-width: 600px) {
 
-
+.saveBtn button {
+    padding-inline: 6rem;
+}
 .rowInputs {
     margin-inline: unset;
-}
-  .saveBtn button {
-    padding-inline: 5rem;
-  }
-}
-
-@media only screen and (min-width: 601px) and (max-width: 1500px) {
-
-.saveBtn button {
-    padding-inline: 7rem;
-  }
+} }
+  
+@media only screen and (min-width: 300px) and (max-width: 400px){
+.formContainer {
+padding-inline: 3rem;
 }
 
+    }
