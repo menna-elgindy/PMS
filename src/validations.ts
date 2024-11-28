@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const emailValidation = {
 	required: 'Email is required',
 	pattern: {
@@ -17,3 +18,7 @@ export const PasswordValidation = {
 			'At least 6 characters: UPPER/lowercase, numbers and special characters',
 	},
 };
+
+export const RequiredField = (fieldName:any) => ({
+	required: `${fieldName} is required`,
+  });
