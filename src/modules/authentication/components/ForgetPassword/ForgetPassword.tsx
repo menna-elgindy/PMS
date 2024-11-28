@@ -62,7 +62,7 @@ function ForgetPassword() {
                   {/* Title component */}
                   <AuthShared
                     welcomeText={"welcome to PMS"}
-                    title={"Forget Password"}
+                    title={"orget Password"}
                     firstLetter={"F"}
                   />
 

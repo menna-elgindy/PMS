@@ -72,7 +72,7 @@ function ResetPassword() {
                   {/* Title component */}
                   <AuthShared
                     welcomeText={"welcome to PMS"}
-                    title={"Reset Password"}
+                    title={"eset Password"}
                     firstLetter={"R"}
                   />
 
