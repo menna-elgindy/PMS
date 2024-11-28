@@ -4,7 +4,6 @@ import styles from "./StatsCard.module.css";
 type StatsCardProps = {
   title: string;
   icon: React.ReactNode;
-  // progress: string;
   color: string;
   data: number;
 };
