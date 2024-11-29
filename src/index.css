@@ -170,3 +170,105 @@ body {
 
   }
 } */
+html{
+  font-size: 16px;
+}
+body {
+  font-family: Inter;
+}
+.change-pass-bg {
+  background-image: url("./assets/images/changepass-bg.svg"),
+    linear-gradient(#0e382f, #0e382f);
+  background-position: center center;
+  background-size: cover;
+}
+
+.change-pass-container {
+  min-height: 100vh;
+}
+.change-pass-form-wrapper {
+  background-color: #315951e5;
+  border-radius: 16px;
+  padding: 4rem;
+  margin-top: 1.5rem;
+}
+
+.form-welcome {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 2.8rem;
+  letter-spacing: -0.4000000059604645px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: white;
+  margin: 0;
+}
+
+.form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 2.8rem;
+  letter-spacing: -0.4000000059604645px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #ef9b28;
+  margin: 0;
+  margin-bottom: 2.8rem;
+}
+
+.form-submit-btn {
+  background-color: #ef9b28;
+  color: white;
+  border: none;
+  border-radius: 6rem;
+  padding: 1rem;
+  width: 100%;
+  margin-top: 5rem;
+}
+
+.input-group {
+  width: 100%;
+  border-bottom: 0.3px solid #FFFFFF;
+}
+.input-label {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #EF9B28;
+  display: block;
+  margin-top: 1.5rem;
+
+}
+.input-from{
+width: 100%;
+font-size: 1rem;
+font-weight: 400;
+line-height: 22px;
+letter-spacing: 0.01em;
+text-align: left;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+background-color: transparent;
+border: none;
+color: white;
+}
+.input-from::placeholder{
+  color: white;
+}
+.input-from:focus{
+  outline: none;
+}
+
+.toggle-password-btn{
+  background-color: transparent;
+  border: none;
+  color: white;
+  position: absolute;
+  right: 0;
+}

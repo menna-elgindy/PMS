@@ -1,10 +1,11 @@
 // axios instance
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 const BASE_URL = 'https://upskilling-egypt.com:3003/api/v1';
 
-export const axiosInstance = axios.create({
+export const axiosInstance:AxiosInstance = axios.create({
   baseURL: BASE_URL,
+  
 });
 
 // headers
@@ -20,5 +21,5 @@ export const AUTH_URLS = {
   verify: ``,
   forgetPassword:`${BASE_AUTH}/Reset/Request`,
   resetPassword: `${BASE_AUTH}/Reset`,
-  changePassword: ``,
+  changePassword: `Users/ChangePassword`,
 };
