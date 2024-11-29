@@ -14,12 +14,11 @@ export const HEADERS = {
 };
 
 //* USER AUTHENTICATION
-export const BASE_AUTH = `${BASE_URL}/Users`;
 export const AUTH_URLS = {
   login: ``,
-  register: `/Register`,
+  register: `Users/Register`,
   verify: ``,
-  forgetPassword:`${BASE_AUTH}/Reset/Request`,
-  resetPassword: `${BASE_AUTH}/Reset`,
+  forgetPassword:`Users/Reset/Request`,
+  resetPassword: `Users/Reset`,
   changePassword: `Users/ChangePassword`,
 };
