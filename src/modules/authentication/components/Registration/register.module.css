@@ -40,7 +40,7 @@
     height: 70%;
     background-repeat: no-repeat;
     position: absolute;
-    bottom: -6.3rem;
+    bottom: -8.7rem;
     background-size: contain;
 }
 
@@ -83,6 +83,8 @@
     padding-bottom: 0.7rem;
    
 }
+
+
 .formInputs::placeholder {
     color: white;
     
@@ -104,6 +106,9 @@
 .rowInputs{
     margin-inline: 5.18rem;
 }
+.country {
+    margin-block: 1.6rem;
+}
 
 .formInputs:focus {
     outline: unset;
@@ -123,6 +128,9 @@
     border-radius: 50%;
 }
 
+.input{
+    margin-top: 1.4rem;
+}
 .saveBtn button {
     background-color: var(--mainColor);
     padding-block: 10px;
@@ -140,6 +148,7 @@ button[disabled]{
 [type='password'] ,[type='text'] , [type='email'] , [type='tel']{
    color: white ;
 }
+
 .title {
     padding-left: 5rem;
     padding-top: 3.25rem;

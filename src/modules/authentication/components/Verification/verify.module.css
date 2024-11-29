@@ -22,9 +22,11 @@
 .formInputs:disabled {
     background-color: rgba(196, 196, 196, 0.268);
 }
-[type='email'] {
+.formInputs[type='email'] {
     margin-bottom: 1.8rem;
 }
+
+
 .registerLayer{
     background-image: url('../../../../assets/images/verify.svg') ;
     background-position: right top ;

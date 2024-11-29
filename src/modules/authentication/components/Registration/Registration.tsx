@@ -7,31 +7,23 @@ import { useNavigate } from 'react-router-dom';
 import { AUTH_URLS, axiosInstance} from '../../../../api';
 import { emailValidation, PasswordValidation, RequiredField } from '../../../../validations';
 import { useForm ,SubmitHandler} from 'react-hook-form';
-import useToggle from '../../../../hooks/useToggle';
 import { RegisterFormData } from '../../../../interface/AuthResponse/AuthResponse';
 import PasswordInput from '../../../shared/components/PasswordInput/PasswordInput';
+import useToggle from '../../../../hooks/useToggle';
 
 
 export default function Registration() {
 
 
-	const [isRePasswordVisible, setIsRePasswordVisible] = useState<boolean>(false);  
-	const [isRePasswordShown, setIsRePasswordShown] = useState<boolean>(false)
 	const [imageFile, setImageFile] = useState<MediaSource|Blob|null>();
 
 
-
+	const[value,toggleFunction]=useToggle(false)
 
 
 	
 
 
-	const toggleHideShowRePassword = ():void => {
-		setIsRePasswordVisible(!isRePasswordVisible);
-		
-		setIsRePasswordShown(!isRePasswordShown)
-		
-	  };
 
 
 const navigate = useNavigate()
@@ -41,7 +33,7 @@ const{
 	formState:{errors,isSubmitting },
 	register  ,
 	handleSubmit,watch,
-	setValue,trigger
+	setValue,trigger,
 }=	useForm <RegisterFormData>({ mode:'onChange'})
 
 useEffect(()=>{
@@ -54,7 +46,6 @@ useEffect(()=>{
   const uploadImage = (selectorFiles:FileList|null) => {
     if (selectorFiles) {
 		console.log(selectorFiles);
-		
       setImageFile(selectorFiles[0]);
      setValue('profileImage',selectorFiles[0])
     }
@@ -164,7 +155,7 @@ return <>
 
 		<div className={`${styles.rowInputs} row` }>
 				<div className="col-md-6">
-				<div className="input">
+				<div className={styles.input}>
 				<label className={styles.formLabel} htmlFor="userName">User Name</label>
 				<input   id='userName' type="text" className={`${styles.formInputs} form-control`} placeholder='Enter your Name' 
 				{...register ( 'userName', RequiredField('userName') ) }
@@ -174,7 +165,7 @@ return <>
 </div>
 				</div>
 				<div className="col-md-6">
-				<div className="input">
+				<div className={styles.input}>
 				<label className={styles.formLabel} htmlFor="email">E-mail</label>
 				<input id='email' type="email" className={`${styles.formInputs} form-control`} placeholder='Enter your E-mail'
 				
@@ -185,9 +176,9 @@ return <>
 				</div>
 				</div>
 				<div className="col-md-6">
-				<div className="input">
+				<div className={styles.input}>
 				<label className={styles.formLabel} htmlFor="country">Country</label>
-				<input id='country' type="text" className={`${styles.formInputs} form-control`} placeholder='Enter your country' 
+				<input id='country' type="text" className={`${styles.formInputs} form-control `} placeholder='Enter your country' 
 				{...register('country' , {required : "please enter a country name"})}
 />
 				</div>
@@ -195,9 +186,9 @@ return <>
 
 				</div>
 				<div className="col-md-6">
-				<div className="input">
+				<div className={styles.input}>
 				<label className={styles.formLabel} htmlFor="phone">Phone Number</label>
-				<input id='phone' type="tel" className={`${styles.formInputs} form-control`} placeholder='Enter your phone number' 
+				<input id='phone' type="tel" className={`${styles.formInputs} form-control phone`} placeholder='Enter your phone number' 
 				{...register('phoneNumber' , {required : 'please enter your phone number' , pattern : {
 					value:/^01[0125][0-9]{8}$/,
 					message : 'please enter valid egyptian number'
@@ -207,22 +198,11 @@ return <>
 
 				</div>
 				<div className="col-md-6">
-				<div className="input position-relative">
-				  <div className="position-relative">
+				<div className={styles.input}>
+				  <div className={styles.password}>
 
-					<PasswordInput label='Password' placeholder='Enter your password' registerInput={register('password',PasswordValidation)}/>
-				  {/* <label className={styles.formLabel} htmlFor="password">Password</label>
+					<PasswordInput  label='Password' placeholder='Enter your password' registerInput={register('password',PasswordValidation)}/>
 
-				  <input    id='password' type={!value ? "password" : "text"} className={`${styles.formInputs} form-control`} placeholder='Enter your password ' 
-				
-				{...register('password' , PasswordValidation)}
-				/>
-
-	<button onMouseUp={(e)=>{e.preventDefault()}} onMouseDown={(e)=>{e.preventDefault()}} type='button' onClick={()=>toggleFunction()} className={styles.iconsBtn}>
-<i  aria-label="password-toggle"   className={value ?"fa-regular fa-eye-slash text-white position-absolute end-0 top-50 translate-middle confirm" : "text-white fa-solid fa-eye position-absolute end-0 top-50 translate-middle confirm"}></i>
-<span className='sr-only'>{value ? 'hide  password' : 'show  password'}</span>
-
-</button> */}
 
 
 				  </div>
@@ -232,11 +212,13 @@ return <>
 
 				</div>
 				</div>
+
+
 				<div className="col-md-6">
-				<div className="input position-relative">
+				<div className={styles.input}>
 				   	<div className="position-relative">
 					   <label className={styles.formLabel} htmlFor="confirmPassword">Confirm Password</label>
-				<input  id='confirmPassword'  type={!isRePasswordVisible ? "password" : "text"} className={`${styles.formInputs} form-control`} placeholder='Confirm New Password'
+				<input  id='confirmPassword'  type={value ? "password" : "text"} className={`${styles.formInputs} form-control confirmPassword`} placeholder='Confirm New Password'
 				 {...register('confirmPassword' , {
 					required : 'confirm password cannot be empty',
 					validate: (val: string) => {
@@ -246,9 +228,9 @@ return <>
 						 
 				   })}
 				/>
-					<button onMouseUp={(e)=>{e.preventDefault()}} onMouseDown={(e)=>{e.preventDefault()}} type='button' onClick={toggleHideShowRePassword} className={styles.iconsBtn}>
-<i  aria-label="password-toggle"   className={isRePasswordShown ?"fa-regular fa-eye-slash text-white position-absolute end-0 top-50 translate-middle confirm" : "text-white fa-solid fa-eye position-absolute end-0 top-50 translate-middle confirm"}></i>
-<span className='sr-only'>{isRePasswordShown ? 'hide  password' : 'show  password'}</span>
+					<button onMouseUp={(e)=>{e.preventDefault()}} onMouseDown={(e)=>{e.preventDefault()}} type='button' onClick={toggleFunction} className={styles.iconsBtn}>
+<i  aria-label="password-toggle"   className={value ?"fa-regular fa-eye-slash text-white position-absolute end-0 top-50 translate-middle confirm" : "text-white fa-solid fa-eye position-absolute end-0 top-50 translate-middle confirm"}></i>
+<span className='sr-only'>{value ? 'hide  password' : 'show  password'}</span>
 
 </button>
 
