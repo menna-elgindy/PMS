@@ -16,7 +16,7 @@ export default function Registration() {
 
 	const [isRePasswordVisible, setIsRePasswordVisible] = useState<boolean>(false);  
 	const [isRePasswordShown, setIsRePasswordShown] = useState<boolean>(false)
-	const [imageFile, setImageFile] = useState<string|null|FileList|string[]|Blob>();
+	const [imageFile, setImageFile] = useState<MediaSource|Blob|null>();
 
 
 
@@ -51,15 +51,19 @@ useEffect(()=>{
 	}
   },[watch('password')])
 
-  const uploadImage = (selectorFiles:string|null|undefined|FileList|string[]) => {
+  const uploadImage = (selectorFiles:FileList|null) => {
     if (selectorFiles) {
+		console.log(selectorFiles);
+		
       setImageFile(selectorFiles[0]);
      setValue('profileImage',selectorFiles[0])
     }
   };
-  const discardProfileImage = ()=> {
+  const discardProfileImage = ():void=> {
     setValue('profileImage',null)
     setImageFile(null)
+	console.log(profileImg);
+	
   }
 
 
@@ -71,10 +75,10 @@ const onSubmit : SubmitHandler<RegisterFormData> = async (data)=> {
 	formData.append('phoneNumber',data.phoneNumber)
     formData.append('password',data.password)
    formData.append('confirmPassword',data.confirmPassword)
-    formData.append('profileImage',data?.profileImage)
+    formData.append('profileImage',data.profileImage)
      formData.append('email',data.email)
 
-
+	
 
 	await axiosInstance.post(BASE_AUTH+AUTH_URLS.register , formData).then((resp)=>{
 		console.log(resp)
@@ -154,6 +158,8 @@ return <>
    
    
    />
+
+
 </div>}
 
 		<div className={`${styles.rowInputs} row` }>
@@ -210,7 +216,7 @@ return <>
 				{...register('password' , PasswordValidation)}
 				/>
 
-	<button onMouseUp={(e)=>{e.preventDefault()}} onMouseDown={(e)=>{e.preventDefault()}} type='button' onClick={toggleFunction} className={styles.iconsBtn}>
+	<button onMouseUp={(e)=>{e.preventDefault()}} onMouseDown={(e)=>{e.preventDefault()}} type='button' onClick={()=>toggleFunction()} className={styles.iconsBtn}>
 <i  aria-label="password-toggle"   className={value ?"fa-regular fa-eye-slash text-white position-absolute end-0 top-50 translate-middle confirm" : "text-white fa-solid fa-eye position-absolute end-0 top-50 translate-middle confirm"}></i>
 <span className='sr-only'>{value ? 'hide  password' : 'show  password'}</span>
 
@@ -231,8 +237,10 @@ return <>
 				<input  id='confirmPassword'  type={!isRePasswordVisible ? "password" : "text"} className={`${styles.formInputs} form-control`} placeholder='Confirm New Password'
 				 {...register('confirmPassword' , {
 					required : 'confirm password cannot be empty',
-						 validate: (value:'password') => value === watch("password") || 'passwords not matches'
-						 
+					validate: (val: string) => {
+						if (watch('password') != val) {
+						  return "Your passwords do no match";
+						}		}				 
 						 
 				   })}
 				/>

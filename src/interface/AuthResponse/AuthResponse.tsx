@@ -15,7 +15,7 @@ export interface AxiosErrorResponse {
     country: string;
     phoneNumber: string;
     confirmPassword: string;
-    profileImage: string | File | HTMLImageElement | null|Blob; // توضيح نوع الصورة بدلاً من استخدام `any`.
+    profileImage:any; 
   }
   
   export interface ForgetPasswordFormData {
