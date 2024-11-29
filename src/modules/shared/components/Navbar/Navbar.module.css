@@ -11,7 +11,7 @@
   height: 43px;
 }
 .email {
-  max-width: 90px;
+  max-width: 80px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

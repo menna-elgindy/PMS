@@ -1,27 +1,25 @@
-.collapsed-arrow {
-  margin-bottom: 26px;
-}
-
 .arrow-menu-item {
   background-color: #ef9b28;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
   position: absolute;
-  right: 0px;
-  color: black;
+  right: 0;
+  top: 20px;
   display: flex;
   flex-direction: column;
   width: 16px;
   height: 32px;
   justify-content: center;
   align-items: center;
+  z-index: 200;
 }
-.arrow-menu-item.collapsed {
+.arrow-menu-item-collapsed {
   background-color: #ef9b28;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
   position: absolute;
   right: -16px;
+  top: 20px;
   color: black;
   display: flex;
   flex-direction: column;
@@ -29,4 +27,5 @@
   height: 32px;
   justify-content: center;
   align-items: center;
+  z-index: 200;
 }

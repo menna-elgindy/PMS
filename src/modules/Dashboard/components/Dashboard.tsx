@@ -11,7 +11,7 @@ function Dashboard() {
   const { loginData } = authContext;
 
   return (
-    <div className="ms-5 me-2 mx-auto pt-5 w-100  ">
+    <div className="pt-5 w-100 ms-5 me-2 mx-auto  ">
       <DashboardHeader
         title={loginData?.userName ? loginData.userName : ""}
         description="You can add project and assign tasks to your team"

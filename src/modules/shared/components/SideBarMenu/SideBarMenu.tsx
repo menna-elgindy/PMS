@@ -39,21 +39,12 @@ const SideBarMenu = () => {
 
   return (
     <div
-      className={`sidebar-container position-fixed d-flex pt-5 ${
+      className={`sidebar-container position-fixed d-flex pt-5 z-index-1 ${
         isCollapsed ? "collapsed" : ""
       }`}
     >
       <Sidebar collapsed={isCollapsed}>
         <Menu>
-          <MenuItem
-            onClick={toggleCollapse}
-            icon={
-              <div className={styles["arrow-menu-item"]}>
-                {isCollapsed ? <ArrowRightIcon /> : <ToggleArrowIcon />}
-              </div>
-            }
-            className={`${styles["collapsed-arrow"]} transation-all duration-300 ease-in-out`}
-          ></MenuItem>
           <MenuItem
             icon={
               <i className="fa fa-home " aria-hidden="true" aria-label="home" />
@@ -104,6 +95,17 @@ const SideBarMenu = () => {
           </MenuItem>
         </Menu>
       </Sidebar>
+      <div
+        className={
+          !isCollapsed
+            ? styles["arrow-menu-item"]
+            : styles["arrow-menu-item-collapsed"]
+        }
+        onClick={toggleCollapse}
+        style={{ marginBottom: "200px" }}
+      >
+        {isCollapsed ? <ArrowRightIcon /> : <ToggleArrowIcon />}
+      </div>
     </div>
   );
 };
