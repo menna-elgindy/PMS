@@ -56,7 +56,7 @@ const StatsSection = () => {
           </div>
         </div>
       )}
-      {/* *************** tasks stats **************** */}
+      {/* ****************** tasks stats ******************* */}
       <div className=" col-md-5 ">
         {!tasksLoading && tasks && (
           <div>
@@ -111,7 +111,7 @@ const StatsSection = () => {
         )}
       </div>
 
-      {/* **************** users stats ***************** */}
+      {/* **************** Users Stats ***************** */}
       {loginData?.userGroup === "Manager" && (
         <div className=" col-md-6 ">
           {!usersLoading && users && (
