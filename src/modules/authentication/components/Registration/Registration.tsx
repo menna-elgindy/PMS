@@ -4,11 +4,12 @@ import profileImg from '../../../../assets/images/profile.svg'
 import { toast } from "react-toastify";
 import { useState , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AUTH_URLS, axiosInstance, BASE_AUTH} from '../../../../api';
+import { AUTH_URLS, axiosInstance} from '../../../../api';
 import { emailValidation, PasswordValidation, RequiredField } from '../../../../validations';
 import { useForm ,SubmitHandler} from 'react-hook-form';
 import useToggle from '../../../../hooks/useToggle';
 import { RegisterFormData } from '../../../../interface/AuthResponse/AuthResponse';
+import PasswordInput from '../../../shared/components/PasswordInput/PasswordInput';
 
 
 export default function Registration() {
@@ -20,7 +21,6 @@ export default function Registration() {
 
 
 
-	const[value,toggleFunction]=useToggle(false)
 
 
 	
@@ -80,7 +80,7 @@ const onSubmit : SubmitHandler<RegisterFormData> = async (data)=> {
 
 	
 
-	await axiosInstance.post(BASE_AUTH+AUTH_URLS.register , formData).then((resp)=>{
+	await axiosInstance.post(AUTH_URLS.register , formData).then((resp)=>{
 		console.log(resp)
 		toast.success(resp?.data?.message || 'account created successfully')
 		navigate('/verify-user',{state:data?.email})
@@ -209,7 +209,9 @@ return <>
 				<div className="col-md-6">
 				<div className="input position-relative">
 				  <div className="position-relative">
-				  <label className={styles.formLabel} htmlFor="password">Password</label>
+
+					<PasswordInput label='Password' placeholder='Enter your password' registerInput={register('password',PasswordValidation)}/>
+				  {/* <label className={styles.formLabel} htmlFor="password">Password</label>
 
 				  <input    id='password' type={!value ? "password" : "text"} className={`${styles.formInputs} form-control`} placeholder='Enter your password ' 
 				
@@ -220,7 +222,7 @@ return <>
 <i  aria-label="password-toggle"   className={value ?"fa-regular fa-eye-slash text-white position-absolute end-0 top-50 translate-middle confirm" : "text-white fa-solid fa-eye position-absolute end-0 top-50 translate-middle confirm"}></i>
 <span className='sr-only'>{value ? 'hide  password' : 'show  password'}</span>
 
-</button>
+</button> */}
 
 
 				  </div>

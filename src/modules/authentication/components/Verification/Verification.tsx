@@ -3,7 +3,7 @@ import logo from '../../../../assets/images/PMS 3.svg'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { VerifyRegister } from '../../../../interface/AuthResponse/AuthResponse'
-import { AUTH_URLS, axiosInstance, BASE_AUTH } from '../../../../api'
+import { AUTH_URLS, axiosInstance } from '../../../../api'
 import { toast } from 'react-toastify'
 
 export default function Verification() {
@@ -21,7 +21,7 @@ export default function Verification() {
 	  
 	}=	useForm<VerifyRegister> ({defaultValues : {email : myLocation} , mode:'onChange'})
 	const  onSubmit = async(data:VerifyRegister)=>{
-	await axiosInstance.put(BASE_AUTH +AUTH_URLS.verify , data).then((response)=>{
+	await axiosInstance.put(AUTH_URLS.verify , data).then((response)=>{
 	  console.log(response);
 	  toast.success(response?.data?.message || 'account verified successfully')
 	  navigate('/login',{state:data?.email})

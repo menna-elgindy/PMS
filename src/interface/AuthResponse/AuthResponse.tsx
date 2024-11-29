@@ -15,7 +15,7 @@ export interface AxiosErrorResponse {
     country: string;
     phoneNumber: string;
     confirmPassword: string;
-    profileImage:any; 
+    profileImage:string|null 
   }
   
   export interface ForgetPasswordFormData {
