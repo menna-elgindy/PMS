@@ -7,6 +7,7 @@ import {
   LoginData,
 } from "../interface/UserInfo/UserInfoResponse";
 
+
 export const AuthContext = createContext<AuthContextType>(null!);
 
 export default function AuthContextProvider({
@@ -15,7 +16,7 @@ export default function AuthContextProvider({
   const [loginData, setLoginData] = useState< LoginData | null>(null);
 
   const saveLoginData = () => {
-    const enCodedToken: any = localStorage.getItem("token");
+    const enCodedToken = JSON.stringify(localStorage.getItem("token")) ;
     const deCodedToken: LoginData = jwtDecode<LoginData>(enCodedToken);
     setLoginData(deCodedToken);
   };

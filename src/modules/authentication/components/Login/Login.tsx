@@ -7,7 +7,8 @@ import { emailValidation, PasswordValidation } from '../../../../validations'
 import { AUTH_URLS, axiosInstance, HEADERS } from '../../../../api'
 import { toast } from 'react-toastify'
 import { AuthContext } from '../../../../context/AuthContext'
-import { LoginFormData } from '../../../../interface/AuthInfo/AuthInfo'
+import { LoginFormData } from '../../../../interface/AuthResponse/AuthResponse'
+
 
 const Login = () => {
 	let {saveLoginData} = useContext(AuthContext)
@@ -83,8 +84,10 @@ const Login = () => {
 									{isVisible?<i className='fa-solid fa-eye-slash'></i> :
 										<i className='fa-solid fa-eye'></i>}
 									</button>
-
 								</div>
+								<h4 className='mt-2 sr-only'>
+											{isVisible? "Hide Password":"Show Password"}
+									</h4>
 								{errors.password&&<span className="text-danger">{errors.password?.message?.toString()}</span>}
 
 	   

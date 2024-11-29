@@ -1,10 +1,11 @@
 // axios instance
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 const BASE_URL = 'https://upskilling-egypt.com:3003/api/v1';
 
-export const axiosInstance = axios.create({
+export const axiosInstance:AxiosInstance = axios.create({
   baseURL: BASE_URL,
+  
 });
 
 // headers
@@ -13,12 +14,11 @@ export const HEADERS = {
 };
 
 //* USER AUTHENTICATION
-const BASE_AUTH = `${BASE_URL}/Users`;
 export const AUTH_URLS = {
-  login: `${BASE_AUTH}/Login`,
-  register: ``,
+  login: `Users/Login`,
+  register: `Users/Register`,
   verify: ``,
-  forgetPassword: ``,
-  resetPassword: ``,
-  changePassword: ``,
+  forgetPassword:`Users/Reset/Request`,
+  resetPassword: `Users/Reset`,
+  changePassword: `Users/ChangePassword`,
 };
