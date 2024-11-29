@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
 import { axiosInstance, HEADERS, TASKS_URLS, USERS_URLS } from "../../../api";
 import useFetch from "../../../hooks/useFetch";
 import StatsCard from "./StatsCard";
@@ -9,6 +9,7 @@ import {
   ProjectNumberIcon,
   TaskNumberIcon,
 } from "../../shared/components/SvgIcons/SvgIcons";
+import { AuthContext } from "../../../context/AuthContext";
 
 interface countTasksType {
   inProgress: number;
@@ -34,12 +35,17 @@ const StatsSection = () => {
     );
     return response?.data;
   }, []);
-  // const { loginData, removeLoginData } = useContext(AuthContext);
 
   const { data: tasks, loading: tasksLoading } =
     useFetch<countTasksType>(countTasks);
   const { data: users, loading: usersLoading } =
     useFetch<countUsersType>(countUsers);
+
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    return null;
+  }
+  const { loginData } = authContext;
 
   return (
     <div className="row w-100 gap-3  pt-3  mx-auto">
@@ -106,54 +112,54 @@ const StatsSection = () => {
       </div>
 
       {/* **************** users stats ***************** */}
-      {/* {loginData?.userGroup !== "SystemUser" && ( */}
-      <div className=" col-md-6 ">
-        {!usersLoading && users && (
-          <div>
-            <div
-              className={`${styles["border-container "]} bg-white py-3 rounded-3  `}
-            >
-              <div className={`${styles["border-element"]}`}></div>
-              <div className="pb-3 px-3">
-                <h3>Users</h3>
-                <span>Lorem ipsum dolor sit amet,consecteture</span>
+      {loginData?.userGroup === "Manager" && (
+        <div className=" col-md-6 ">
+          {!usersLoading && users && (
+            <div>
+              <div
+                className={`${styles["border-container "]} bg-white py-3 rounded-3  `}
+              >
+                <div className={`${styles["border-element"]}`}></div>
+                <div className="pb-3 px-3">
+                  <h3>Users</h3>
+                  <span>Lorem ipsum dolor sit amet,consecteture</span>
+                </div>
+                <div className="d-flex flex-wrap gap-3 pb-3 px-3">
+                  <StatsCard
+                    icon={<ProgressIcon />}
+                    title="active"
+                    color="#e5e6f4"
+                    data={users!.activatedEmployeeCount}
+                  />
+                  <StatsCard
+                    icon={<TaskNumberIcon />}
+                    title="inactive"
+                    data={users!.deactivatedEmployeeCount}
+                    color="#F4F4E5"
+                  />
+                </div>
               </div>
-              <div className="d-flex flex-wrap gap-3 pb-3 px-3">
-                <StatsCard
-                  icon={<ProgressIcon />}
-                  title="active"
-                  color="#e5e6f4"
-                  data={users!.activatedEmployeeCount}
-                />
-                <StatsCard
-                  icon={<TaskNumberIcon />}
-                  title="inactive"
-                  data={users!.deactivatedEmployeeCount}
-                  color="#F4F4E5"
+              <div className={` ${styles["doughnut-chart"]} pt-2 pb-5`}>
+                <DoughnutChart
+                  label={["active", "inactive"]}
+                  backgroundColor={[
+                    "rgba(229, 230, 244, 1)",
+                    "rgba(244, 244, 229, 1)",
+                  ]}
+                  borderColor={[
+                    "rgba(207, 209, 236, 1)",
+                    "rgba(228, 228, 188, 1)",
+                  ]}
+                  values={[
+                    users!.activatedEmployeeCount,
+                    users!.deactivatedEmployeeCount,
+                  ]}
                 />
               </div>
             </div>
-            <div className={` ${styles["doughnut-chart"]} pt-2 pb-5`}>
-              <DoughnutChart
-                label={["active", "inactive"]}
-                backgroundColor={[
-                  "rgba(229, 230, 244, 1)",
-                  "rgba(244, 244, 229, 1)",
-                ]}
-                borderColor={[
-                  "rgba(207, 209, 236, 1)",
-                  "rgba(228, 228, 188, 1)",
-                ]}
-                values={[
-                  users!.activatedEmployeeCount,
-                  users!.deactivatedEmployeeCount,
-                ]}
-              />
-            </div>
-          </div>
-        )}
-      </div>
-      {/* )} */}
+          )}
+        </div>
+      )}
     </div>
   );
 };

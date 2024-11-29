@@ -2,8 +2,15 @@ import styles from "./Navbar.module.css";
 import logo from "../../../../assets/images/logo_pms.png";
 import profileImg from "../../../../assets/images/no-profile-picture.jpg";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
+import { AuthContext } from "../../../../context/AuthContext";
+import { useContext } from "react";
 
 const Navbar = () => {
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    return null;
+  }
+  const { loginData } = authContext;
   return (
     <div
       className={`${styles["navbar"]} bg-white shadow-sm  position-fixed d-flex 
@@ -25,9 +32,11 @@ const Navbar = () => {
           <img src={profileImg} className=" rounded-circle pe-1 " alt="" />
 
           <div className="d-flex flex-column">
-            <h5 className="m-0 fs-6">Upskilling</h5>
+            <h5 className="m-0 fs-6">
+              {loginData?.userName && loginData.userName}
+            </h5>
             <span className={`text-muted ${styles["email"]}  `}>
-              upskilling.eg1@gmail.com
+              {loginData?.userEmail && loginData.userEmail}
             </span>
           </div>
           <DropdownMenu />

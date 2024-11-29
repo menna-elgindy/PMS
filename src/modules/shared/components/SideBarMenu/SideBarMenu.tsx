@@ -1,8 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { NavLink, useLocation } from "react-router-dom";
 import styles from "./SideBarMenu.module.css";
-import { ProjectsIcon, TasksIcon, ToggleArrowIcon } from "../SvgIcons/SvgIcons";
+import {
+  ArrowRightIcon,
+  ProjectsIcon,
+  TasksIcon,
+  ToggleArrowIcon,
+} from "../SvgIcons/SvgIcons";
+import { AuthContext } from "../../../../context/AuthContext";
 
 const saveSideBarState = (state: { collapsed: boolean }) => {
   localStorage.setItem("sideBarState", JSON.stringify(state));
@@ -13,7 +19,6 @@ const getSideBarState = () => {
 };
 
 const SideBarMenu = () => {
-  // const { loginData, removeLoginData } = useContext(AuthContext);
   const { pathname } = useLocation();
   const [isCollapsed, setIsCollapsed] = useState<boolean>(
     getSideBarState().collapsed
@@ -26,6 +31,11 @@ const SideBarMenu = () => {
   useEffect(() => {
     saveSideBarState({ collapsed: isCollapsed });
   }, [isCollapsed]);
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    return null;
+  }
+  const { loginData } = authContext;
 
   return (
     <div
@@ -39,7 +49,7 @@ const SideBarMenu = () => {
             onClick={toggleCollapse}
             icon={
               <div className={styles["arrow-menu-item"]}>
-                <ToggleArrowIcon />
+                {isCollapsed ? <ArrowRightIcon /> : <ToggleArrowIcon />}
               </div>
             }
             className={`${styles["collapsed-arrow"]} transation-all duration-300 ease-in-out`}
@@ -52,20 +62,20 @@ const SideBarMenu = () => {
           >
             Home
           </MenuItem>
-          {/* {loginData?.userGroup !== "SystemUser" && ( */}
-          <MenuItem
-            icon={
-              <i
-                className="fa fa-users"
-                aria-hidden="true"
-                aria-label="users"
-              />
-            }
-            component={<NavLink to="users?page=1" />}
-          >
-            Users
-          </MenuItem>
-          {/* )} */}
+          {loginData?.userGroup === "Manager" && (
+            <MenuItem
+              icon={
+                <i
+                  className="fa fa-users"
+                  aria-hidden="true"
+                  aria-label="users"
+                />
+              }
+              component={<NavLink to="users?page=1" />}
+            >
+              Users
+            </MenuItem>
+          )}
 
           <MenuItem
             icon={

@@ -1,4 +1,3 @@
-import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import AuthLayout from "./modules/shared/components/AuthLayout/AuthLayout";
@@ -14,6 +13,9 @@ import ProjectsList from "./modules/projects/components/ProjectsList/ProjectsLis
 import ProjectForm from "./modules/projects/components/ProjectForm/ProjectForm";
 import TasksList from "./modules/tasks/components/TasksList/TasksList";
 import UsersList from "./modules/users/components/UsersList/UsersList";
+import "react-toastify/dist/ReactToastify.css";
+
+import "./App.css";
 
 function App() {
   const routes = createBrowserRouter([
