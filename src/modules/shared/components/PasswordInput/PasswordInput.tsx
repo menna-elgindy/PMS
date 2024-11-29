@@ -1,5 +1,4 @@
-/* eslint-disable prefer-const */
-import { useState } from "react";
+import React, { useState } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 
 export default function PasswordInput({
@@ -25,6 +24,7 @@ export default function PasswordInput({
           type={showPassword ? "text" : "password"}
           className="form-control"
           placeholder={placeholder}
+          aria-label={label}
           {...registerInput}
         />
         <button
@@ -34,9 +34,12 @@ export default function PasswordInput({
           onMouseUp={(e) => e.preventDefault()}
           className="input-group-text bg-transparent border-0 border-bottom border-icon rounded-0"
         >
+          <span className="sr-only">
+            {showPassword ? "Hide password" : "Show password"}
+          </span>
           <i
             className={`fa-solid ${
-              showPassword ? "fa-eye" : "fa-eye-slash"
+              showPassword ? "fa-eye-slash" : "fa-eye"
             } text-white`}
           ></i>
         </button>
