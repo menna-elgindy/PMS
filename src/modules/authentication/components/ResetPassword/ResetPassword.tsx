@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AxiosErrorResponse, ResetPasswordFormData } from "../../../../interface/AuthResponse/AuthResponse";
@@ -10,13 +8,13 @@ import AuthShared from "../AuthShared/AuthShared";
 import { emailValidation, PasswordValidation, RequiredField } from "../../../../validations";
 import logo from "../../../../assets/images/Auth-logo.png";
 import bgImage from "../../../../assets/images/bg2.png"
+import PasswordInput from "../../../shared/components/PasswordInput/PasswordInput";
 
 function ResetPassword() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+ 
 
   const {
     register,
@@ -27,10 +25,7 @@ function ResetPassword() {
     defaultValues: { email: "", password: "", confirmPassword: "", seed: "" },
   });
 
-  // Function to toggle password visibility
-  const toggleVisibility = (setterFunction: any) => {
-    return () => setterFunction((prevState: any) => !prevState);
-  };
+
 
   // Function to handle form submission
   const onSubmit = async (data: ResetPasswordFormData) => {
@@ -53,8 +48,12 @@ function ResetPassword() {
   const isRegisterRoute = location.pathname === "/register";
 
   return (
-    <div className="auth-container" style={{
-      backgroundImage: `url(${bgImage})`,}}>
+    <div
+      className="auth-container"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+      }}
+    >
       <div className="container-fluid h-100">
         <div
           className={`row justify-content-center align-items-center ${
@@ -69,14 +68,12 @@ function ResetPassword() {
                   <img src={logo} alt="Auth-logo" />
                 </div>
                 <div className="auth-item rounded rounded-4 p-5 pt-3">
-                  {/* Title component */}
                   <AuthShared
                     welcomeText={"welcome to PMS"}
-                    title={"eset Password"}
+                    title={"Reset Password"}
                     firstLetter={"R"}
                   />
 
-                  {/* Form for resetting the password */}
                   <form onSubmit={handleSubmit(onSubmit)}>
                     {/* Email field */}
                     <div className="my-2 my-md-3">
@@ -86,7 +83,6 @@ function ResetPassword() {
                           type="text"
                           className="form-control"
                           placeholder="Enter your E-mail"
-                          aria-label="email"
                           {...register("email", emailValidation)}
                         />
                       </div>
@@ -97,7 +93,7 @@ function ResetPassword() {
                       )}
                     </div>
 
-                    {/* OTP verification field */}
+                    {/* OTP Verification */}
                     <div className="my-4">
                       <label className="main-colr my-1">OTP Verification</label>
                       <div className="input-group">
@@ -105,7 +101,6 @@ function ResetPassword() {
                           type="text"
                           className="form-control"
                           placeholder="Enter Verification"
-                          aria-label="seed"
                           {...register("seed", RequiredField("OTP"))}
                         />
                       </div>
@@ -116,90 +111,38 @@ function ResetPassword() {
                       )}
                     </div>
 
-                    {/* New password field */}
-                    <div className="my-4">
-                      <label className="main-colr my-1">New Password</label>
-                      <div className="input-group">
-                        <input
-                          type={showPassword ? "text" : "password"}
-                          className="form-control"
-                          placeholder="Enter your New Password"
-                          aria-label="password"
-                          {...register("password", PasswordValidation)}
-                        />
-                        <button
-                          onMouseDown={(e) => e.preventDefault()}
-                          onMouseUp={(e) => e.preventDefault()}
-                          type="button"
-                          onClick={toggleVisibility(setShowPassword)}
-                          className="input-group-text bg-transparent border-0 border-bottom border-icon rounded-0"
-                        >
-                          <span className="sr-only">
-                            {showPassword ? "hide password" : "show password"}
-                          </span>
-                          <i
-                            className={
-                              showPassword
-                                ? "fa-solid text-white fa-eye"
-                                : "fa-solid text-white fa-eye-slash"
-                            }
-                          ></i>
-                        </button>
-                      </div>
-                      {errors.password && (
-                        <span className="text-danger">
-                          {String(errors.password.message)}
-                        </span>
-                      )}
-                    </div>
+                    {/* New Password */}
+                    <PasswordInput
+                      label="New Password"
+                      placeholder="Enter your New Password"
+                      registerInput={register("password", PasswordValidation)}
+                    />
+                    {errors.password && (
+                      <span className="text-danger">
+                        {String(errors.password.message)}
+                      </span>
+                    )}
 
-                    {/* Confirm password field */}
-                    <div className="my-4">
-                      <label className="main-colr my-1">Confirm Password</label>
-                      <div className="input-group">
-                        <input
-                          type={showConfirmPassword ? "text" : "password"}
-                          className="form-control"
-                          placeholder="Confirm New Password"
-                          aria-label="confirmPassword"
-                          {...register("confirmPassword", {
-                            validate: (value) =>
-                              value === getValues("password") ||
-                              "Passwords do not match",
-                          })}
-                        />
-                        <button
-                          onMouseDown={(e) => e.preventDefault()}
-                          onMouseUp={(e) => e.preventDefault()}
-                          type="button"
-                          onClick={toggleVisibility(setShowConfirmPassword)}
-                          className="input-group-text bg-transparent border-0 border-bottom border-icon rounded-0"
-                        >
-                          <span className="sr-only">
-                            {showConfirmPassword
-                              ? "hide password"
-                              : "show password"}
-                          </span>
-                          <i
-                            className={
-                              showConfirmPassword
-                                ? "fa-solid text-white fa-eye"
-                                : "fa-solid text-white fa-eye-slash"
-                            }
-                          ></i>
-                        </button>
-                      </div>
-                      {errors.confirmPassword && (
-                        <span className="text-danger">
-                          {String(errors.confirmPassword.message)}
-                        </span>
-                      )}
-                    </div>
+                    {/* Confirm Password */}
+                    <PasswordInput
+                      label="Confirm Password"
+                      placeholder="Confirm New Password"
+                      registerInput={register("confirmPassword", {
+                        validate: (value) =>
+                          value === getValues("password") ||
+                          "Passwords do not match",
+                      })}
+                    />
+                    {errors.confirmPassword && (
+                      <span className="text-danger">
+                        {String(errors.confirmPassword.message)}
+                      </span>
+                    )}
 
-                    {/* Submit button */}
+                    {/* Submit Button */}
                     <div className="main-bg rounded-pill mt-5">
                       <button
-                        className="btn text-white border-0  w-100 py-2 py-md-3"
+                        className="btn text-white border-0 w-100 py-2 py-md-3"
                         type="submit"
                         disabled={isSubmitting}
                       >
