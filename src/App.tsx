@@ -13,6 +13,8 @@ import ProjectsList from "./modules/projects/components/ProjectsList/ProjectsLis
 import ProjectForm from "./modules/projects/components/ProjectForm/ProjectForm";
 import TasksList from "./modules/tasks/components/TasksList/TasksList";
 import UsersList from "./modules/users/components/UsersList/UsersList";
+import ChangePassword from "./modules/authentication/components/ChangePassword/ChangePassword";
+
 import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
@@ -30,6 +32,7 @@ function App() {
         { path: "verify-user", element: <Verification /> },
         { path: "forget-password", element: <ForgetPassword /> },
         { path: "reset-password", element: <ResetPassword /> },
+        { path: "change-password", element: <ChangePassword /> },
       ],
     },
     {
