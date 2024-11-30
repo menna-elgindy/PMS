@@ -16,6 +16,7 @@ export const HEADERS = {
 //* USER AUTHENTICATION
 export const AUTH_URLS = {
   login: ``,
+
   register: `Users/Register`,
   verify: ``,
   forgetPassword:`Users/Reset/Request`,

@@ -97,7 +97,7 @@ body {
   }
 
   input {
-    background-color: transparent;
+    background-color: transparent !;
     border: none;
     border-radius: 0px;
     padding-left: 0px;
