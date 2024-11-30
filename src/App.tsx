@@ -66,7 +66,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer style={{zIndex:99999}}/>
+      <ToastContainer />
       <RouterProvider router={routes} />
     </>
   );
