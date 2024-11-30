@@ -1,0 +1,12 @@
+:root{
+    --dark-color: #101418;
+}
+.dropdown-link{
+    text-decoration:none;
+    color:var(--dark-color);
+
+}
+.dropdown-item{
+    color:var(--dark-color);
+
+}
