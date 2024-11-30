@@ -28,7 +28,7 @@ export default function AuthContextProvider({
   }, []);
 
   return (
-    <AuthContext.Provider value={{ loginData, saveLoginData() {} }}>
+    <AuthContext.Provider value={{ loginData, setLoginData,saveLoginData() {} }}>
       {children}
     </AuthContext.Provider>
   );

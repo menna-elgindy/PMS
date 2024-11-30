@@ -169,6 +169,8 @@ body {
 
   }
 } */
+
+/* ---------------------- change-password-styles ----------------------*/
 html {
   font-size: 16px;
 }
@@ -227,7 +229,7 @@ body {
   margin-top: 5rem;
 }
 
-.input-group {
+/*.input-group {
   width: 100%;
   border-bottom: 0.3px solid #ffffff;
 }
@@ -269,8 +271,7 @@ body {
   color: white;
   position: absolute;
   right: 0;
-
-}
+}*/
 
 /* ---------------------- dashboard-layout ---------------------- */
 .master-content {
