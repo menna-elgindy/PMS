@@ -1,6 +1,6 @@
-import styles from './register.module.css'
-import logo from '../../../../assets/images/PMS 3.svg'
-import profileImg from '../../../../assets/images/profile.svg'
+import styles from "./register.module.css";
+import logo from "../../../../assets/images/PMS 3.svg";
+import profileImg from "../../../../assets/images/profile.svg";
 import { toast } from "react-toastify";
 import { useState , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -14,14 +14,10 @@ import useToggle from '../../../../hooks/useToggle';
 
 export default function Registration() {
 
+  const [value, toggleFunction] = useToggle(false);
 
 	const [imageFile, setImageFile] = useState<MediaSource|Blob|null>();
 
-
-	const[value,toggleFunction]=useToggle(false)
-
-
-	
 
 
 
@@ -47,7 +43,7 @@ useEffect(()=>{
     if (selectorFiles) {
 		console.log(selectorFiles);
       setImageFile(selectorFiles[0]);
-     setValue('profileImage',selectorFiles[0])
+      setValue("profileImage", selectorFiles[0]);
     }
   };
   const discardProfileImage = ():void=> {
@@ -57,33 +53,34 @@ useEffect(()=>{
 	
   }
 
+  const onSubmit: SubmitHandler<RegisterFormData> = async (data) => {
+    const formData = new FormData();
+    formData.append("userName", data?.userName);
+    formData.append("country", data.country);
+    formData.append("phoneNumber", data.phoneNumber);
+    formData.append("password", data.password);
+    formData.append("confirmPassword", data.confirmPassword);
+    formData.append("profileImage", data?.profileImage);
+    formData.append("email", data.email);
 
-const onSubmit : SubmitHandler<RegisterFormData> = async (data)=> {
+    await axiosInstance
+      .post( AUTH_URLS.register, formData)
+      .then((resp) => {
+        console.log(resp);
+        toast.success(resp?.data?.message || "account created successfully");
+        navigate("/verify-user");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(
+          error?.response?.data?.message ||
+            "something wrong went please try again"
+        );
+      });
+    console.log(data?.profileImage);
+  };
 
-	const formData = new FormData()
-    formData.append('userName',data?.userName)
-	formData.append('country' , data.country)
-	formData.append('phoneNumber',data.phoneNumber)
-    formData.append('password',data.password)
-   formData.append('confirmPassword',data.confirmPassword)
-    formData.append('profileImage',data.profileImage)
-     formData.append('email',data.email)
 
-	
-
-	await axiosInstance.post(AUTH_URLS.register , formData).then((resp)=>{
-		console.log(resp)
-		toast.success(resp?.data?.message || 'account created successfully')
-		navigate('/verify-user',{state:data?.email})
-
-	}).catch((error)=>{
-		console.log(error)
-			toast.error(error?.response?.data?.message || 'something wrong went please try again')
-	})
-	console.log(data?.profileImage)
-	
-}
-	
 
 return <>
 <div className={`${styles.registerWrapper} `}>
