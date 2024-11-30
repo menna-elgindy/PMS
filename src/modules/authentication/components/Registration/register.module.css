@@ -3,7 +3,11 @@
 
 }
 
+.registerWrapper {
+    background-color: rgba(14, 56, 47, 1);
+    height: 100%;
 
+}
 
 .iconsBtn {
  
@@ -14,14 +18,39 @@
     
 }
 
+.formWrapper{
+    padding-block: 50px;
+}
 
+.registerLayer{
+    background-image: url('../../../../assets/images/glasses.svg') ;
+    background-position: right top ;
+    background-size: contain;
+    height: 100% ;
+    width: 100% ;
+    background-repeat: no-repeat;
+    right: 0;
+}
 
+.registerLayer::before {
+    content: "";
+    display: block;
+    background-image:  url('../../../../assets//images/hand.svg');
+    width: 100%;
+    height: 70%;
+    background-repeat: no-repeat;
+    position: absolute;
+    bottom: -8.7rem;
+    background-size: contain;
+}
 
 
 
 .formContainer {
     background-color: rgba(49, 74, 89, 0.9);
+    position: static;
     border-radius: 1rem;
+    z-index: 999999;
 
     
 }
@@ -54,6 +83,8 @@
     padding-bottom: 0.7rem;
    
 }
+
+
 .formInputs::placeholder {
     color: white;
     
@@ -75,6 +106,9 @@
 .rowInputs{
     margin-inline: 5.18rem;
 }
+.country {
+    margin-block: 1.6rem;
+}
 
 .formInputs:focus {
     outline: unset;
@@ -94,6 +128,9 @@
     border-radius: 50%;
 }
 
+.input{
+    margin-top: 1.4rem;
+}
 .saveBtn button {
     background-color: var(--mainColor);
     padding-block: 10px;
@@ -111,6 +148,7 @@ button[disabled]{
 [type='password'] ,[type='text'] , [type='email'] , [type='tel']{
    color: white ;
 }
+
 .title {
     padding-left: 5rem;
     padding-top: 3.25rem;
@@ -135,3 +173,8 @@ input:-webkit-autofill:focus {
   
 }
 
+@media only screen and (min-width:100px) and (max-width:420px) {
+    .registerLayer::before {
+        bottom: -22.4rem;
+    }
+}

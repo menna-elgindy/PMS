@@ -17,6 +17,15 @@
    
     
 }
+.formWrapper{
+}
+.formInputs:disabled {
+    background-color: rgba(196, 196, 196, 0.268);
+}
+.formInputs[type='email'] {
+    margin-bottom: 1.8rem;
+}
+
 
 .registerLayer{
     background-image: url('../../../../assets/images/verify.svg') ;
@@ -26,6 +35,9 @@
     width: 100% ;
     background-repeat: no-repeat;
     right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .registerLayer::before {
@@ -44,9 +56,11 @@
 
 .formContainer {
     background-color: rgba(49, 89, 81, 0.9);
-    position: absolute;
     border-radius: 1rem;
-
+    padding-inline: 4.9rem;
+    padding-block: 3.87rem;
+    position: static;
+    z-index: 99999;
     
 }
 
@@ -96,9 +110,7 @@
     align-items: center;
   }
 
-.rowInputs{
-    margin-inline: 5.18rem;
-}
+
 
 .formInputs:focus {
     outline: unset;
@@ -124,8 +136,8 @@
     padding-inline: 14rem;
     border-radius: 6rem;
     color: white;
-    margin-block: 4rem;
-    border: unset;
+        border: unset;
+        margin-top: 2rem;
 
 }
 button:disabled,
@@ -136,8 +148,7 @@ button[disabled]{
    color: white ;
 }
 .title {
-    padding-left: 5rem;
-    padding-top: 3.25rem;
+  margin-bottom: 1.5rem;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
@@ -148,6 +159,8 @@ input:-webkit-autofill:focus {
     margin-bottom: 1rem;
 }
 
+
+
 @media only screen and (max-width: 600px) {
 
 .saveBtn button {
@@ -155,7 +168,11 @@ input:-webkit-autofill:focus {
 }
 .rowInputs {
     margin-inline: unset;
-}
+} }
   
+@media only screen and (min-width: 300px) and (max-width: 400px){
+.formContainer {
+padding-inline: 3rem;
 }
 
+    }

@@ -22,3 +22,17 @@ export const AUTH_URLS = {
   resetPassword: `Users/Reset`,
   changePassword: `Users/ChangePassword`,
 };
+
+// tasks_enpoints
+const TASKS_URLS = {
+  COUNT_TASKS:'Task/count',
+}
+
+// users_enpoints
+const USERS_URLS={
+    COUNT_USERS:'Users/count'
+}
+export{
+  TASKS_URLS,
+  USERS_URLS
+}
