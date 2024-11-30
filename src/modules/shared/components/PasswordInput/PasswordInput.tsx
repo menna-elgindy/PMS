@@ -1,6 +1,6 @@
-import React, { useState } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
-
+import useToggle from "../../../../hooks/useToggle";
+import styles from "./passwordInput.module.css";
 export default function PasswordInput({
   label,
   placeholder,
@@ -10,38 +10,42 @@ export default function PasswordInput({
   placeholder: string;
   registerInput: UseFormRegisterReturn<string>;
 }) {
-  let [showPassword, setShowPassword] = useState<boolean>(false);
-
-  const togglePasswordVisibility = (): void => {
-    setShowPassword((prevState) => !prevState);
-  };
+  const [value, toggleFunction] = useToggle(false);
 
   return (
-    <div className="my-4">
-      <label className="main-colr my-1">{label}</label>
-      <div className="input-group">
+    <div className="position-relative">
+      <label htmlFor="password" className="main-colr ">
+        {label}
+      </label>
+      <div>
         <input
-          type={showPassword ? "text" : "password"}
-          className="form-control"
+          type={value ? "text" : "password"}
           placeholder={placeholder}
           aria-label={label}
           {...registerInput}
+          id="password"
+          className={`${styles.formInputs} form-control`}
         />
+
         <button
           type="button"
-          onClick={togglePasswordVisibility}
+          onClick={toggleFunction}
           onMouseDown={(e) => e.preventDefault()}
           onMouseUp={(e) => e.preventDefault()}
-          className="input-group-text bg-transparent border-0 border-bottom border-icon rounded-0"
+          className={`${styles.iconsBtn} `}
         >
-          <span className="sr-only">
-            {showPassword ? "Hide password" : "Show password"}
-          </span>
           <i
-            className={`fa-solid ${
-              showPassword ? "fa-eye-slash" : "fa-eye"
-            } text-white`}
+            aria-label="password-toggle"
+            className={
+              value
+                ? "fa-regular fa-eye-slash text-white position-absolute end-0 top-50 translate-middle confirm"
+                : "text-white fa-solid fa-eye position-absolute end-0 top-50 translate-middle confirm"
+            }
           ></i>
+
+          <span className="sr-only">
+            {value ? "Hide password" : "Show password"}
+          </span>
         </button>
       </div>
     </div>

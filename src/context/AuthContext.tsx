@@ -13,7 +13,7 @@ export const AuthContext = createContext<AuthContextType>(null!);
 export default function AuthContextProvider({
   children,
 }: AuthContextProviderProps) {
-  const [loginData, setLoginData] = useState< LoginData | null>(null);
+  const [loginData, setLoginData] = useState<LoginData | null>(null);
 
   const saveLoginData = () => {
     const enCodedToken = JSON.stringify(localStorage.getItem("token")) ;
@@ -23,14 +23,12 @@ export default function AuthContextProvider({
 
   useEffect(() => {
     if (localStorage.getItem("token") || loginData != null) {
-        saveLoginData();
+      saveLoginData();
     }
   }, []);
 
   return (
-    <AuthContext.Provider value={{ loginData, saveLoginData() {
-        
-    },}}>
+    <AuthContext.Provider value={{ loginData, setLoginData,saveLoginData() {} }}>
       {children}
     </AuthContext.Provider>
   );
