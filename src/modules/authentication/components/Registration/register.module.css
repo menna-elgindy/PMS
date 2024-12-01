@@ -2,13 +2,13 @@
     --mainColor :rgba(239, 155, 40, 1);
 
 }
-
 .registerWrapper {
-    background-color: rgba(14, 56, 47, 1);
-    height: 100%;
-
+    background-image: url('../../../../assets/images/bg1.png') ;
+    background-position: center ;
+    background-size: cover;
+   
+    background-repeat: no-repeat;
 }
-
 .iconsBtn {
  
         border: unset;
@@ -19,38 +19,16 @@
 }
 
 .formWrapper{
-    padding-block: 50px;
+    padding-bottom: 20px;
 }
 
-.registerLayer{
-    background-image: url('../../../../assets/images/glasses.svg') ;
-    background-position: right top ;
-    background-size: contain;
-    height: 100% ;
-    width: 100% ;
-    background-repeat: no-repeat;
-    right: 0;
-}
 
-.registerLayer::before {
-    content: "";
-    display: block;
-    background-image:  url('../../../../assets//images/hand.svg');
-    width: 100%;
-    height: 70%;
-    background-repeat: no-repeat;
-    position: absolute;
-    bottom: -8.7rem;
-    background-size: contain;
-}
 
 
 
 .formContainer {
     background-color: rgba(49, 74, 89, 0.9);
-    position: static;
     border-radius: 1rem;
-    z-index: 999999;
 
     
 }

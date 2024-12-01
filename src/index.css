@@ -1,3 +1,4 @@
+
 /* ---------------------- common style ---------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
@@ -171,8 +172,14 @@ body {
     background-color: rgba(49, 89, 81, 0.54);
 
   }
+<<<<<<< HEAD
 }
 
+=======
+} */
+
+/* ---------------------- change-password-styles ----------------------*/
+>>>>>>> 27cf1daafc4f314c7c2cc8c47d6eb5dcc887f9e3
 html {
   font-size: 16px;
 }
@@ -232,7 +239,7 @@ body {
   margin-top: 5rem;
 }
 
-.input-group {
+/*.input-group {
   width: 100%;
   border-bottom: 0.3px solid #ffffff;
 }
@@ -274,7 +281,7 @@ body {
   color: white;
   position: absolute;
   right: 0;
-}
+}*/
 
 /* ---------------------- dashboard-layout ---------------------- */
 .master-content {
