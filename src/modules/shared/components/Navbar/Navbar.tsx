@@ -33,10 +33,10 @@ const Navbar = () => {
 
           <div className="d-flex flex-column">
             <h5 className="m-0 fs-6">
-              {loginData?.userName && loginData.userName}
+              {loginData?.userName && loginData?.userName}
             </h5>
             <span className={`text-muted ${styles["email"]}  `}>
-              {loginData?.userEmail && loginData.userEmail}
+              {loginData?.userEmail && loginData?.userEmail}
             </span>
           </div>
           <DropdownMenu />

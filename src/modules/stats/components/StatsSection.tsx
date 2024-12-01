@@ -1,5 +1,5 @@
 import { useCallback, useContext } from "react";
-import { axiosInstance, HEADERS, TASKS_URLS, USERS_URLS } from "../../../api";
+import { axiosInstance, TASKS_URLS, USERS_URLS } from "../../../api";
 import useFetch from "../../../hooks/useFetch";
 import StatsCard from "./StatsCard";
 import DoughnutChart from "../../charts/components/DoughnutChart";
@@ -23,15 +23,13 @@ interface countUsersType {
 const StatsSection = () => {
   const countTasks = useCallback(async () => {
     const response = await axiosInstance.get<countTasksType>(
-      TASKS_URLS.COUNT_TASKS,
-      HEADERS
+      TASKS_URLS.COUNT_TASKS
     );
     return response?.data;
   }, []);
   const countUsers = useCallback(async () => {
     const response = await axiosInstance.get<countUsersType>(
-      USERS_URLS.COUNT_USERS,
-      HEADERS
+      USERS_URLS.COUNT_USERS
     );
     return response?.data;
   }, []);
