@@ -113,7 +113,7 @@ return <>
 		<div className="container">
 
 		{imageFile ? <>{imageFile && (
-  <div  className={`${styles.formImage}  position-relative`}>
+  <div  className={`${styles.formImage} position-relative`}>
     <img className='w-75' src={URL.createObjectURL(imageFile) }  
 
     />
@@ -125,9 +125,9 @@ return <>
 
     </button>
   </div>
-)}</> :  <div className="profileImageField mx-2">
+)}</> :  <div className="profileImageField mx-2  ">
 <label htmlFor="file-upload" className={`${styles.customFileUpload}`}>
-<div className={styles.cameraIcon}>
+<div className={`${styles.cameraIcon} `}>
 <img src={profileImg} alt="form profile image" />
 
 </div>
@@ -198,7 +198,7 @@ return <>
 				<div className={styles.input}>
 				  <div className={styles.password}>
 
-					<PasswordInput  label='Password' placeholder='Enter your password' registerInput={register('password',PasswordValidation)}/>
+					<PasswordInput  label='Password'  placeholder='Enter your password' registerInput={register('password',PasswordValidation)}/>
 
 
 

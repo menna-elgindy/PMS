@@ -1,17 +1,20 @@
 import Dropdown from 'react-bootstrap/Dropdown';
-import {  useState } from 'react';
-;
+
+interface tableActionsData {
+  categoryName : string ,
+  handleShow : () => void ,
+  handleShowEdit : () => void,
+  handleShowDelete : ()=>void
+
+}
 
 
-export default function TableActions({categoryName,handleShow,categoryId}) {
+const TableActions : React.FC<tableActionsData> = ({categoryName,handleShow,handleShowEdit,handleShowDelete})=> {
   
 
 
 
 
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
 
     
 
@@ -26,17 +29,17 @@ export default function TableActions({categoryName,handleShow,categoryId}) {
 
       <Dropdown.Menu>
      
-      <Dropdown.Item  onClick={()=>{handleShow(categoryId)}}> <i className="fa-solid fa-eye option-icons"></i>View
+      <Dropdown.Item  onClick={()=>{handleShow()}}> <i className="fa-solid fa-eye option-icons"></i>View
         
         <span className='sr-only'>click to view category {categoryName}</span>
         </Dropdown.Item>
-      <Dropdown.Item  onClick={()=>{handleShow(categoryId)}}><i className="fa-solid fa-pen-to-square option-icons " ></i>Edit
+      <Dropdown.Item  onClick={()=>{handleShowEdit()}}><i className="fa-solid fa-pen-to-square option-icons " ></i>Edit
         
         <span className='sr-only'>click to edit category {categoryName}</span>
         </Dropdown.Item>
 
  
-        <Dropdown.Item  onClick={()=>{handleShow(categoryId)}}><i className="fa-solid fa-trash-can option-icons"></i>Delete
+        <Dropdown.Item  onClick={()=>{handleShowDelete()}}><i className="fa-solid fa-trash-can option-icons"></i>Delete
         
         <span className='sr-only'>click to delete category {categoryName}</span>
         </Dropdown.Item>
@@ -48,3 +51,4 @@ export default function TableActions({categoryName,handleShow,categoryId}) {
  
  </>
 }
+export default TableActions
