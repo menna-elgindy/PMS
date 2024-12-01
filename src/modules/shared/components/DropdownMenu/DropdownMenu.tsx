@@ -28,6 +28,7 @@ const DropdownMenu = () => {
         <NavDropdown.Item
           className={style["dropdown-item "]}
           onClick={() => {
+            localStorage.clear()
             setLoginData(null);
           }}
         >
