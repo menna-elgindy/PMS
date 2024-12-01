@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from "react";
 import logo from "../../../../assets/images/PMS-logo.png";
 import { useForm } from "react-hook-form";
