@@ -10,7 +10,7 @@ import PasswordInput from "../../../shared/components/PasswordInput/PasswordInpu
 import { ChangePasswordPayload } from "../../../../interface/AuthResponse/AuthResponse";
 
 function ChangePassword() {
-  const {
+  let {
     register,
     formState: { errors, isSubmitting },
     handleSubmit,
@@ -18,7 +18,7 @@ function ChangePassword() {
     trigger,
   } = useForm<ChangePasswordPayload>({ mode: "onChange" });
 
-  const navigate = useNavigate();
+  let navigate = useNavigate();
 
   const onSubmit = async (data: ChangePasswordPayload): Promise<void> => {
     console.log(data);
@@ -35,8 +35,8 @@ function ChangePassword() {
     }
   };
 
-  const password = watch("newPassword");
-  const confirmPassword = watch("confirmNewPassword");
+  let password = watch("newPassword");
+  let confirmPassword = watch("confirmNewPassword");
   useEffect(() => {
     if (confirmPassword) trigger("confirmNewPassword");
   }, [password, confirmPassword, trigger]);
