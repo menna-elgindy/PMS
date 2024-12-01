@@ -1,5 +1,5 @@
 import Dropdown from 'react-bootstrap/Dropdown';
-
+import styles from './tableActions.module.css'
 interface tableActionsData {
   categoryName : string ,
   handleShow : () => void ,
@@ -22,7 +22,7 @@ const TableActions : React.FC<tableActionsData> = ({categoryName,handleShow,hand
    <div className="cursorPointer">
     
   <Dropdown>
-      <Dropdown.Toggle variant='transparent'  id="dropdown-basic">
+      <Dropdown.Toggle  className={styles.dropdownToggle} variant='transparent'  id="dropdown-basic">
       <i className="fa-solid fa-ellipsis-vertical tableHeaderIcon fa-2x"></i>      <span className='sr-only'>click to toggle menu</span>
 
       </Dropdown.Toggle>

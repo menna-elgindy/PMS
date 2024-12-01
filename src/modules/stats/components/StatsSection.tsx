@@ -10,6 +10,7 @@ import {
   TaskNumberIcon,
 } from "../../shared/components/SvgIcons/SvgIcons";
 import { AuthContext } from "../../../context/AuthContext";
+import TableActions from "../../shared/components/TableActions/TableActions";
 
 interface countTasksType {
   inProgress: number;
@@ -160,6 +161,8 @@ const StatsSection = () => {
           )}
         </div>
       )}
+
+      <TableActions/>
     </div>
   );
 };

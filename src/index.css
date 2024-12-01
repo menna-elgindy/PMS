@@ -387,19 +387,14 @@ body {
   color: rgba(0, 146, 71, 1);
   margin-right: 0.75rem;
 }
-.dropdown-toggle:active{
-  border: unset;
-}
 .paginationDropDownStyle {
   border: 0.7px solid;
   border-radius: 24px;
 }
 
+
+
 .pagniationLink {
   border: unset;
   cursor: pointer;
 }
-/* .profileImageField {
-  width: fit-content;
- 
-} */
