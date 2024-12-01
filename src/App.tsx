@@ -14,6 +14,8 @@ import ProjectForm from "./modules/projects/components/ProjectForm/ProjectForm";
 import TasksList from "./modules/tasks/components/TasksList/TasksList";
 import UsersList from "./modules/users/components/UsersList/UsersList";
 import ChangePassword from "./modules/authentication/components/ChangePassword/ChangePassword";
+import ProtectedComponent from './modules/shared/components/ProtectedComponent/ProtectedComponent';
+
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -37,7 +39,11 @@ function App() {
     },
     {
       path: "",
-      element: <MasterLayout />,
+      element:(
+			  <ProtectedComponent >
+				<MasterLayout />
+			  </ProtectedComponent>
+			) ,
       children: [
         {
           path: "dashboard",
@@ -66,8 +72,8 @@ function App() {
 
   return (
     <>
-      <ToastContainer />
-      <RouterProvider router={routes} />
+      <ToastContainer position="top-center"  style={{zIndex:99999}}/>
+      <RouterProvider router={routes}></RouterProvider>
     </>
   );
 }

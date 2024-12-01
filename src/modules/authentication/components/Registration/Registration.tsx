@@ -215,7 +215,7 @@ return <>
 				<div className={styles.input}>
 				   	<div className="position-relative">
 					   <label className={styles.formLabel} htmlFor="confirmPassword">Confirm Password</label>
-				<input  id='confirmPassword'  type={value ? "password" : "text"} className={`${styles.formInputs} form-control confirmPassword`} placeholder='Confirm New Password'
+				<input  id='confirmPassword'  type={value ? "text" : "password"} className={`${styles.formInputs} form-control confirmPassword`} placeholder='Confirm New Password'
 				 {...register('confirmPassword' , {
 					required : 'confirm password cannot be empty',
 					validate: (val: string) => {
@@ -227,7 +227,7 @@ return <>
 				/>
 					<button onMouseUp={(e)=>{e.preventDefault()}} onMouseDown={(e)=>{e.preventDefault()}} type='button' onClick={toggleFunction} className={styles.iconsBtn}>
 <i  aria-label="password-toggle"   className={value ?"fa-regular fa-eye-slash text-white position-absolute end-0 top-50 translate-middle confirm" : "text-white fa-solid fa-eye position-absolute end-0 top-50 translate-middle confirm"}></i>
-<span className='sr-only'>{value ? 'hide  password' : 'show  password'}</span>
+<span className='sr-only'>{!value ? 'hide  password' : 'show  password'}</span>
 
 </button>
 
