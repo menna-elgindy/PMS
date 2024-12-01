@@ -69,7 +69,7 @@ export default function Verification() {
 				<div>
 				<div className="input">
 				<label className={styles.formLabel} htmlFor="email">E-mail</label>
-				<input disabled id='email' type="email" className={`${styles.formInputs} w-100`} placeholder='Enter your E-mail'
+				<input  id='email' type="email" className={`${styles.formInputs} w-100`} placeholder='Enter your E-mail'
 				
 				{...register('email')}
 				/>
