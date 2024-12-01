@@ -22,7 +22,7 @@ function ChangePassword() {
   const onSubmit = async (data: ChangePasswordPayload): Promise<void> => {
     console.log(data);
     try {
-      let response = await axiosInstance.put<string>(
+       await axiosInstance.put<string>(
         AUTH_URLS.changePassword,
         data,
         HEADERS
