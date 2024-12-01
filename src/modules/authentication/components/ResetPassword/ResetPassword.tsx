@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AxiosErrorResponse, ResetPasswordFormData } from "../../../../interface/AuthResponse/AuthResponse";
-import axios, { AxiosError } from "axios";
-import { AUTH_URLS } from "../../../../api";
+import { AxiosError } from "axios";
+import { AUTH_URLS, axiosInstance } from "../../../../api";
 import { toast } from "react-toastify";
 import AuthShared from "../AuthShared/AuthShared";
 import { emailValidation, PasswordValidation, RequiredField } from "../../../../validations";
 import logo from "../../../../assets/images/Auth-logo.png";
-import bgImage from "../../../../assets/images/bg2.png"
+import bgImage from "../../../../assets/images/bg1.png"
 import PasswordInput from "../../../shared/components/PasswordInput/PasswordInput";
 
 function ResetPassword() {
@@ -30,7 +30,7 @@ function ResetPassword() {
   // Function to handle form submission
   const onSubmit = async (data: ResetPasswordFormData) => {
     try {
-      const response = await axios.post(AUTH_URLS.resetPassword, data);
+      const response = await axiosInstance.post(AUTH_URLS.resetPassword, data);
       toast.success(
         response.data.message ||
           "Password reset successful. Please check your email for further instructions."
@@ -70,7 +70,7 @@ function ResetPassword() {
                 <div className="auth-item rounded rounded-4 p-5 pt-3">
                   <AuthShared
                     welcomeText={"welcome to PMS"}
-                    title={"Reset Password"}
+                    title={"eset Password"}
                     firstLetter={"R"}
                   />
 
@@ -80,6 +80,7 @@ function ResetPassword() {
                       <label className="main-colr my-1">E-mail</label>
                       <div className="input-group">
                         <input
+                         id="Info-Input"
                           type="text"
                           className="form-control"
                           placeholder="Enter your E-mail"
@@ -98,6 +99,7 @@ function ResetPassword() {
                       <label className="main-colr my-1">OTP Verification</label>
                       <div className="input-group">
                         <input
+                          id="Info-Input"
                           type="text"
                           className="form-control"
                           placeholder="Enter Verification"

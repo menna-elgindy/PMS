@@ -24,8 +24,6 @@ export default function PasswordInput({
 				
 			
 				/>
-     
-
 
         <button
           type="button"

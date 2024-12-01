@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import logo from "../../../../assets/images/PMS-logo.png";
 import { useForm } from "react-hook-form";
 import { PasswordValidation } from "../../../../validations";
 import { toast } from "react-toastify";
 import { AUTH_URLS, axiosInstance, HEADERS } from "../../../../api";
 import { useNavigate } from "react-router-dom";
-import { ChangePasswordPayload } from "../../../../AuthInterfaces/AuthInterfaces";
 import PasswordInput from "../../../shared/components/PasswordInput/PasswordInput";
+import { ChangePasswordPayload } from "../../../../interface/AuthResponse/AuthResponse";
 
 function ChangePassword() {
   let {
@@ -22,7 +22,7 @@ function ChangePassword() {
   const onSubmit = async (data: ChangePasswordPayload): Promise<void> => {
     console.log(data);
     try {
-      let response = await axiosInstance.put<string>(
+       await axiosInstance.put<string>(
         AUTH_URLS.changePassword,
         data,
         HEADERS
