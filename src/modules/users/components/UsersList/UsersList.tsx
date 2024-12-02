@@ -4,10 +4,6 @@
 const UsersList = () => {
   // const [userList, setUserList] = useState<any[]>([]);
 
-
-
-
-
   // // Get All users
   // const getAllUsers = (pageNo: number, name: string) => {
   //   axiosInstance.get(`${baseUrl}/Users/Manager`, {
@@ -26,7 +22,7 @@ const UsersList = () => {
   //     });
   // }
 
-  return <div>UsersList</div>;
+  return <div></div>;
 };
 
 export default UsersList;

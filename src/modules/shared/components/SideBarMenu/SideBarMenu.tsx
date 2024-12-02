@@ -76,7 +76,7 @@ const SideBarMenu = () => {
                 }
               />
             }
-            component={<NavLink to="projects" />}
+            component={<NavLink to="projects?page=1" />}
           >
             Projects
           </MenuItem>
