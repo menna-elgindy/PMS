@@ -38,6 +38,7 @@ export const AUTH_URLS = {
 // tasks_enpoints
 const TASKS_URLS = {
   COUNT_TASKS:'Task/count',
+  get_All : `Task/manager`,
   ADD_Task:`/Task`,
   GET_Task:(id:number)=>`/Task/${id}`,
   EDIT_TASK:(id:number)=>`/Task/${id}`
@@ -45,10 +46,16 @@ const TASKS_URLS = {
 
 // users_enpoints
 const USERS_URLS={
-    COUNT_USERS:'Users/count',
-    FILTER_USERS:'Users/',
- 
+   COUNT_USERS:'Users/count',
+   FILTER_USERS:'Users/',
+   CreateAnManagerUrl : `Users/Create`,
+   GetUserByIdUrl : (id: number) => `Users/${id}`,
+   toggleUserUrl: (id: number) => `Users/${id}`,
+   getUsersByManagerUrl: `Users/Manage/r`,
+   getAllUsersUrl: `Users/`,
+   GetCurrentUserUrl: `Users/currentUser`,
 }
+
 // projects endpoints
 export const PROJECTS_URLS = {
   list: 'Project/manager',
