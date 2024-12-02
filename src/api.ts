@@ -2,6 +2,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 const BASE_URL = 'https://upskilling-egypt.com:3003/api/v1';
+const IMAGE_URL = 'https://upskilling-egypt.com:3003/';
 
  const axiosInstance:AxiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -46,11 +47,14 @@ const USERS_URLS={
 }
 
 const PROJECTS_URLS={
-     FILTER_PROJECTS:'Project/manager'
+     GET_PROJECT:(id:string) => `Project/${id}`,
+     FILTER_PROJECTS:'Project/manager',
+     DELETE_PROJECT:(id:string) => `Project/${id}`,
 }
 export{
   TASKS_URLS,
   USERS_URLS,
   PROJECTS_URLS,
-  axiosInstance
+  axiosInstance,
+  IMAGE_URL
 }
