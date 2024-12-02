@@ -40,6 +40,7 @@ const TASKS_URLS = {
 // users_enpoints
 const USERS_URLS={
    COUNT_USERS:'Users/count',
+   FILTER_USERS:'Users/',
    CreateAnManagerUrl : `Users/Create`,
    GetUserByIdUrl : (id: number) => `Users/${id}`,
    toggleUserUrl: (id: number) => `Users/${id}`,
