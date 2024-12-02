@@ -158,6 +158,7 @@ const StatsSection = () => {
           )}
         </div>
       )}
+
     </div>
   );
 };

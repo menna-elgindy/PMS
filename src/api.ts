@@ -58,3 +58,10 @@ export{
   axiosInstance,
   IMAGE_URL
 }
+
+//projects endpoint 
+export const PROJECTS_URL ={
+  ADD_PROJECT:`/Project`,
+  GET_PROJECT:(id:number)=>`/Project/${id}`,
+  EDIT_PROJECT:(id:number)=>`/Project/${id}`
+}

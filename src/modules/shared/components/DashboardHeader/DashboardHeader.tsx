@@ -17,6 +17,7 @@ const DashboardHeader = ({ title, description }: DashboardHeaderProps) => {
         </h1>
         <span className="fs-3">{description}</span>
       </div>
+
     </div>
   );
 };
