@@ -22,6 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import TaskForm from "./modules/tasks/components/TaskForm/TaskForm";
 
+
 function App() {
   const routes = createBrowserRouter([
     {
@@ -85,7 +86,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer position="top-center"  style={{zIndex:99999}}/>
+      <ToastContainer position="top-center"  style={{zIndex:9999999}}/>
       <RouterProvider router={routes}></RouterProvider>
     </>
   );

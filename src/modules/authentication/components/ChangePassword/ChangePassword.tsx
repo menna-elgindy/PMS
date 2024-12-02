@@ -4,13 +4,13 @@ import logo from "../../../../assets/images/PMS-logo.png";
 import { useForm } from "react-hook-form";
 import { PasswordValidation } from "../../../../validations";
 import { toast } from "react-toastify";
-import { AUTH_URLS, axiosInstance, HEADERS } from "../../../../api";
+import { AUTH_URLS, axiosInstance } from "../../../../api";
 import { useNavigate } from "react-router-dom";
 import PasswordInput from "../../../shared/components/PasswordInput/PasswordInput";
 import { ChangePasswordPayload } from "../../../../interface/AuthResponse/AuthResponse";
 
 function ChangePassword() {
-  let {
+  const {
     register,
     formState: { errors, isSubmitting },
     handleSubmit,
@@ -18,16 +18,12 @@ function ChangePassword() {
     trigger,
   } = useForm<ChangePasswordPayload>({ mode: "onChange" });
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const onSubmit = async (data: ChangePasswordPayload): Promise<void> => {
     console.log(data);
     try {
-       await axiosInstance.put<string>(
-        AUTH_URLS.changePassword,
-        data,
-        HEADERS
-      );
+      await axiosInstance.put<string>(AUTH_URLS.changePassword, data);
       toast.success("Password changed successfully");
       navigate("/login");
     } catch (error: any) {
@@ -35,8 +31,8 @@ function ChangePassword() {
     }
   };
 
-  let password = watch("newPassword");
-  let confirmPassword = watch("confirmNewPassword");
+  const password = watch("newPassword");
+  const confirmPassword = watch("confirmNewPassword");
   useEffect(() => {
     if (confirmPassword) trigger("confirmNewPassword");
   }, [password, confirmPassword, trigger]);

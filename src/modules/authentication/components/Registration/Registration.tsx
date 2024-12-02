@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useState , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AUTH_URLS, axiosInstance} from '../../../../api';
-import { emailValidation, PasswordValidation, RequiredField } from '../../../../validations';
+import { emailValidation, PasswordValidation, userNameValidation } from '../../../../validations';
 import { useForm ,SubmitHandler} from 'react-hook-form';
 import { RegisterFormData } from '../../../../interface/AuthResponse/AuthResponse';
 import PasswordInput from '../../../shared/components/PasswordInput/PasswordInput';
@@ -68,7 +68,7 @@ useEffect(()=>{
       .then((resp) => {
         console.log(resp);
         toast.success(resp?.data?.message || "account created successfully");
-        navigate("/verify-user");
+        navigate("/verify-user",{state:data.email});
       })
       .catch((error) => {
         console.log(error);
@@ -121,7 +121,7 @@ return <>
   
     onClick={discardProfileImage}>
     <i className="fa-solid fa-xmark "></i>
-    <span className='sr-only'>{imageFile ? 'discard upload profile image' : 'upload profile image'}</span>
+    <span className='sr-only'>{imageFile? 'discard upload profile image' : 'upload profile image'}</span>
 
     </button>
   </div>
@@ -155,7 +155,7 @@ return <>
 				<div className={styles.input}>
 				<label className={styles.formLabel} htmlFor="userName">User Name</label>
 				<input   id='userName' type="text" className={`${styles.formInputs} form-control`} placeholder='Enter your Name' 
-				{...register ( 'userName', RequiredField('userName') ) }
+				{...register ( 'userName', userNameValidation) }
 				/>
 
 		{errors.userName && <span className='text-danger'>{errors?.userName?.message}</span>}
