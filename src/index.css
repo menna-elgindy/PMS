@@ -398,3 +398,19 @@ body {
   border: unset;
   cursor: pointer;
 }
+/*********************** Table *******************/
+th.table-header {
+	background-color: #315951e5;
+	border: 1px solid #315951e5;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 400;
+	padding: 16px;
+}
+
+td.table-data {
+	color: #4f4f4f;
+	font-weight: 400;
+	padding: 16px;
+  vertical-align: middle;
+}

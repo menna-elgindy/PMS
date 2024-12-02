@@ -45,23 +45,26 @@ const USERS_URLS={
     FILTER_USERS:'Users/',
  
 }
-
-const PROJECTS_URLS={
-     GET_PROJECT:(id:string) => `Project/${id}`,
-     FILTER_PROJECTS:'Project/manager',
-     DELETE_PROJECT:(id:string) => `Project/${id}`,
+// projects endpoints
+export const PROJECTS_URLS = {
+  list: 'Project/manager',
+  DELETE_PROJECT: (id:number) => `Project/${id}`,
+  ADD_PROJECT:`/Project`,
+  GET_PROJECT:(id:number)=>`/Project/${id}`,
+  FILTER_PROJECTS:'Project/manager',
+  EDIT_PROJECT:(id:number)=>`/Project/${id}`
 }
+
 export{
   TASKS_URLS,
   USERS_URLS,
-  PROJECTS_URLS,
   axiosInstance,
   IMAGE_URL
 }
 
-//projects endpoint 
-export const PROJECTS_URL ={
-  ADD_PROJECT:`/Project`,
-  GET_PROJECT:(id:number)=>`/Project/${id}`,
-  EDIT_PROJECT:(id:number)=>`/Project/${id}`
-}
+
+// const PROJECTS_URLS={
+//   GET_PROJECT:(id:string) => `Project/${id}`,
+//   FILTER_PROJECTS:'Project/manager',
+//   DELETE_PROJECT:(id:string) => `Project/${id}`,
+// }

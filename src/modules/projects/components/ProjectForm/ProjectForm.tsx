@@ -4,12 +4,12 @@ import style from './ProjectForm.module.css'
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { AddProjectPayload } from "../../../../interface/Add&EditResponse/Add&EditResponse";
 import { toast } from "react-toastify";
-import { axiosInstance, HEADERS, PROJECTS_URL } from "../../../../api";
+import { axiosInstance, HEADERS, PROJECTS_URLS } from "../../../../api";
 import { useEffect } from "react";
 
 const ProjectForm = () => {
   const {register,formState:{errors ,isSubmitting},setValue,handleSubmit} = useForm<AddProjectPayload>({mode:'onChange'});
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const {projectId} = useParams<{projectId:string}>()
   const isNewProject:boolean = !projectId
 
@@ -17,8 +17,8 @@ const ProjectForm = () => {
   const onSubmit = async(data:AddProjectPayload)=>{
     const parsedId = parseInt(projectId!, 10);
     try {
-      await axiosInstance[isNewProject?'post':'put'](isNewProject?PROJECTS_URL.ADD_PROJECT:PROJECTS_URL.EDIT_PROJECT(parsedId),data,HEADERS)
-      isNewProject?toast.success("Project added successfully"):toast.success("Project updated successfully");
+      await axiosInstance[isNewProject?'post':'put'](isNewProject?PROJECTS_URLS.ADD_PROJECT:PROJECTS_URLS.EDIT_PROJECT(parsedId),data,HEADERS)
+      // isNewProject ? toast.success("Project added successfully") : toast.success("Project updated successfully");
       navigate('/projects')
     } catch (error:any) {
       toast.error(error?.response?.data?.message);
@@ -31,7 +31,7 @@ const ProjectForm = () => {
     if(!isNewProject){
       const parsedId = parseInt(projectId!, 10);
         const getProject = async()=>{
-            const response = await axiosInstance.get(PROJECTS_URL.GET_PROJECT(parsedId),HEADERS)
+            const response = await axiosInstance.get(PROJECTS_URLS.GET_PROJECT(parsedId),HEADERS)
             console.log(response)
             setValue('title',response?.data?.title)
             setValue('description',response?.data?.description)
