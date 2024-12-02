@@ -30,7 +30,13 @@ const TASKS_URLS = {
 
 // users_enpoints
 const USERS_URLS={
-    COUNT_USERS:'Users/count'
+   COUNT_USERS:'Users/count',
+   CreateAnManagerUrl : `Users/Create`,
+   GetUserByIdUrl : (id: number) => `Users/${id}`,
+   toggleUserUrl: (id: number) => `Users/${id}`,
+   getUsersByManagerUrl: `Users/Manage/r`,
+   getAllUsersUrl: `Users/`,
+   GetCurrentUserUrl: `Users/currentUser`,
 }
 export{
   TASKS_URLS,
