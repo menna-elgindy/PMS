@@ -16,42 +16,40 @@ const UsersList = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [counterLoading, setCounterLoadind] = useState<number>(0);
 
-
-// Function to fetch the list of users from the API
-const getAllUsers = async (params: UsersFilterOptions | null = null) => {
-  if (counterLoading == 0) {
-    setLoading(true);
-    setCounterLoadind(1);
-  }
-  try {
-    const response = await axiosInstance.get<ApiResponseForUser>(
-      USERS_URLS.getAllUsersUrl,
-      {
-        params: {
-          userName: params?.userName,
-          email: params?.email,
-          country: params?.country,
-          groups: params?.groups,
-          pageSize: params?.pageSize,
-          pageNumber: params?.pageNumber,
-        },
-      }
-    );
-    setArrayOfPages(
-      Array(response.data.totalNumberOfPages)
-        .fill(0)
-        .map((_, i) => i + 1)
-    );
-    setNumOfRecords(response.data.totalNumberOfRecords);
-    setUsersList(response.data?.data);
-  } catch (error) {
-    const axiosError = error as AxiosError<AxiosErrorResponse>;
-    toast.error(axiosError.response?.data.message);
-  } finally {
-    setLoading(false);
-  }
-};
-
+  // Function to fetch the list of users from the API
+  const getAllUsers = async (params: UsersFilterOptions | null = null) => {
+    if (counterLoading == 0) {
+      setLoading(true);
+      setCounterLoadind(1);
+    }
+    try {
+      const response = await axiosInstance.get<ApiResponseForUser>(
+        USERS_URLS.getAllUsersUrl,
+        {
+          params: {
+            userName: params?.userName,
+            email: params?.email,
+            country: params?.country,
+            groups: params?.groups,
+            pageSize: params?.pageSize,
+            pageNumber: params?.pageNumber,
+          },
+        }
+      );
+      setArrayOfPages(
+        Array(response.data.totalNumberOfPages)
+          .fill(0)
+          .map((_, i) => i + 1)
+      );
+      setNumOfRecords(response.data.totalNumberOfRecords);
+      setUsersList(response.data?.data);
+    } catch (error) {
+      const axiosError = error as AxiosError<AxiosErrorResponse>;
+      toast.error(axiosError.response?.data.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const toggleActivation = async (id: number) => {
     try {
