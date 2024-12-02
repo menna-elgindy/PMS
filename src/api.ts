@@ -47,8 +47,10 @@ export{
   axiosInstance
 }
 
-//projects endpoint 
-export const PROJECTS_URL ={
+// projects endpoints
+export const PROJECTS_URLS = {
+  list: 'Project/manager',
+  deleteProject: (id:number) => `Project/${id}`,
   ADD_PROJECT:`/Project`,
   GET_PROJECT:(id:number)=>`/Project/${id}`,
   EDIT_PROJECT:(id:number)=>`/Project/${id}`
