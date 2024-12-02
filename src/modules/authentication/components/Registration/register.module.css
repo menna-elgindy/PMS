@@ -14,6 +14,7 @@
         border: unset;
         height: unset;
         padding: unset;
+
    
     
 }
@@ -79,6 +80,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: fit-content;
+    margin: auto;
   }
 
 .rowInputs{
@@ -93,6 +96,7 @@
     box-shadow: unset;
     background-color: transparent;
     color: white;
+    border-color: var(--mainColor);
 }
 
 .formImage {
@@ -147,6 +151,9 @@ input:-webkit-autofill:focus {
 }
 .rowInputs {
     margin-inline: unset;
+}
+.input{
+    margin-top: unset;
 }
   
 }

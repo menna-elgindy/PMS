@@ -1,0 +1,8 @@
+.dropdownToggle:active{
+  border: unset !important;
+  outline: unset !important;
+}
+.dropdownToggle:focus{
+  border: unset !important;
+  outline: unset !important;
+}
