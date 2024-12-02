@@ -37,6 +37,7 @@ export const AUTH_URLS = {
 // tasks_enpoints
 const TASKS_URLS = {
   COUNT_TASKS:'Task/count',
+  get_All : `Task/manager`,
   ADD_Task:`/Task`,
   GET_Task:(id:number)=>`/Task/${id}`,
   EDIT_TASK:(id:number)=>`/Task/${id}`
