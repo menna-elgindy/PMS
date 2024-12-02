@@ -1,67 +1,28 @@
-import { useCallback } from "react";
-import { axiosInstance, USERS_URLS } from "../../../../api";
-import Filtration from "../../../shared/components/Filtration/Filtration";
-import { useSearchParams } from "react-router-dom";
-import useFetch from "../../../../hooks/useFetch";
+// import { useState } from "react";
+// import { axiosInstance, HEADERS } from "../../../../api";
 
-export interface getUsersType {
-  pageNumber: string;
-  pageSize: string;
-  data: [
-    {
-      id: string;
-      userName: string;
-      email: string;
-      country: string;
-      phoneNumber: string;
-    }
-  ];
-}
 const UsersList = () => {
-  const [searchParams] = useSearchParams();
-  const getFilteredUsers = useCallback(async () => {
-    const response = await axiosInstance.get<getUsersType>(
-      USERS_URLS.FILTER_USERS,
-      {
-        params: {
-          pageSize: searchParams.get("limit") || 3,
-          pageNumber: searchParams.get("page") || 1,
-          userName: searchParams.get("name") || null,
-          email: searchParams.get("email") || null,
-          country: searchParams.get("country") || null,
-          groups: searchParams.get("groups") || null,
-        },
-      }
-    );
-    return response?.data;
-  }, [searchParams]);
+  // const [userList, setUserList] = useState<any[]>([]);
 
-  const { data: filteredUsers, loading: usersLoading } =
-    useFetch<getUsersType>(getFilteredUsers);
-  console.log(filteredUsers);
-  return (
-    <div className="container">
-      <Filtration
-        pageName="users"
-        query={{
-          triggerUsers: getFilteredUsers,
-          triggerProjects: () => null,
-          triggerTasks: () => null,
-        }}
-      />
-      {!usersLoading && (
-        <div>
-          {filteredUsers?.data.map((user) => (
-            <div key={user.id}>
-              {user.userName}
-              <hr />
-              {user.email}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+  // // Get All users
+  // const getAllUsers = (pageNo: number, name: string) => {
+  //   axiosInstance.get(`${baseUrl}/Users/Manager`, {
+  //     headers: HEADERS,
+  //     params: {
+  //       pageSize: 5,
+  //       pageNumber: pageNo,
+  //       userName: name,
+  //     }
+  //   })
+  //     .then((response) => {
+  //       setUserList(response?.data?.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
+
+  return <div></div>;
 };
 
 export default UsersList;
