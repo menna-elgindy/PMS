@@ -121,7 +121,7 @@ return <>
   
     onClick={discardProfileImage}>
     <i className="fa-solid fa-xmark "></i>
-    <span className='sr-only'>{imageFile ? 'discard upload profile image' : 'upload profile image'}</span>
+    <span className='sr-only'>{imageFile? 'discard upload profile image' : 'upload profile image'}</span>
 
     </button>
   </div>
