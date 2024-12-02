@@ -26,7 +26,7 @@ function ChangePassword() {
        await axiosInstance.put<string>(
         AUTH_URLS.changePassword,
         data,
-        HEADERS
+        
       );
       toast.success("Password changed successfully");
       navigate("/login");
