@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useState , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AUTH_URLS, axiosInstance} from '../../../../api';
-import { emailValidation, PasswordValidation, RequiredField, userNameValidation } from '../../../../validations';
+import { emailValidation, PasswordValidation, userNameValidation } from '../../../../validations';
 import { useForm ,SubmitHandler} from 'react-hook-form';
 import { RegisterFormData } from '../../../../interface/AuthResponse/AuthResponse';
 import PasswordInput from '../../../shared/components/PasswordInput/PasswordInput';
@@ -121,7 +121,7 @@ return <>
   
     onClick={discardProfileImage}>
     <i className="fa-solid fa-xmark "></i>
-    <span className='sr-only'>{imageFile ? 'discard upload profile image' : 'upload profile image'}</span>
+    <span className='sr-only'>{imageFile? 'discard upload profile image' : 'upload profile image'}</span>
 
     </button>
   </div>
