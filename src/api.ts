@@ -3,7 +3,7 @@ import axios, { AxiosInstance } from 'axios';
 
 const BASE_URL = 'https://upskilling-egypt.com:3003/api/v1';
 
-export const axiosInstance:AxiosInstance = axios.create({
+ const axiosInstance:AxiosInstance = axios.create({
   baseURL: BASE_URL,
   
 });
@@ -12,6 +12,15 @@ export const axiosInstance:AxiosInstance = axios.create({
 export const HEADERS = {
   headers: { Authorization: localStorage.getItem('token') },
 };
+
+// axios interceptors
+axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
 //* USER AUTHENTICATION
 export const AUTH_URLS = {
@@ -40,5 +49,15 @@ const USERS_URLS={
 }
 export{
   TASKS_URLS,
-  USERS_URLS
+  USERS_URLS,
+  axiosInstance
+}
+
+// projects endpoints
+export const PROJECTS_URLS = {
+  list: 'Project/manager',
+  deleteProject: (id:number) => `Project/${id}`,
+  ADD_PROJECT:`/Project`,
+  GET_PROJECT:(id:number)=>`/Project/${id}`,
+  EDIT_PROJECT:(id:number)=>`/Project/${id}`
 }
