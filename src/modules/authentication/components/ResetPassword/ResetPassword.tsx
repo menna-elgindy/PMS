@@ -103,7 +103,7 @@ function ResetPassword() {
                           type="text"
                           className="form-control"
                           placeholder="Enter Verification"
-                          {...register("seed", {required : 'please enter otp'})}
+                          {...register("seed", RequiredField("OTP"))}
                         />
                       </div>
                       {errors.seed && (
