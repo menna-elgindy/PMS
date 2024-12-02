@@ -28,7 +28,9 @@ const ProjectsList = () => {
     setShowDelete(true);
   };
 
-  const handleShowEdit = (id: number) => {};
+  const handleShowEdit = (id: number) => {
+    console.log(id);
+  };
   const handleView = (id: number) => {
     setSelectedId(id);
     setView(true);
