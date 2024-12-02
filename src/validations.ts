@@ -39,4 +39,3 @@ export const RequiredField = (fieldName:any) => ({
 		message : 'maximum 8 characters'
 	  }
   }
-
