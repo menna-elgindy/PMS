@@ -20,6 +20,8 @@ import ProtectedComponent from './modules/shared/components/ProtectedComponent/P
 import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
+import TaskForm from "./modules/tasks/components/TaskForm/TaskForm";
+
 
 function App() {
   const routes = createBrowserRouter([
@@ -58,8 +60,20 @@ function App() {
           element: <ProjectForm />,
         },
         {
+          path: "projects/:projectId",
+          element: <ProjectForm />,
+        },
+        {
           path: "tasks",
           element: <TasksList />,
+        },
+        {
+          path: "tasks/new-task",
+          element: <TaskForm />,
+        },
+        {
+          path: "task/:taskId",
+          element: <TaskForm />,
         },
         {
           path: "users",
@@ -72,7 +86,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer position="top-center"  style={{zIndex:99999}}/>
+      <ToastContainer position="top-center"  style={{zIndex:9999999}}/>
       <RouterProvider router={routes}></RouterProvider>
     </>
   );

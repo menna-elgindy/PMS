@@ -32,7 +32,9 @@ const StatsCard = ({ title, icon, data }: StatsCardProps) => {
       </div>
       <span className={styles["title"]}>{title}</span>
       <h4>{data}</h4>
+      
     </div>
+    
   );
 };
 

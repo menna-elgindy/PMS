@@ -10,6 +10,8 @@ export default function Verification() {
 
 	const location = useLocation()
 	const myLocation = location.state
+	console.log(myLocation);
+	
 	const navigate = useNavigate()
 	
 	const{ 
