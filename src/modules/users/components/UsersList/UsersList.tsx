@@ -1,6 +1,8 @@
 // import { useState } from "react";
 // import { axiosInstance, HEADERS } from "../../../../api";
 
+import Filtration from "../../../shared/components/Filtration/Filtration";
+
 const UsersList = () => {
   // const [userList, setUserList] = useState<any[]>([]);
 
@@ -22,7 +24,11 @@ const UsersList = () => {
   //     });
   // }
 
-  return <div></div>;
+  return (
+    <div>
+      <Filtration pageName="users" />
+    </div>
+  );
 };
 
 export default UsersList;

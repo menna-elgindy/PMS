@@ -1,3 +1,6 @@
 .search-input {
   background-color: aqua;
 }
+.form-control {
+  background-color: unset;
+}
