@@ -2,6 +2,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 const BASE_URL = 'https://upskilling-egypt.com:3003/api/v1';
+const IMAGE_URL = 'https://upskilling-egypt.com:3003/';
 
  const axiosInstance:AxiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -41,8 +42,13 @@ const TASKS_URLS = {
 const USERS_URLS={
     COUNT_USERS:'Users/count'
 }
+const PROJECTS_URLS={
+  GET_PROJECT:(id:string) => `Project/${id}`
+}
 export{
   TASKS_URLS,
   USERS_URLS,
-  axiosInstance
+  PROJECTS_URLS,
+  axiosInstance,
+  IMAGE_URL
 }
