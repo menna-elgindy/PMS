@@ -1,13 +1,13 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import AuthShared from "../AuthShared/AuthShared";
 import { useForm } from "react-hook-form";
-import axios, { AxiosError } from "axios";
+import  { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { AxiosErrorResponse, ForgetPasswordFormData } from "../../../../interface/AuthResponse/AuthResponse";
-import { AUTH_URLS } from "../../../../api";
 import { emailValidation } from "../../../../validations";
 import logo from "../../../../assets/images/Auth-logo.png";
-import bgImage from "../../../../assets/images/bg3.png"
+import bgImage from "../../../../assets/images/bg2.png"
+import { AUTH_URLS, axiosInstance } from "../../../../api";
 
 
 function ForgetPassword() {
@@ -26,7 +26,8 @@ function ForgetPassword() {
   // Function to handle form submission
   const onSubmit = async (data: ForgetPasswordFormData) => {
     try {
-      const response = await axios.post(AUTH_URLS.forgetPassword, data);
+      const response = await axiosInstance.post(AUTH_URLS.forgetPassword, data);
+
       toast.success(
         response.data.message ||
           "Password reset successful. Please check your email for further instructions."
@@ -73,6 +74,7 @@ function ForgetPassword() {
                       <label className="main-colr my-1">E-mail</label>
                       <div className="input-group">
                         <input
+                        id="Info-Input"
                           type="text"
                           className="form-control"
                           placeholder="Enter your E-mail"
