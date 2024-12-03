@@ -1,4 +1,5 @@
 export interface ApiResponseForUser {
+  pageNumber?: number;
   data: UsersListResponse[];
   totalNumberOfPages: number;
   totalNumberOfRecords: number;

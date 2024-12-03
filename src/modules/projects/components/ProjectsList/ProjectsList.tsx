@@ -17,17 +17,17 @@ import useFetch from "../../../../hooks/useFetch";
 import Filtration from "../../../shared/components/Filtration/Filtration";
 
 const ProjectsList = () => {
-
-  const[pageNum,setPageNum]= useSearchParams()
+  const [pageNum, setPageNum] = useSearchParams();
 
   const [projectsData, setProjectsData] = useState([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedId, setSelectedId] = useState(0);
   const [showDelete, setShowDelete] = useState(false);
   const [view, setView] = useState(false);
-  const [arrayOfPages, setArrayOfPages] = useState([])
-  const [numberOfRecords, setNumOfRecords] = useState(0)
-  const [totalNumberOfPages, setTotalNumberOfPages] = useState(0)
+  const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
+  const [numberOfRecords, setNumOfRecords] = useState(0);
+  const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
+  const [counterLoading, setCounterLoadind] = useState<number>(0);
   const [searchParams] = useSearchParams();
 
   const handleClose = () => setShowDelete(false);
@@ -44,6 +44,35 @@ const ProjectsList = () => {
     setView(true);
   };
 
+  const getProjects = async (params: UsersFilterOptions | null = null) => {
+    if (counterLoading == 0) {
+      setLoading(true);
+      setCounterLoadind(1);
+    }
+    try {
+      const response = await axiosInstance.get(PROJECTS_URLS.list, {
+        params: {
+          pageSize: params?.pageSize,
+          pageNumber: params?.pageNumber,
+          title: searchParams.get("name"),
+        },
+      });
+      setProjectsData(response.data.data);
+      setArrayOfPages(
+        Array(response?.data?.totalNumberOfPages)
+          .fill(0)
+          .map((_, i) => i + 1)
+      );
+      console.log(response.data);
+      setPageNum({ pageNum: response?.data?.pageNumber });
+      setNumOfRecords(response?.data?.totalNumberOfRecords);
+      setTotalNumberOfPages(response?.data?.totalNumberOfPages);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getFilteredProjects = useCallback(async () => {
     const response = await axiosInstance.get<getProjectsType>(
@@ -51,8 +80,8 @@ const ProjectsList = () => {
       {
         params: {
           pageSize: 5,
-          pageNumber: Number(pageNum.get('pageNum')),
-          title: searchParams.get("name") || null,
+          pageNumber: Number(searchParams.get("pageNum")),
+          title: searchParams.get("name"),
         },
       }
     );
@@ -61,33 +90,8 @@ const ProjectsList = () => {
   const { data: filteredProjects, loading: projectsLoading } =
     useFetch<getProjectsType>(getFilteredProjects);
 
-  const getProjects = async (params: UsersFilterOptions | null = null) => {
-    try {
-      setLoading(true);
-      const response = await axiosInstance.get(
-        PROJECTS_URLS.list , {
-          params : {
-            pageSize: params?.pageSize,
-            pageNumber: params?.pageNumber,
-          }
-        }
-      );
-      setProjectsData(response.data.data);
-      setArrayOfPages(Array(response?.data?.totalNumberOfPages).fill().map((_,i)=>i+1))
-      console.log(response.data);
-      setPageNum({pageNum:response?.data?.pageNumber})
-
-      setNumOfRecords(response?.data?.totalNumberOfRecords)
-      setTotalNumberOfPages(response?.data?.totalNumberOfPages)
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    getProjects({pageNumber:pageNum.get('pageNum')});
+    getProjects({ pageNumber: Number(pageNum.get("pageNum")) });
   }, []);
 
   const deleteProject = async () => {
@@ -112,40 +116,26 @@ const ProjectsList = () => {
     handleClose();
   };
 
-  const projectsList =
-    filteredProjects !== null && !projectsLoading
-      ? filteredProjects!.data.map((project: ProjectsType) => (
-          <tr key={project.id}>
-            <td className="table-data">{project.title}</td>
-            <td className="table-data">{project.description}</td>
-            <td className="table-data">{project.task.length}</td>
-            <td className="table-data">{formatDate(project.creationDate)}</td>
-            <td className="table-data cursor-pointer">
-              <TableActions
-                handleShowDelete={() => handleShowDelete(project.id)}
-                handleShowEdit={() => handleShowEdit(project.id)}
-                handleShow={() => handleView(project.id)}
-                itemName={project.title}
-              />
-            </td>
-          </tr>
-        ))
-      : projectsData?.map((project: ProjectsType) => (
-          <tr key={project.id}>
-            <td className="table-data">{project.title}</td>
-            <td className="table-data">{project.description}</td>
-            <td className="table-data">{project.task.length}</td>
-            <td className="table-data">{formatDate(project.creationDate)}</td>
-            <td className="table-data cursor-pointer">
-              <TableActions
-                handleShowDelete={() => handleShowDelete(project.id)}
-                handleShowEdit={() => handleShowEdit(project.id)}
-                handleShow={() => handleView(project.id)}
-                itemName={project.title}
-              />
-            </td>
-          </tr>
-        ));
+  const projectsListToDisplay =
+    filteredProjects !== null && !projectsLoading && filteredProjects
+      ? filteredProjects!.data
+      : projectsData;
+  const projectsList = projectsListToDisplay?.map((project: ProjectsType) => (
+    <tr key={project.id}>
+      <td className="table-data">{project.title}</td>
+      <td className="table-data">{project.description}</td>
+      <td className="table-data">{project.task.length}</td>
+      <td className="table-data">{formatDate(project.creationDate)}</td>
+      <td className="table-data cursor-pointer">
+        <TableActions
+          handleShowDelete={() => handleShowDelete(project.id)}
+          handleShowEdit={() => handleShowEdit(project.id)}
+          handleShow={() => handleView(project.id)}
+          itemName={project.title}
+        />
+      </td>
+    </tr>
+  ));
 
   return (
     <div className="pt-5 w-100 ms-5 me-2 mx-auto">
@@ -175,8 +165,12 @@ const ProjectsList = () => {
             </thead>
             <tbody>{projectsList}</tbody>
           </table>
-          <Pagination  paginatedListFunction={getProjects} numOfRecords={numberOfRecords}  totalNumberOfPages={arrayOfPages}pageNumber={Number(pageNum.get('pageNum'))}/>
-          
+          <Pagination
+            paginatedListFunction={getProjects}
+            numOfRecords={numberOfRecords}
+            totalNumberOfPages={arrayOfPages}
+            pageNumber={Number(searchParams.get("pageNum"))}
+          />
         </div>
       )}
       <DeleteConfirmation

@@ -6,7 +6,8 @@ export interface ProjectsType {
   task: object[];
 } 
 export interface getProjectsType {
-  pageNumber: string;
+  // pageNumber?: number;
+  pageNumber: number;
   pageSize: string;
   data: ProjectsType[];
 }
