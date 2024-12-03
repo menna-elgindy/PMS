@@ -2,41 +2,76 @@ import { Tab, Tabs } from "react-bootstrap";
 import { IMAGE_URL } from "../../../../api";
 import styles from "./ProjectTabs.module.css";
 import { getProjectTypes } from "../../../../interface/Projects/Projects";
+import { UsersListResponse } from "../../../../interface/users/ApiResponseForUser";
+import { useLocation } from "react-router-dom";
+import profileImg from "../../../../assets/images/no-profile-picture.jpg";
+
 interface ProjectTabsProps {
-  project: getProjectTypes | null;
+  project?: getProjectTypes | null;
+  user?: UsersListResponse | null;
   loading: boolean;
 }
-const ProjectTabs = ({ project, loading }: ProjectTabsProps) => {
+const ProjectTabs = ({ project, user, loading }: ProjectTabsProps) => {
+  const { pathname } = useLocation();
   return (
     <>
-      {!loading && project && (
+      {!loading && project && pathname.includes("projects") && (
         <Tabs defaultActiveKey="overview" id="project-tabs" className="mb-3">
-          <Tab eventKey="overview" title="Overview">
-            <h3>{project!.title}</h3> <p>{project!.description}</p>
+          <Tab
+            eventKey="overview"
+            title="Overview"
+            tabClassName={`${styles.customTab}`}
+          >
+            <p>
+              <strong>Name:</strong> {project!.title}
+            </p>
+            <p>
+              <strong>Description:</strong>
+              {project!.description}
+            </p>
             <p>
               <strong>Creation Date:</strong> {project!.creationDate}
             </p>
-            {/* <p>
-          <strong>Modification Date:</strong> {project!.modificationDate}
-        </p> */}
           </Tab>
-          <Tab eventKey="tasks" title="Tasks">
-            <h4>Tasks</h4>
-            <ul>
+          <Tab
+            eventKey="tasks"
+            title="Tasks"
+            tabClassName={`${styles.customTab}`}
+          >
+            <div>
               {project!.task.map((task) => (
-                <li key={task.id}>
-                  {" "}
-                  <strong>Title:</strong> {task!.title}
-                  <br /> <strong>Description:</strong> {task!.description}
-                  <br /> <strong>Status:</strong> {task!.status}
-                  <br /> <strong>Creation Date:</strong> {task!.creationDate}
-                  <br /> <strong>Modification Date:</strong>{" "}
-                  {task!.modificationDate}{" "}
-                </li>
+                <div key={task.id} className="pb-3">
+                  <div
+                    className={`d-flex  justify-content-between align-items-center ${
+                      task!.status === "ToDo"
+                        ? styles["todo-card"]
+                        : task!.status === "Done"
+                        ? styles["done-card"]
+                        : styles["inprogress-card"]
+                    } `}
+                  >
+                    {task!.title}
+                    <span className={`d-flex `}>
+                      <i
+                        className={`${
+                          task!.status === "ToDo"
+                            ? "fa fa-pencil-alt"
+                            : task!.status === "Done"
+                            ? "fa fa-check"
+                            : "fa fa-hourglass-half"
+                        }`}
+                      />
+                    </span>
+                  </div>
+                </div>
               ))}{" "}
-            </ul>{" "}
+            </div>{" "}
           </Tab>{" "}
-          <Tab eventKey="manager" title="Manager">
+          <Tab
+            eventKey="manager"
+            title="Manager"
+            tabClassName={`${styles.customTab}`}
+          >
             <div className="d-flex p-2 gap-2 ">
               <img
                 src={IMAGE_URL + project!.manager!.imagePath}
@@ -50,9 +85,28 @@ const ProjectTabs = ({ project, loading }: ProjectTabsProps) => {
                 </span>
               </div>
             </div>
-            {/* <p>
-          <strong>Phone Number:</strong> {project!.manager.phoneNumber}
-        </p> */}
+          </Tab>
+        </Tabs>
+      )}
+      {!loading && user && pathname.includes("users") && (
+        <Tabs defaultActiveKey="overview" id="users-tabs" className="mb-3">
+          <Tab
+            eventKey="overview"
+            title="Overview"
+            tabClassName={styles.customTab}
+          >
+            <div className="d-flex p-2 gap-2 ">
+              <img
+                src={user!.imagePath ? IMAGE_URL + user!.imagePath : profileImg}
+                alt="Manager"
+                className={`img-fluid rounded-circle  ${styles["manager-img"]}`}
+              />
+              <div className="d-flex flex-column">
+                <span> {user!.userName}</span>
+                <span className={styles["email"]}>{user!.email}</span>
+                <span>{user!.isActivated}</span>
+              </div>
+            </div>
           </Tab>
         </Tabs>
       )}

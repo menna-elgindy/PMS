@@ -105,11 +105,13 @@ body {
     padding-bottom: 0.7rem;
   }
 
-  .border-icon, #Info-Input {
+  .border-icon,
+  #Info-Input {
     border-bottom: rgba(255, 255, 255, 1) 1px solid;
   }
 
-  #Info-Input::placeholder, #Info-Input:focus {
+  #Info-Input::placeholder,
+  #Info-Input:focus {
     color: #fff;
     background-color: transparent;
   }
@@ -366,7 +368,6 @@ body {
   margin-top: 25px;
 }
 
-
 .tableHeaderBtn {
   background-color: var(--main-colr);
   border: unset;
@@ -392,25 +393,33 @@ body {
   border-radius: 24px;
 }
 
-
-
 .pagniationLink {
   border: unset;
   cursor: pointer;
 }
 /*********************** Table *******************/
 th.table-header {
-	background-color: #315951e5;
-	border: 1px solid #315951e5;
-	color: #fff;
-	font-size: 14px;
-	font-weight: 400;
-	padding: 16px;
+  background-color: #315951e5;
+  border: 1px solid #315951e5;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 16px;
 }
 
 td.table-data {
-	color: #4f4f4f;
-	font-weight: 400;
-	padding: 16px;
+  color: #4f4f4f;
+  font-weight: 400;
+  padding: 16px;
   vertical-align: middle;
+}
+/* ********************** Tabs ******************* */
+/* Target the active tab using the :active pseudo-class */
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color: var(--main-bg);
+}
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link:hover {
+  color: var(--main-bg);
 }

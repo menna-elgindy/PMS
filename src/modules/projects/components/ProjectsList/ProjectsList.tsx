@@ -34,7 +34,6 @@ const ProjectsList = () => {
     console.log(id);
   };
   const handleView = (id: number) => {
-    console.log("projectid", id);
     setSelectedId(id);
     setView(true);
   };
@@ -142,7 +141,7 @@ const ProjectsList = () => {
         handleClose={handleClose}
       />
       <ViewDetailsModal
-        data={selectedProject}
+        projectData={selectedProject}
         toggleShow={view}
         handleCloseDetails={handleCloseDetails}
         loading={projectLoading}

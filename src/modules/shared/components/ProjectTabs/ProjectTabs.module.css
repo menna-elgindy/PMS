@@ -1,3 +1,11 @@
+:root {
+  --done-card: rgba(229, 230, 244, 1);
+  --todo-card: rgba(244, 244, 229, 1);
+  --inprogress-card: rgba(244, 229, 237, 1);
+  --deactive-color: rgba(239, 155, 40, 1);
+  --active-color: rgba(49, 89, 81, 0.9);
+}
+
 .manager-img {
   width: 70px;
   height: 70px;
@@ -6,4 +14,51 @@
   display: inline-block;
   max-width: 80%;
   word-wrap: break-word;
+}
+.inprogress-card {
+  /* background-color: #fff9c4; */
+  background-color: var(--inprogress-card);
+  /* border: 1px solid #fff59d; */
+  border: 1px solid var(--inprogress-card);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+}
+.inprogress-icon {
+  font-size: 24px;
+  margin-right: 8px;
+}
+.todo-card {
+  /* background-color: #e0f7fa; */
+  background-color: var(--todo-card);
+  /* border: 1px solid #b2ebf2; */
+  border: 1px solid var(--todo-card);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+}
+.todo-icon {
+  font-size: 24px;
+  margin-right: 8px;
+}
+.done-card {
+  /* background-color: #e8f5e9; */
+  background-color: var(--done-card);
+  border: 1px solid var(--done-card);
+  /* border: 1px solid #c8e6c9; */
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+}
+.done-icon {
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+.customTab {
+  font-weight: 600;
+  color: var(--active-color);
 }

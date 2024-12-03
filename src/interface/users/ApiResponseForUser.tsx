@@ -1,7 +1,7 @@
 export interface ApiResponseForUser {
   data: UsersListResponse[];
   totalNumberOfPages: number;
-  totalNumberOfRecords: number; 
+  totalNumberOfRecords: number;
 }
 
 export interface UsersListResponse {
@@ -11,8 +11,12 @@ export interface UsersListResponse {
   phoneNumber: string;
   email: string;
   creationDate: string;
+  imagePath?: string;
+  group?: Group;
 }
-
+interface Group {
+  name: string;
+}
 export interface UsersFilterOptions {
   userName?: string;
   email?: string;
