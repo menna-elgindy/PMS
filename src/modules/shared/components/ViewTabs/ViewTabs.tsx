@@ -1,6 +1,6 @@
 import { Tab, Tabs } from "react-bootstrap";
 import { IMAGE_URL } from "../../../../api";
-import styles from "./ProjectTabs.module.css";
+import styles from "./ViewTabs.module.css";
 import { getProjectTypes } from "../../../../interface/Projects/Projects";
 import { UsersListResponse } from "../../../../interface/users/ApiResponseForUser";
 import { useLocation } from "react-router-dom";

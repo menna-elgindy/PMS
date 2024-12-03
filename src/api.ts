@@ -51,7 +51,7 @@ const USERS_URLS={
    CreateAnManagerUrl : `Users/Create`,
    GetUserByIdUrl : (id: number) => `Users/${id}`,
    toggleUserUrl: (id: number) => `Users/${id}`,
-   getUsersByManagerUrl: `Users/Manage/r`,
+   getUsersByManagerUrl: `Users/Manager/`,
    getAllUsersUrl: `Users/`,
    GetCurrentUserUrl: `Users/currentUser`,
 }

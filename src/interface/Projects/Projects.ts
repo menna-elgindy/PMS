@@ -40,3 +40,10 @@ export interface getProjectTypes {
   manager: ManagerType;
   
 }
+
+export interface getProjectsType {
+  // pageNumber?: number;
+  pageNumber: number;
+  pageSize: string;
+  data: ProjectsType[];
+}
