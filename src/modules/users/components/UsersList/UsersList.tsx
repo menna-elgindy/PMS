@@ -64,8 +64,8 @@ const UsersList = () => {
       USERS_URLS.FILTER_USERS,
       {
         params: {
-          pageSize: searchParams.get("limit") || 3,
-          pageNumber: searchParams.get("page") || 1,
+          pageSize: searchParams.get("pageSize") || 3,
+          pageNumber: searchParams.get("pageNumber") || 1,
           userName: searchParams.get("name") || null,
           email: searchParams.get("email") || null,
           country: searchParams.get("country") || null,

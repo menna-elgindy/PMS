@@ -41,8 +41,8 @@ const ProjectsList = () => {
       PROJECTS_URLS.FILTER_PROJECTS,
       {
         params: {
-          pageSize: searchParams.get("limit") || 3,
-          pageNumber: searchParams.get("page") || 1,
+          pageSize: searchParams.get("pageSize") || 3,
+          pageNumber: searchParams.get("pageNumber") || 1,
           title: searchParams.get("name") || null,
         },
       }

@@ -22,9 +22,9 @@ export interface UsersFilterOptions {
   pageNumber?: number;
 }
 export interface getFilterUsersType {
-  pageNumber: string;
-  pageSize: string;
-  data: [
+  pageNumber?: string;
+  pageSize?: string;
+  data?: [
     {
       id: string;
       userName: string;
