@@ -18,7 +18,7 @@ const ProjectForm = () => {
     const parsedId = parseInt(projectId!, 10);
     try {
       await axiosInstance[isNewProject?'post':'put'](isNewProject?PROJECTS_URLS.ADD_PROJECT:PROJECTS_URLS.EDIT_PROJECT(parsedId),data,HEADERS)
-      // isNewProject ? toast.success("Project added successfully") : toast.success("Project updated successfully");
+      isNewProject ? toast.success("Project added successfully") : toast.success("Project updated successfully");
       navigate('/projects')
     } catch (error:any) {
       toast.error(error?.response?.data?.message);

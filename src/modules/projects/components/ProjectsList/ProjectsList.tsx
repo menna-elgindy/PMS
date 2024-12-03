@@ -1,40 +1,77 @@
 import { axiosInstance, PROJECTS_URLS } from "../../../../api";
+import useFetch from "../../../../hooks/useFetch";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import DeleteConfirmation from "../../../shared/components/DeleteConfirmation/DeleteConfirmation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { formatDate } from "../../../../helpers";
-import { ProjectsType } from "../../../../interface/Projects/Projects";
+import {
+  getProjectTypes,
+  getProjectsType,
+  ProjectsType,
+} from "../../../../interface/Projects/Projects";
 import TableHeader from "../../../shared/components/TableHeader/TableHeader";
 import TableActions from "../../../shared/components/TableActions/TableActions";
+import Pagination from "../../../shared/components/Pagination/Pagination";
+import { UsersFilterOptions } from "../../../../interface/users/ApiResponseForUser";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import Filtration from "../../../shared/components/Filtration/Filtration";
+import ViewDetailsModal from "../../../shared/components/ViewDetailsModal/ViewDetailsModal";
 import NoData from "../../../shared/components/NoData/NoData";
 
 const ProjectsList = () => {
+  const [pageNum, setPageNum] = useSearchParams();
   const [projectsData, setProjectsData] = useState([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [selectedId, setSelectedId] = useState(0);
+  const [selectedId, setSelectedId] = useState<number>(0);
   const [showDelete, setShowDelete] = useState(false);
   const [view, setView] = useState(false);
+  const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
+  const [numberOfRecords, setNumOfRecords] = useState(0);
+  const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
+  const [searchParams] = useSearchParams();
+
+  const navigate = useNavigate();
 
   const handleClose = () => setShowDelete(false);
+
+  const handleCloseDetails = () => setView(false);
+
   const handleShowDelete = (id: number) => {
     setSelectedId(id);
     setShowDelete(true);
   };
 
-  const handleShowEdit = (id: number) => {};
+  const handleShowEdit = (id: number) => {
+    navigate(`${id}`);
+    console.log(id);
+  };
+
   const handleView = (id: number) => {
     setSelectedId(id);
     setView(true);
   };
 
-  const getProjects = async () => {
+  const getProjects = async (params: UsersFilterOptions | null = null) => {
     try {
       setLoading(true);
-      const response = await axiosInstance.get(
-        `${PROJECTS_URLS.list}?pageSize=10&pageNumber=1`
-      );
+      const response = await axiosInstance.get(PROJECTS_URLS.list, {
+        params: {
+          pageSize: params?.pageSize,
+          pageNumber: params?.pageNumber,
+          title: searchParams.get("name"),
+        },
+      });
       setProjectsData(response.data.data);
+      setArrayOfPages(
+        Array(response?.data?.totalNumberOfPages)
+          .fill(0)
+          .map((_, i) => i + 1)
+      );
+      console.log(response.data);
+      setPageNum({ pageNum: response?.data?.pageNumber });
+      setNumOfRecords(response?.data?.totalNumberOfRecords);
+      setTotalNumberOfPages(response?.data?.totalNumberOfPages);
     } catch (error) {
       console.log(error);
     } finally {
@@ -42,9 +79,21 @@ const ProjectsList = () => {
     }
   };
 
-  useEffect(() => {
-    getProjects();
-  }, []);
+  const getFilteredProjects = useCallback(async () => {
+    const response = await axiosInstance.get<getProjectsType>(
+      PROJECTS_URLS.FILTER_PROJECTS,
+      {
+        params: {
+          pageSize: 5,
+          pageNumber: Number(searchParams.get("pageNum")),
+          title: searchParams.get("name"),
+        },
+      }
+    );
+    return response?.data;
+  }, [searchParams]);
+  const { data: filteredProjects, loading: projectsLoading } =
+    useFetch<getProjectsType>(getFilteredProjects);
 
   const deleteProject = async () => {
     try {
@@ -67,20 +116,23 @@ const ProjectsList = () => {
     }
     handleClose();
   };
-  // const handleDelete = async () => {
-  //   try {
-  //     // setIsLoading(true);
-  //     const response = await axiosInstance.delete(
-  //       PROJECTS_URLS.deleteProject(id)
-  //     );
-  //     // setShowDelete(false);
-  //     getProjects();
-  //     toast.success("Category deleted successfully");
-  //     // setIsLoading(false);
-  //   } catch (error) {
-  //     toast.error("Can't delete this category");
-  //   }
-  // };
+  const viewProject = useCallback(async () => {
+    const response = await axiosInstance.get<getProjectTypes>(
+      PROJECTS_URLS.GET_PROJECT(selectedId)
+    );
+    return response?.data;
+  }, [selectedId]);
+  const { data: selectedProject, loading: projectLoading } =
+    useFetch<getProjectTypes>(viewProject);
+
+  useEffect(() => {
+    getProjects({ pageNumber: Number(pageNum.get("pageNum")) });
+  }, []);
+
+  const projectsListToDisplay =
+    filteredProjects !== null && !projectsLoading && filteredProjects
+      ? filteredProjects!.data
+      : projectsData;
 
   const projectsList = projectsData.length >0 ? (projectsData.map((project: ProjectsType) => (
     <tr key={project.id}>
@@ -112,6 +164,7 @@ const ProjectsList = () => {
         btnTitle="Add New Project"
         url="new-project"
       />
+      <Filtration pageName="projects" />
       {loading ? (
         <div className="d-flex justify-content-center">
           <div className="spinner-border text-warning" role="status">
@@ -132,6 +185,12 @@ const ProjectsList = () => {
             </thead>
             <tbody>{projectsList}</tbody>
           </table>
+          <Pagination
+            paginatedListFunction={getProjects}
+            numOfRecords={numberOfRecords}
+            totalNumberOfPages={arrayOfPages}
+            pageNumber={Number(searchParams.get("pageNum"))}
+          />
         </div>
       )}
       <DeleteConfirmation
@@ -139,6 +198,12 @@ const ProjectsList = () => {
         deleteFun={deleteProject}
         toggleShow={showDelete}
         handleClose={handleClose}
+      />
+      <ViewDetailsModal
+        projectData={selectedProject}
+        toggleShow={view}
+        handleCloseDetails={handleCloseDetails}
+        loading={projectLoading}
       />
     </div>
   );

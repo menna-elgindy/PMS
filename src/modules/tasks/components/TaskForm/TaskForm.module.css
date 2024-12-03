@@ -47,6 +47,10 @@
     color: var(--label-color);
 
 }
+.option-item {
+    color: var(--label-color);
+
+}
 
 .form-input::placeholder{
     color:var(--placeholder-color)

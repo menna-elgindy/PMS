@@ -4,6 +4,7 @@ import axios, { AxiosInstance } from 'axios';
 const BASE_URL = 'https://upskilling-egypt.com:3003/api/v1';
 const IMAGE_URL = 'https://upskilling-egypt.com:3003/';
 
+
  const axiosInstance:AxiosInstance = axios.create({
   baseURL: BASE_URL,
   
@@ -40,7 +41,8 @@ const TASKS_URLS = {
   get_All : `Task/manager`,
   ADD_Task:`/Task`,
   GET_Task:(id:number)=>`/Task/${id}`,
-  EDIT_TASK:(id:number)=>`/Task/${id}`
+  EDIT_TASK:(id:number)=>`/Task/${id}`,
+  DELETE_TASK:(id:number)=>`/Task/${id}`
 }
 
 // users_enpoints
@@ -50,7 +52,7 @@ const USERS_URLS={
    CreateAnManagerUrl : `Users/Create`,
    GetUserByIdUrl : (id: number) => `Users/${id}`,
    toggleUserUrl: (id: number) => `Users/${id}`,
-   getUsersByManagerUrl: `Users/Manage/r`,
+   getUsersByManagerUrl: `Users/Manager/`,
    getAllUsersUrl: `Users/`,
    GetCurrentUserUrl: `Users/currentUser`,
 }
@@ -60,7 +62,7 @@ export const PROJECTS_URLS = {
   list: 'Project/manager',
   DELETE_PROJECT: (id:number) => `Project/${id}`,
   ADD_PROJECT:`/Project`,
-  GET_PROJECT:(id:number)=>`/Project/${id}`,
+  GET_PROJECT:(id:number)=>`Project/${id}`,
   FILTER_PROJECTS:'Project/manager',
   EDIT_PROJECT:(id:number)=>`/Project/${id}`
 }
@@ -73,8 +75,3 @@ export{
 }
 
 
-// const PROJECTS_URLS={
-//   GET_PROJECT:(id:string) => `Project/${id}`,
-//   FILTER_PROJECTS:'Project/manager',
-//   DELETE_PROJECT:(id:string) => `Project/${id}`,
-// }

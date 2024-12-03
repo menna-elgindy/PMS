@@ -1,12 +1,10 @@
-export interface EmployeeType {
+/* export interface EmployeeType {
     userName: string;
   }
-  
   export interface ProjectType {
     description: string;
-  }
-  
-  export interface tasksType {
+  } 
+ export interface tasksType {
     id: number;
     title: string;
     status: string;
@@ -14,7 +12,7 @@ export interface EmployeeType {
     project: ProjectType;
     creationDate: string;
   }
-
+ */
   export interface ParamsType {
     title?: string;
     status?: "ToDo" | "InProgress" | "Done" ;

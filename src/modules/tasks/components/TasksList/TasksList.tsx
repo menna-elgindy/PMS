@@ -1,16 +1,80 @@
 import { useEffect, useState } from "react";
 import { axiosInstance, TASKS_URLS } from "../../../../api";
 import TableHeader from "../../../shared/components/TableHeader/TableHeader";
-import { ParamsType, tasksType } from "../../../../interface/Tasks/Tasks";
+import { ParamsType } from "../../../../interface/Tasks/Tasks";
 import NoData from "../../../shared/components/NoData/NoData";
 import { formatDate } from "../../../../helpers";
 import './TasksList.css'
+import { useCallback } from "react";
+import ViewDetailsModal from "../../../shared/components/ViewDetailsModal/ViewDetailsModal";
+import useFetch from "../../../../hooks/useFetch";
+import DeleteConfirmation from "../../../shared/components/DeleteConfirmation/DeleteConfirmation";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
+
+export interface getTaskTypes {
+  id: number;
+  title: string;
+  description: string;
+  status: string;
+  creationDate: string;
+  employee: {
+    userName: string;
+    imagePath: string;
+    email: string;
+  };
+  project: {
+    title: string;
+    description: string;
+  };
+}
 
 const TasksList = () => {
+const [selectedId, setSelectedId] = useState<number>(0);
+const [view, setView] = useState<boolean>(false);
+const [showDelete, setShowDelete] = useState(false);
+const handleCloseDetails = () => setView(false);
+const handleClose = () => setShowDelete(false);
+
+const handleView = (id: number) => {
+  setSelectedId(id);
+  setView(true);
+};
+const deleteTask = async () => {
+  try {
+    const response = await axiosInstance.delete(TASKS_URLS.DELETE_TASK(1015));
+    if (response?.data.affected !== 0) {
+      toast.success("Task deleted successfully");
+      // taskQuery?.triggerTasks(params.get("page") || 1);
+      // getTasks();
+    } else {
+      toast.error("Task not found");
+    }
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.response) {
+        toast.error(error.response.data.message || "something went wrong");
+      }
+    } else toast.error("An unknown error occurred");
+  }
+  handleClose();
+};
+const viewTask = useCallback(async () => {
+  const response = await axiosInstance.get<getTaskTypes>(
+    TASKS_URLS.GET_Task(selectedId)
+  );
+  return response?.data;
+}, [selectedId]);
+
+const { data: selectedTask, loading: taskLoading } =
+  useFetch<getTaskTypes>(viewTask);
+ 
   const[tasksList , setTasksList] = useState([])
   const [loading, setLoading] = useState<boolean>(false);
 
-  let getTasksList= async(params :ParamsType | null = null) =>{
+////////////////////getTasksList///////////////////////////////////////////////
+  
+let getTasksList= async(params :ParamsType | null = null) =>{
     try {
       setLoading(true);
       const response =await axiosInstance.get(TASKS_URLS.get_All,
@@ -23,14 +87,12 @@ const TasksList = () => {
           },
         }
       )
-      console.log(response?.data?.data)
+    
       setTasksList(response.data.data)
-
-      
+   
     } catch (error) {
       console.log(error)
     }
-
    finally {
     setLoading(false);
   }
@@ -42,7 +104,7 @@ const TasksList = () => {
   },[])
 
 
-  const taskList = tasksList.length > 0 ? (tasksList.map((task : tasksType) => (
+  const taskList = tasksList.length > 0 ? (tasksList.map((task : getTaskTypes) => (
     <tr key={task.id}>
       <td className="table-data">{task.title}</td>
       <td className="table-data">
@@ -58,8 +120,6 @@ const TasksList = () => {
           {task.status}
         </span>
      </td>
-
-
       <td className="table-data">{task.employee.userName}</td>
       <td className="table-data">{task.project.description}</td>
       <td className="table-data">{formatDate(task.creationDate)}</td>
@@ -106,9 +166,22 @@ const TasksList = () => {
       </div>
     )}
 
-  </div>
-
-  );
+    <div>
+      <DeleteConfirmation
+        deleteItem={"Task"}
+        deleteFun={deleteTask}
+        toggleShow={showDelete}
+        handleClose={handleClose}
+      />
+      <ViewDetailsModal
+        taskData={selectedTask}
+        toggleShow={view}
+        handleCloseDetails={handleCloseDetails}
+        loading={taskLoading}
+      />
+    </div>
+    </div>
+ );
 };
 
 export default TasksList;

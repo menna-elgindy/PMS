@@ -4,10 +4,24 @@ import AddFormHeader from "../../../shared/components/AddFormHeader/AddFormHeade
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { AddTaskPayload } from "../../../../interface/Add&EditResponse/Add&EditResponse";
 import { toast } from "react-toastify";
-import { axiosInstance, HEADERS, TASKS_URLS } from "../../../../api";
-import { useEffect } from "react";
+import {
+  axiosInstance,
+  HEADERS,
+  PROJECTS_URLS,
+  TASKS_URLS,
+  USERS_URLS,
+} from "../../../../api";
+import { useEffect, useState } from "react";
+import { ProjectsType } from "../../../../interface/Projects/Projects";
+import {
+  ApiResponseForUser,
+  UsersListResponse,
+} from "../../../../interface/users/ApiResponseForUser";
 
 const TaskForm = () => {
+  const [projectsData, setProjectsData] = useState([]);
+  const [usersList, setUsersList] = useState<UsersListResponse[]>([]);
+
   const {
     register,
     formState: { errors, isSubmitting },
@@ -21,7 +35,7 @@ const TaskForm = () => {
   const onSubmit = async (data: AddTaskPayload) => {
     const parsedId = parseInt(taskId!, 10);
     try {
-      await axiosInstance[isNewTask ? "post" : "put"](
+     let res= await axiosInstance[isNewTask ? "post" : "put"](
         isNewTask ? TASKS_URLS.ADD_Task : TASKS_URLS.EDIT_TASK(parsedId),
         data,
         HEADERS
@@ -29,6 +43,7 @@ const TaskForm = () => {
       isNewTask
         ? toast.success("Task added successfully")
         : toast.success("Task updated successfully");
+        console.log(res.data)
       navigate("/tasks");
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
@@ -36,6 +51,31 @@ const TaskForm = () => {
   };
 
   useEffect(() => {
+    const getProjects = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `${PROJECTS_URLS.list}?pageSize=10&pageNumber=1`
+        );
+        setProjectsData(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProjects();
+
+    const getUsers = async () => {
+      try {
+        const response = await axiosInstance.get<ApiResponseForUser>(
+          `${USERS_URLS.getAllUsersUrl}?pageSize=10&pageNumber=1`
+        );
+        setUsersList(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getUsers();
+
     if (!isNewTask) {
       const parsedId = parseInt(taskId!, 10);
       const getTask = async () => {
@@ -104,15 +144,20 @@ const TaskForm = () => {
               })}
             >
               <option value="">No Users Selected</option>
-              {/*TagsQuery?.tags?.map(({id,name})=>
-                            <option key={id} value={id}>{name}</option>
-                        )*/}
+              {usersList?.map((user: UsersListResponse) => (
+                <option
+                  key={user.id}
+                  value={user.id}
+                  className={style["option-item"]}
+                >
+                  {user.userName}
+                </option>
+              ))}
             </select>
             {errors.employeeId && (
-            <span className="text-danger ">{errors.employeeId.message}</span>
-          )}
+              <span className="text-danger ">{errors.employeeId.message}</span>
+            )}
           </div>
-
 
           {/*Project */}
           <div className={style["selector-group"]}>
@@ -125,15 +170,20 @@ const TaskForm = () => {
               })}
             >
               <option value="">No Status Selected</option>
-              {/*TagsQuery?.tags?.map(({id,name})=>
-                            <option key={id} value={id}>{name}</option>
-                        )*/}
+              {projectsData?.map((project: ProjectsType) => (
+                <option
+                  key={project.id}
+                  value={project.id}
+                  className={style["option-item"]}
+                >
+                  {project.title}
+                </option>
+              ))}
             </select>
             {errors.projectId && (
-            <span className="text-danger ">{errors.projectId.message}</span>
-          )}
+              <span className="text-danger ">{errors.projectId.message}</span>
+            )}
           </div>
-
         </div>
 
         <div className={style["btns-wrapper"]}>
