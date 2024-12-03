@@ -72,7 +72,7 @@ function App() {
           element: <TaskForm />,
         },
         {
-          path: "task/:taskId",
+          path: "tasks/:taskId",
           element: <TaskForm />,
         },
         {
