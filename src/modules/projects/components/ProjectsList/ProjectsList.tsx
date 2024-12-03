@@ -1,10 +1,12 @@
 import { axiosInstance, PROJECTS_URLS } from "../../../../api";
+import useFetch from "../../../../hooks/useFetch";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import DeleteConfirmation from "../../../shared/components/DeleteConfirmation/DeleteConfirmation";
 import { useCallback, useEffect, useState } from "react";
 import { formatDate } from "../../../../helpers";
 import {
+  getProjectTypes,
   getProjectsType,
   ProjectsType,
 } from "../../../../interface/Projects/Projects";
@@ -13,15 +15,14 @@ import TableActions from "../../../shared/components/TableActions/TableActions";
 import Pagination from "../../../shared/components/Pagination/Pagination";
 import { UsersFilterOptions } from "../../../../interface/users/ApiResponseForUser";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import useFetch from "../../../../hooks/useFetch";
 import Filtration from "../../../shared/components/Filtration/Filtration";
+import ViewDetailsModal from "../../../shared/components/ViewDetailsModal/ViewDetailsModal";
 
 const ProjectsList = () => {
   const [pageNum, setPageNum] = useSearchParams();
-
   const [projectsData, setProjectsData] = useState([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [selectedId, setSelectedId] = useState(0);
+  const [selectedId, setSelectedId] = useState<number>(0);
   const [showDelete, setShowDelete] = useState(false);
   const [view, setView] = useState(false);
   const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
@@ -33,6 +34,9 @@ const ProjectsList = () => {
   const navigate = useNavigate();
 
   const handleClose = () => setShowDelete(false);
+
+  const handleCloseDetails = () => setView(false);
+
   const handleShowDelete = (id: number) => {
     setSelectedId(id);
     setShowDelete(true);
@@ -42,6 +46,7 @@ const ProjectsList = () => {
     navigate(`${id}`);
     console.log(id);
   };
+
   const handleView = (id: number) => {
     setSelectedId(id);
     setView(true);
@@ -118,11 +123,21 @@ const ProjectsList = () => {
     }
     handleClose();
   };
+  const viewProject = useCallback(async () => {
+    const response = await axiosInstance.get<getProjectTypes>(
+      PROJECTS_URLS.GET_PROJECT(selectedId)
+    );
+    return response?.data;
+  }, [selectedId]);
+
+  const { data: selectedProject, loading: projectLoading } =
+    useFetch<getProjectTypes>(viewProject);
 
   const projectsListToDisplay =
     filteredProjects !== null && !projectsLoading && filteredProjects
       ? filteredProjects!.data
       : projectsData;
+
   const projectsList = projectsListToDisplay?.map((project: ProjectsType) => (
     <tr key={project.id}>
       <td className="table-data">{project.title}</td>
@@ -181,6 +196,12 @@ const ProjectsList = () => {
         deleteFun={deleteProject}
         toggleShow={showDelete}
         handleClose={handleClose}
+      />
+      <ViewDetailsModal
+        projectData={selectedProject}
+        toggleShow={view}
+        handleCloseDetails={handleCloseDetails}
+        loading={projectLoading}
       />
     </div>
   );

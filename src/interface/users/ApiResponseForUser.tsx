@@ -12,8 +12,12 @@ export interface UsersListResponse {
   phoneNumber: string;
   email: string;
   creationDate: string;
+  imagePath?: string;
+  group?: Group;
 }
-
+interface Group {
+  name: string;
+}
 export interface UsersFilterOptions {
   userName?: string;
   email?: string;

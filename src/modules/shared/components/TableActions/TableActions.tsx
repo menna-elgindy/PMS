@@ -27,11 +27,7 @@ const TableActions: React.FC<tableActionsData> = ({
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item
-              onClick={() => {
-                handleShow();
-              }}
-            >
+            <Dropdown.Item onClick={handleShow}>
               {" "}
               <i className="fa-solid fa-eye option-icons"></i>View
               <span className="sr-only">click to view {itemName}</span>

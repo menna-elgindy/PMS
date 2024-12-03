@@ -16,6 +16,7 @@ import { formatDate } from "../../../../helpers";
 import Filtration from "../../../shared/components/Filtration/Filtration";
 import useFetch from "../../../../hooks/useFetch";
 import Pagination from "../../../shared/components/Pagination/Pagination";
+import ViewDetailsModal from "../../../shared/components/ViewDetailsModal/ViewDetailsModal";
 
 const UsersList = () => {
   const [pageNum, setPageNum] = useSearchParams();
@@ -26,8 +27,17 @@ const UsersList = () => {
   const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [counterLoading, setCounterLoadind] = useState<number>(0);
+  const [selectedId, setSelectedId] = useState<number>(0);
+  const [view, setView] = useState<boolean>(false);
+
+  const handleCloseDetails = () => setView(false);
   const [searchParams] = useSearchParams();
 
+  const handleView = (id: number) => {
+    console.log("projectid", id);
+    setSelectedId(id);
+    setView(true);
+  };
   // Function to fetch the list of users from the API
   const getAllUsers = async (params: UsersFilterOptions | null = null) => {
     if (counterLoading == 0) {
@@ -111,6 +121,16 @@ const UsersList = () => {
   useEffect(() => {
     getAllUsers({ pageNumber: Number(pageNum.get("pageNum")) });
   }, []);
+  const viewUser = useCallback(async () => {
+    const response = await axiosInstance.get<UsersListResponse>(
+      USERS_URLS.GetUserByIdUrl(selectedId)
+    );
+    return response?.data;
+  }, [selectedId]);
+
+  const { data: selectedUser, loading: userLoading } =
+    useFetch<UsersListResponse>(viewUser);
+  console.log("selecteduser", selectedUser);
   const usersListToDisplay =
     filteredUsers !== null && !usersLoading && filteredUsers
       ? filteredUsers!.data
@@ -204,6 +224,7 @@ const UsersList = () => {
                                   to=""
                                   state={{ type: "edit" }}
                                   className="dropdown-item text-success"
+                                  onClick={() => handleView(user.id)}
                                 >
                                   <i className="fa fa-eye mx-2"></i>
                                   View
@@ -228,6 +249,12 @@ const UsersList = () => {
             )}
           </div>
         )}
+        <ViewDetailsModal
+          userData={selectedUser}
+          toggleShow={view}
+          handleCloseDetails={handleCloseDetails}
+          loading={userLoading}
+        />
       </div>
     </>
   );
