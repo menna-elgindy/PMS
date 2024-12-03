@@ -28,7 +28,6 @@ const ProjectsList = () => {
   const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
   const [numberOfRecords, setNumOfRecords] = useState(0);
   const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
-  const [counterLoading, setCounterLoadind] = useState<number>(0);
   const [searchParams] = useSearchParams();
 
   const navigate = useNavigate();
@@ -53,11 +52,8 @@ const ProjectsList = () => {
   };
 
   const getProjects = async (params: UsersFilterOptions | null = null) => {
-    if (counterLoading == 0) {
-      setLoading(true);
-      setCounterLoadind(1);
-    }
     try {
+      setLoading(true);
       const response = await axiosInstance.get(PROJECTS_URLS.list, {
         params: {
           pageSize: params?.pageSize,
@@ -98,10 +94,6 @@ const ProjectsList = () => {
   const { data: filteredProjects, loading: projectsLoading } =
     useFetch<getProjectsType>(getFilteredProjects);
 
-  useEffect(() => {
-    getProjects({ pageNumber: Number(pageNum.get("pageNum")) });
-  }, []);
-
   const deleteProject = async () => {
     try {
       const response = await axiosInstance.delete(
@@ -129,9 +121,12 @@ const ProjectsList = () => {
     );
     return response?.data;
   }, [selectedId]);
-
   const { data: selectedProject, loading: projectLoading } =
     useFetch<getProjectTypes>(viewProject);
+
+  useEffect(() => {
+    getProjects({ pageNumber: Number(pageNum.get("pageNum")) });
+  }, []);
 
   const projectsListToDisplay =
     filteredProjects !== null && !projectsLoading && filteredProjects
