@@ -18,7 +18,7 @@ const ProjectForm = () => {
     const parsedId = parseInt(projectId!, 10);
     try {
       await axiosInstance[isNewProject?'post':'put'](isNewProject?PROJECTS_URLS.ADD_PROJECT:PROJECTS_URLS.EDIT_PROJECT(parsedId),data,HEADERS)
-      // isNewProject ? toast.success("Project added successfully") : toast.success("Project updated successfully");
+      isNewProject ? toast.success("Project added successfully") : toast.success("Project updated successfully");
       navigate('/projects')
     } catch (error:any) {
       toast.error(error?.response?.data?.message);
@@ -42,7 +42,7 @@ const ProjectForm = () => {
 
 
 
-  return <div className={style['add-project-wrapper']}>
+  return <div className='pt-5 w-100 ms-5 me-2 mx-auto'>
     <AddFormHeader  title='Project' link="Projects"/>
     <form className={style['form-wrapper']} onSubmit={handleSubmit(onSubmit)}>
             {/*title */}

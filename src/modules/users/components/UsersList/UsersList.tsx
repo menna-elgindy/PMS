@@ -16,29 +16,28 @@ import { formatDate } from "../../../../helpers";
 import Filtration from "../../../shared/components/Filtration/Filtration";
 import useFetch from "../../../../hooks/useFetch";
 import Pagination from "../../../shared/components/Pagination/Pagination";
+import ViewDetailsModal from "../../../shared/components/ViewDetailsModal/ViewDetailsModal";
 
 const UsersList = () => {
-
-
-
-
-
-
-   const[pageNum,setPageNum]= useSearchParams()
-
-
-
-
+  const [pageNum, setPageNum] = useSearchParams();
   const [usersList, setUsersList] = useState<UsersListResponse[]>([]);
   const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
   const [numOfRecords, setNumOfRecords] = useState<number>(0);
-  const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>([]);
+  const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [counterLoading, setCounterLoadind] = useState<number>(0);
+  const [selectedId, setSelectedId] = useState<number>(0);
+  const [view, setView] = useState<boolean>(false);
+
+  const handleCloseDetails = () => setView(false);
   const [searchParams] = useSearchParams();
 
+  const handleView = (id: number) => {
+    console.log("projectid", id);
+    setSelectedId(id);
+    setView(true);
+  };
   // Function to fetch the list of users from the API
-
   const getAllUsers = async (params: UsersFilterOptions | null = null) => {
     if (counterLoading == 0) {
       setLoading(true);
@@ -60,18 +59,16 @@ const UsersList = () => {
       );
       setArrayOfPages(
         Array(response.data.totalNumberOfPages)
-          .fill()
+          .fill(0)
           .map((_, i) => i + 1)
       );
       console.log(response.data);
       
       setNumOfRecords(response?.data?.totalNumberOfRecords);
       setUsersList(response.data?.data);
-      setTotalNumberOfPages(response?.data?.totalNumberOfPages)
-      setPageNum({pageNum:response?.data?.pageNumber})
-
-
-      
+      setTotalNumberOfPages(response?.data?.totalNumberOfPages);
+      setPageNum({ pageNum: Number(response?.data?.pageNumber).toString() });
+      // setPageNum({ pageNum: response?.data?.pageNumber?.toString() });
     } catch (error) {
       const axiosError = error as AxiosError<AxiosErrorResponse>;
       toast.error(axiosError.response?.data.message);
@@ -126,6 +123,16 @@ const UsersList = () => {
     getAllUsers({pageNumber:pageNum.get('pageNum'),pageSize:20})
     
   }, []);
+  const viewUser = useCallback(async () => {
+    const response = await axiosInstance.get<UsersListResponse>(
+      USERS_URLS.GetUserByIdUrl(selectedId)
+    );
+    return response?.data;
+  }, [selectedId]);
+
+  const { data: selectedUser, loading: userLoading } =
+    useFetch<UsersListResponse>(viewUser);
+  console.log("selecteduser", selectedUser);
   const usersListToDisplay =
     filteredUsers !== null && !usersLoading && filteredUsers
       ? filteredUsers!.data
@@ -144,103 +151,113 @@ const UsersList = () => {
         ) : (
           <div className="table-responsive p-5">
             <Filtration pageName="users" />
-            {usersListToDisplay.length > 0 ? (
+            {usersListToDisplay!.length > 0 ? (
               <>
-                            <table className="table table-striped table-borderless ">
-                <thead className="table-dark">
-                  <tr>
-                    <th className="table-header" scope="col">
-                      User Name
-                    </th>
-                    <th className="table-header" scope="col">
-                      Status
-                    </th>
-                    <th className="table-header" scope="col">
-                      Phone Number
-                    </th>
-                    <th className="table-header" scope="col">
-                      Email
-                    </th>
-                    <th className="table-header" scope="col">
-                      Date Created
-                    </th>
-                    <th className="table-header" scope="col">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {usersListToDisplay.map((user) => (
-                    <tr key={user.id}>
-                      <td className="table-data">{user.userName}</td>
-                      <td className="table-data">
-                        {user.isActivated ? (
-                          <span className="badge bg-success">Active</span>
-                        ) : (
-                          <span className="badge bg-danger">Non-Active</span>
-                        )}
-                      </td>
-                      <td className="table-data">{user.phoneNumber}</td>
-                      <td
-                        className="table-data text-truncate"
-                        style={{ maxWidth: "150px" }}
-                      >
-                        {user.email}
-                      </td>
-                      <td className="table-data">
-                        {formatDate(user.creationDate)}
-                      </td>
-                      <td className="table-data">
-                        <div className="dropdown">
-                          <button
-                            className="btn btn-sm btn-light border dropdown-toggle"
-                            type="button"
-                            id={`dropdownMenuButton-${user.id}`}
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          >
-                            <i className="fa-solid fa-ellipsis"></i>
-                          </button>
-                          <ul
-                            className="dropdown-menu"
-                            aria-labelledby={`dropdownMenuButton-${user.id}`}
-                          >
-                            <li>
-                              <button
-                                className="dropdown-item text-primary"
-                                onClick={() => toggleActivation(+user.id)}
-                              >
-                                <i className="fa fa-toggle-off mx-2"></i>
-                                {user.isActivated ? "Deactivate" : "Activate"}
-                              </button>
-                            </li>
-                            <li>
-                              <Link
-                                to=""
-                                state={{ type: "edit" }}
-                                className="dropdown-item text-success"
-                              >
-                                <i className="fa fa-eye mx-2"></i>
-                                View
-                              </Link>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
+                <table className="table table-striped table-borderless ">
+                  <thead className="table-dark">
+                    <tr>
+                      <th className="table-header" scope="col">
+                        User Name
+                      </th>
+                      <th className="table-header" scope="col">
+                        Status
+                      </th>
+                      <th className="table-header" scope="col">
+                        Phone Number
+                      </th>
+                      <th className="table-header" scope="col">
+                        Email
+                      </th>
+                      <th className="table-header" scope="col">
+                        Date Created
+                      </th>
+                      <th className="table-header" scope="col">
+                        Actions
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-              
-                    <Pagination from={'users'} pageNumber={Number(pageNum.get('pageNum'))} numOfRecords={numOfRecords} totalNumberOfPages={arrayOfPages} paginatedListFunction={getAllUsers}/>
-             
+                  </thead>
+                  <tbody>
+                    {usersListToDisplay!.map((user) => (
+                      <tr key={user.id}>
+                        <td className="table-data">{user.userName}</td>
+                        <td className="table-data">
+                          {user.isActivated ? (
+                            <span className="badge bg-success">Active</span>
+                          ) : (
+                            <span className="badge bg-danger">Non-Active</span>
+                          )}
+                        </td>
+                        <td className="table-data">{user.phoneNumber}</td>
+                        <td
+                          className="table-data text-truncate"
+                          style={{ maxWidth: "150px" }}
+                        >
+                          {user.email}
+                        </td>
+                        <td className="table-data">
+                          {formatDate(user.creationDate)}
+                        </td>
+                        <td className="table-data">
+                          <div className="dropdown">
+                            <button
+                              className="btn btn-sm btn-light border dropdown-toggle"
+                              type="button"
+                              id={`dropdownMenuButton-${user.id}`}
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                            >
+                              <i className="fa-solid fa-ellipsis"></i>
+                            </button>
+                            <ul
+                              className="dropdown-menu"
+                              aria-labelledby={`dropdownMenuButton-${user.id}`}
+                            >
+                              <li>
+                                <button
+                                  className="dropdown-item text-primary"
+                                  onClick={() => toggleActivation(+user.id)}
+                                >
+                                  <i className="fa fa-toggle-off mx-2"></i>
+                                  {user.isActivated ? "Deactivate" : "Activate"}
+                                </button>
+                              </li>
+                              <li>
+                                <Link
+                                  to=""
+                                  state={{ type: "edit" }}
+                                  className="dropdown-item text-success"
+                                  onClick={() => handleView(+user.id)}
+                                >
+                                  <i className="fa fa-eye mx-2"></i>
+                                  View
+                                </Link>
+                              </li>
+                            </ul>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <Pagination
+                  pageNumber={Number(pageNum.get("pageNum"))}
+                  numOfRecords={numOfRecords}
+                  totalNumberOfPages={arrayOfPages}
+                  paginatedListFunction={getAllUsers}
+                  from="users"
+                />
               </>
-
             ) : (
               <NoData />
             )}
           </div>
         )}
+        <ViewDetailsModal
+          userData={selectedUser}
+          toggleShow={view}
+          handleCloseDetails={handleCloseDetails}
+          loading={userLoading}
+        />
       </div>
     </>
   );

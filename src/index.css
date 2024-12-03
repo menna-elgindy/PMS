@@ -88,61 +88,63 @@ body {
   background-size: cover;
   height: 120vh;
 }
-  .auth-item {
-    background-color: var(--bg-Authcolor);
-  }
+.auth-item {
+  background-color: var(--bg-Authcolor);
+}
 
-  label {
-    font-size: 0.8rem;
-  }
+label {
+  font-size: 0.8rem;
+}
 
-  #Info-Input {
-    border: unset;
-    border-radius: unset;
-    background-color: transparent;
-    border-bottom: 0.3px solid rgba(255, 255, 255, 0.405);
-    padding-inline: unset !important;
-    padding-bottom: 0.7rem;
-  }
+#Info-Input {
+  border: unset;
+  border-radius: unset;
+  background-color: transparent;
+  border-bottom: 0.3px solid rgba(255, 255, 255, 0.405);
+  padding-inline: unset !important;
+  padding-bottom: 0.7rem;
+}
 
-  .border-icon, #Info-Input {
-    border-bottom: rgba(255, 255, 255, 1) 1px solid;
-  }
+.border-icon,
+#Info-Input {
+  border-bottom: rgba(255, 255, 255, 1) 1px solid;
+}
 
-  #Info-Input::placeholder, #Info-Input:focus {
-    color: #fff;
-    background-color: transparent;
-  }
+#Info-Input::placeholder,
+#Info-Input:focus {
+  color: #fff;
+  background-color: transparent;
+}
 
-  #Info-Input:focus {
-    outline: unset;
-    box-shadow: unset;
-  }
+#Info-Input:focus {
+  outline: unset;
+  box-shadow: unset;
+}
 
-  .form-control {
+/* .form-control {
     color: #fff !important;
     box-shadow: none !important;
+  } */
+
+.auth-title {
+  p {
+    margin: 0px;
   }
 
-  .auth-title {
-    p {
-      margin: 0px;
-    }
-
-    h3 {
-      font-size: 2rem;
-    }
-
-    .frist-ch::after {
-      content: "";
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 16px;
-      height: 4px;
-      background-color: var(--main-bg);
-    }
+  h3 {
+    font-size: 2rem;
   }
+
+  .frist-ch::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 16px;
+    height: 4px;
+    background-color: var(--main-bg);
+  }
+}
 
 /* 
   .lodin-links {
@@ -366,7 +368,6 @@ body {
   margin-top: 25px;
 }
 
-
 .tableHeaderBtn {
   background-color: var(--main-colr);
   border: unset;
@@ -392,26 +393,24 @@ body {
   border-radius: 24px;
 }
 
-
-
 .pagniationLink {
   border: unset;
   cursor: pointer;
 }
 /*********************** Table *******************/
 th.table-header {
-	background-color: #315951e5;
-	border: 1px solid #315951e5;
-	color: #fff;
-	font-size: 14px;
-	font-weight: 400;
-	padding: 16px;
+  background-color: #315951e5;
+  border: 1px solid #315951e5;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 16px;
 }
 
 td.table-data {
-	color: #4f4f4f;
-	font-weight: 400;
-	padding: 16px;
+  color: #4f4f4f;
+  font-weight: 400;
+  padding: 16px;
   vertical-align: middle;
 }
 .pagniationLink {
@@ -420,14 +419,11 @@ td.table-data {
 
 .disabledArrow {
   color: gray;
-  
 }
 .disabledArrow:focus {
   outline: unset !important;
   border: unset !important;
   color: gray;
-
-  
 }
 .disabledArrow:hover {
   background-color: unset !important;
