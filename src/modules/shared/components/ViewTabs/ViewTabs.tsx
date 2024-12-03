@@ -11,7 +11,7 @@ interface ProjectTabsProps {
   user?: UsersListResponse | null;
   loading: boolean;
 }
-const ProjectTabs = ({ project, user, loading }: ProjectTabsProps) => {
+const ViewTabs = ({ project, user, loading }: ProjectTabsProps) => {
   const { pathname } = useLocation();
   return (
     <>
@@ -39,6 +39,9 @@ const ProjectTabs = ({ project, user, loading }: ProjectTabsProps) => {
             tabClassName={`${styles.customTab}`}
           >
             <div>
+              {project!.task.length <= 0 && (
+                <p className="fs-5 text-center">No tasks yet</p>
+              )}
               {project!.task.map((task) => (
                 <div key={task.id} className="pb-3">
                   <div
@@ -74,7 +77,11 @@ const ProjectTabs = ({ project, user, loading }: ProjectTabsProps) => {
           >
             <div className="d-flex p-2 gap-2 ">
               <img
-                src={IMAGE_URL + project!.manager!.imagePath}
+                src={
+                  project!.manager!.imagePath
+                    ? IMAGE_URL + project!.manager!.imagePath
+                    : profileImg
+                }
                 alt="Manager"
                 className={`img-fluid rounded-circle  ${styles["manager-img"]}`}
               />
@@ -114,4 +121,4 @@ const ProjectTabs = ({ project, user, loading }: ProjectTabsProps) => {
   );
 };
 
-export default ProjectTabs;
+export default ViewTabs;

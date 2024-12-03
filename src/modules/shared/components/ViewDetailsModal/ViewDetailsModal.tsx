@@ -1,8 +1,8 @@
 import { Button, Modal } from "react-bootstrap";
-import ProjectTabs from "../ProjectTabs/ProjectTabs";
 import { getProjectTypes } from "../../../../interface/Projects/Projects";
 import { UsersListResponse } from "../../../../interface/users/ApiResponseForUser";
 import { useLocation } from "react-router-dom";
+import ViewTabs from "../ViewTabs/ViewTabs";
 
 type ViewDetailsModalProps = {
   toggleShow: boolean;
@@ -35,11 +35,7 @@ const ViewDetailsModal = ({
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <ProjectTabs
-              project={projectData}
-              user={userData}
-              loading={loading}
-            />
+            <ViewTabs project={projectData} user={userData} loading={loading} />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseDetails}>
