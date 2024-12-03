@@ -13,7 +13,7 @@ export default function AddFormHeader({
     <div className={style["header-wrapper"]}>
       <div className={style["Link-wrapper"]}>
         <BackArrow />
-        <Link to="/projects">View All {link}</Link>
+        <Link to={`/${link}`}>View All {link}</Link>
       </div>
       <h2 className={style["title"]}>Add a New {title}</h2>
     </div>

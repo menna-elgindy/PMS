@@ -10,11 +10,11 @@
 
 
 }
-.add-project-wrapper{
+/*.add-task-wrapper{
     width: 100%;
     position: relative;
     margin-inline: auto;
-}
+}*/
 
 .form-wrapper{
  background-color: var(--form-bg);
@@ -80,6 +80,7 @@
  padding: 1rem;
  color: var(--btn-dark-text);
  border-radius: 24px;
+ text-align: center;
 
 }
 
@@ -89,4 +90,14 @@
     border-top: 0.5px solid #D9D9D9;
     margin-top: 2.75rem;
     padding-top: 1.625rem;
+}
+
+@media (max-width: 500px) {
+    .btns-wrapper,.select-inputs-wrapper{
+        flex-direction: column;
+        gap:2rem
+    }
+    .selector-group {
+        width:100%
+    }
 }
