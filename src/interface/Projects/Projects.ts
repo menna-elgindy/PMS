@@ -5,3 +5,8 @@ export interface ProjectsType {
   creationDate: string;
   task: object[];
 } 
+export interface getProjectsType {
+  pageNumber: string;
+  pageSize: string;
+  data: ProjectsType[];
+}
