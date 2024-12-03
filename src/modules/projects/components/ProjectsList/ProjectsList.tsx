@@ -12,7 +12,7 @@ import TableHeader from "../../../shared/components/TableHeader/TableHeader";
 import TableActions from "../../../shared/components/TableActions/TableActions";
 import Pagination from "../../../shared/components/Pagination/Pagination";
 import { UsersFilterOptions } from "../../../../interface/users/ApiResponseForUser";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import useFetch from "../../../../hooks/useFetch";
 import Filtration from "../../../shared/components/Filtration/Filtration";
 
@@ -30,6 +30,8 @@ const ProjectsList = () => {
   const [counterLoading, setCounterLoadind] = useState<number>(0);
   const [searchParams] = useSearchParams();
 
+  const navigate = useNavigate();
+
   const handleClose = () => setShowDelete(false);
   const handleShowDelete = (id: number) => {
     setSelectedId(id);
@@ -37,6 +39,7 @@ const ProjectsList = () => {
   };
 
   const handleShowEdit = (id: number) => {
+    navigate(`${id}`);
     console.log(id);
   };
   const handleView = (id: number) => {
