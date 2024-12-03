@@ -15,11 +15,24 @@ import TableHeader from "../../../shared/components/TableHeader/TableHeader";
 import { formatDate } from "../../../../helpers";
 import Filtration from "../../../shared/components/Filtration/Filtration";
 import useFetch from "../../../../hooks/useFetch";
+import Pagination from "../../../shared/components/Pagination/Pagination";
 
 const UsersList = () => {
+
+
+
+
+
+
+   const[pageNum,setPageNum]= useSearchParams()
+
+
+
+
   const [usersList, setUsersList] = useState<UsersListResponse[]>([]);
   const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
   const [numOfRecords, setNumOfRecords] = useState<number>(0);
+  const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [counterLoading, setCounterLoadind] = useState<number>(0);
   const [searchParams] = useSearchParams();
@@ -47,11 +60,16 @@ const UsersList = () => {
       );
       setArrayOfPages(
         Array(response.data.totalNumberOfPages)
-          .fill(0)
+          .fill()
           .map((_, i) => i + 1)
       );
-      setNumOfRecords(response.data.totalNumberOfRecords);
+      setNumOfRecords(response?.data?.totalNumberOfRecords);
       setUsersList(response.data?.data);
+      setTotalNumberOfPages(response?.data?.totalNumberOfPages)
+      setPageNum({pageNum:response?.data?.pageNumber})
+
+
+      
     } catch (error) {
       const axiosError = error as AxiosError<AxiosErrorResponse>;
       toast.error(axiosError.response?.data.message);
@@ -64,8 +82,8 @@ const UsersList = () => {
       USERS_URLS.FILTER_USERS,
       {
         params: {
-          pageSize: searchParams.get("pageSize") || 3,
-          pageNumber: searchParams.get("pageNumber") || 1,
+          pageSize: 5,
+          pageNumber: Number(pageNum.get('pageNum')),
           userName: searchParams.get("name") || null,
           email: searchParams.get("email") || null,
           country: searchParams.get("country") || null,
@@ -103,7 +121,8 @@ const UsersList = () => {
   };
 
   useEffect(() => {
-    getAllUsers();
+    getAllUsers({pageNumber:pageNum.get('pageNum')})
+    
   }, []);
   const usersListToDisplay =
     filteredUsers !== null && !usersLoading && filteredUsers
@@ -124,7 +143,8 @@ const UsersList = () => {
           <div className="table-responsive p-5">
             <Filtration pageName="users" />
             {usersListToDisplay.length > 0 ? (
-              <table className="table table-striped table-borderless ">
+              <>
+                            <table className="table table-striped table-borderless ">
                 <thead className="table-dark">
                   <tr>
                     <th className="table-header" scope="col">
@@ -209,6 +229,9 @@ const UsersList = () => {
                   ))}
                 </tbody>
               </table>
+                    <Pagination pageNumber={Number(pageNum.get('pageNum'))} numOfRecords={numOfRecords} totalNumberOfPages={arrayOfPages} paginatedListFunction={getAllUsers}/>
+              </>
+
             ) : (
               <NoData />
             )}

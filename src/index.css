@@ -86,8 +86,8 @@ body {
 .auth-container {
   background-position: center center;
   background-size: cover;
-  min-height: 120vh;
-
+  height: 100vh;
+}
   .auth-item {
     background-color: var(--bg-Authcolor);
   }
@@ -143,7 +143,7 @@ body {
       background-color: var(--main-bg);
     }
   }
-}
+
 /* 
   .lodin-links {
     .link-item:hover {
@@ -413,4 +413,26 @@ td.table-data {
 	font-weight: 400;
 	padding: 16px;
   vertical-align: middle;
+}
+.pagniationLink {
+  color: black;
+}
+
+.disabledArrow {
+  color: gray;
+  
+}
+.disabledArrow:focus {
+  outline: unset !important;
+  border: unset !important;
+  color: gray;
+
+  
+}
+.disabledArrow:hover {
+  background-color: unset !important;
+  color: gray !important;
+  cursor: default;
+
+  
 }

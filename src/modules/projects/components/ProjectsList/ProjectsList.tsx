@@ -10,16 +10,24 @@ import {
 } from "../../../../interface/Projects/Projects";
 import TableHeader from "../../../shared/components/TableHeader/TableHeader";
 import TableActions from "../../../shared/components/TableActions/TableActions";
+import Pagination from "../../../shared/components/Pagination/Pagination";
+import { UsersFilterOptions } from "../../../../interface/users/ApiResponseForUser";
 import { useSearchParams } from "react-router-dom";
 import useFetch from "../../../../hooks/useFetch";
 import Filtration from "../../../shared/components/Filtration/Filtration";
 
 const ProjectsList = () => {
+
+  const[pageNum,setPageNum]= useSearchParams()
+
   const [projectsData, setProjectsData] = useState([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedId, setSelectedId] = useState(0);
   const [showDelete, setShowDelete] = useState(false);
   const [view, setView] = useState(false);
+  const [arrayOfPages, setArrayOfPages] = useState([])
+  const [numberOfRecords, setNumOfRecords] = useState(0)
+  const [totalNumberOfPages, setTotalNumberOfPages] = useState(0)
   const [searchParams] = useSearchParams();
 
   const handleClose = () => setShowDelete(false);
@@ -36,13 +44,14 @@ const ProjectsList = () => {
     setView(true);
   };
 
+
   const getFilteredProjects = useCallback(async () => {
     const response = await axiosInstance.get<getProjectsType>(
       PROJECTS_URLS.FILTER_PROJECTS,
       {
         params: {
-          pageSize: searchParams.get("pageSize") || 3,
-          pageNumber: searchParams.get("pageNumber") || 1,
+          pageSize: 5,
+          pageNumber: Number(pageNum.get('pageNum')),
           title: searchParams.get("name") || null,
         },
       }
@@ -52,13 +61,24 @@ const ProjectsList = () => {
   const { data: filteredProjects, loading: projectsLoading } =
     useFetch<getProjectsType>(getFilteredProjects);
 
-  const getProjects = async () => {
+  const getProjects = async (params: UsersFilterOptions | null = null) => {
     try {
       setLoading(true);
       const response = await axiosInstance.get(
-        `${PROJECTS_URLS.list}?pageSize=10&pageNumber=1`
+        PROJECTS_URLS.list , {
+          params : {
+            pageSize: params?.pageSize,
+            pageNumber: params?.pageNumber,
+          }
+        }
       );
       setProjectsData(response.data.data);
+      setArrayOfPages(Array(response?.data?.totalNumberOfPages).fill().map((_,i)=>i+1))
+      console.log(response.data);
+      setPageNum({pageNum:response?.data?.pageNumber})
+
+      setNumOfRecords(response?.data?.totalNumberOfRecords)
+      setTotalNumberOfPages(response?.data?.totalNumberOfPages)
     } catch (error) {
       console.log(error);
     } finally {
@@ -67,7 +87,7 @@ const ProjectsList = () => {
   };
 
   useEffect(() => {
-    getProjects();
+    getProjects({pageNumber:pageNum.get('pageNum')});
   }, []);
 
   const deleteProject = async () => {
@@ -155,6 +175,8 @@ const ProjectsList = () => {
             </thead>
             <tbody>{projectsList}</tbody>
           </table>
+          <Pagination  paginatedListFunction={getProjects} numOfRecords={numberOfRecords}  totalNumberOfPages={arrayOfPages}pageNumber={Number(pageNum.get('pageNum'))}/>
+          
         </div>
       )}
       <DeleteConfirmation
