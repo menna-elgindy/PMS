@@ -25,6 +25,7 @@ const UsersList = () => {
   const [searchParams] = useSearchParams();
 
   // Function to fetch the list of users from the API
+
   const getAllUsers = async (params: UsersFilterOptions | null = null) => {
     if (counterLoading == 0) {
       setLoading(true);
@@ -74,7 +75,7 @@ const UsersList = () => {
     );
     return response?.data;
   }, [searchParams]);
-
+  // get with filter
   const { data: filteredUsers, loading: usersLoading } =
     useFetch<getFilterUsersType>(getFilteredUsers);
   const toggleActivation = async (id: number) => {
