@@ -417,3 +417,22 @@ td.table-data {
 .pagniationLink {
   color: black;
 }
+
+.disabledArrow {
+  color: gray;
+  
+}
+.disabledArrow:focus {
+  outline: unset !important;
+  border: unset !important;
+  color: gray;
+
+  
+}
+.disabledArrow:hover {
+  background-color: unset !important;
+  color: gray !important;
+  cursor: default;
+
+  
+}
