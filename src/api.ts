@@ -41,7 +41,8 @@ const TASKS_URLS = {
   get_All : `Task/manager`,
   ADD_Task:`/Task`,
   GET_Task:(id:number)=>`/Task/${id}`,
-  EDIT_TASK:(id:number)=>`/Task/${id}`
+  EDIT_TASK:(id:number)=>`/Task/${id}`,
+  DELETE_TASK:(id:number)=>`/Task/${id}`
 }
 
 // users_enpoints

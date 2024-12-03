@@ -3,12 +3,14 @@ import { getProjectTypes } from "../../../../interface/Projects/Projects";
 import { UsersListResponse } from "../../../../interface/users/ApiResponseForUser";
 import { useLocation } from "react-router-dom";
 import ViewTabs from "../ViewTabs/ViewTabs";
+import { getTaskTypes } from "../../../tasks/components/TasksList/TasksList";
 
 type ViewDetailsModalProps = {
   toggleShow: boolean;
   handleCloseDetails: () => void;
   projectData?: getProjectTypes | null;
   userData?: UsersListResponse | null;
+  taskData?: getTaskTypes | null;
   loading: boolean;
 };
 
@@ -17,6 +19,7 @@ const ViewDetailsModal = ({
   handleCloseDetails,
   projectData,
   userData,
+  taskData,
   loading,
 }: ViewDetailsModalProps) => {
   const { pathname } = useLocation();
@@ -35,7 +38,12 @@ const ViewDetailsModal = ({
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <ViewTabs project={projectData} user={userData} loading={loading} />
+            <ViewTabs
+              project={projectData}
+              user={userData}
+              task={taskData}
+              loading={loading}
+            />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseDetails}>
