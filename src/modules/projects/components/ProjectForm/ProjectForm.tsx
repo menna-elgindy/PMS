@@ -42,7 +42,7 @@ const ProjectForm = () => {
 
 
 
-  return <div className={style['add-project-wrapper']}>
+  return <div className='pt-5 w-100 ms-5 me-2 mx-auto'>
     <AddFormHeader  title='Project' link="Projects"/>
     <form className={style['form-wrapper']} onSubmit={handleSubmit(onSubmit)}>
             {/*title */}

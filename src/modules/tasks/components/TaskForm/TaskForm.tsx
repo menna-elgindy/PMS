@@ -94,7 +94,7 @@ const TaskForm = () => {
   }, []);
 
   return (
-    <div className={style["add-project-wrapper"]}>
+    <div className='pt-5 w-100 ms-5 me-2 mx-auto'>
       <AddFormHeader title="Task" link="Tasks" />
       <form className={style["form-wrapper"]} onSubmit={handleSubmit(onSubmit)}>
         {/*title */}
@@ -187,7 +187,7 @@ const TaskForm = () => {
         </div>
 
         <div className={style["btns-wrapper"]}>
-          <Link to="/projects" className={style["cancle-btn"]}>
+          <Link to="/tasks" className={style["cancle-btn"]}>
             Cancle
           </Link>
           <button
