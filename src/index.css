@@ -86,7 +86,7 @@ body {
 .auth-container {
   background-position: center center;
   background-size: cover;
-  height: 100vh;
+  height: 120vh;
 }
   .auth-item {
     background-color: var(--bg-Authcolor);
@@ -435,4 +435,9 @@ td.table-data {
   cursor: default;
 
   
+}
+
+.dropDownMenuStyle {
+  height: 7.5rem ;
+  overflow: auto;
 }

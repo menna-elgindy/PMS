@@ -63,6 +63,8 @@ const UsersList = () => {
           .fill()
           .map((_, i) => i + 1)
       );
+      console.log(response.data);
+      
       setNumOfRecords(response?.data?.totalNumberOfRecords);
       setUsersList(response.data?.data);
       setTotalNumberOfPages(response?.data?.totalNumberOfPages)
@@ -82,7 +84,7 @@ const UsersList = () => {
       USERS_URLS.FILTER_USERS,
       {
         params: {
-          pageSize: 5,
+          pageSize: 20,
           pageNumber: Number(pageNum.get('pageNum')),
           userName: searchParams.get("name") || null,
           email: searchParams.get("email") || null,
@@ -121,7 +123,7 @@ const UsersList = () => {
   };
 
   useEffect(() => {
-    getAllUsers({pageNumber:pageNum.get('pageNum')})
+    getAllUsers({pageNumber:pageNum.get('pageNum'),pageSize:20})
     
   }, []);
   const usersListToDisplay =
@@ -131,7 +133,7 @@ const UsersList = () => {
   return (
     <>
       <div className="pt-5 w-100 ms-5 me-2 mx-auto">
-        <TableHeader title="USERS" url="" />
+        <TableHeader title="USERS" url="" from="user" />
 
         {loading ? (
           <div className="d-flex justify-content-center">
@@ -229,7 +231,9 @@ const UsersList = () => {
                   ))}
                 </tbody>
               </table>
-                    <Pagination pageNumber={Number(pageNum.get('pageNum'))} numOfRecords={numOfRecords} totalNumberOfPages={arrayOfPages} paginatedListFunction={getAllUsers}/>
+              
+                    <Pagination from={'users'} pageNumber={Number(pageNum.get('pageNum'))} numOfRecords={numOfRecords} totalNumberOfPages={arrayOfPages} paginatedListFunction={getAllUsers}/>
+             
               </>
 
             ) : (

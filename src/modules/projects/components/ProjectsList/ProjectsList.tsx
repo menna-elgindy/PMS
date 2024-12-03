@@ -43,6 +43,28 @@ const ProjectsList = () => {
     setSelectedId(id);
     setView(true);
   };
+  const getProjects = async (params: UsersFilterOptions | null = null) => {
+    try {
+      const response = await axiosInstance.get(
+        PROJECTS_URLS.list , {
+          params : {
+            pageSize: params?.pageSize,
+            pageNumber: params?.pageNumber,
+          }
+        }
+      );
+      setProjectsData(response.data.data);
+      setArrayOfPages(Array(response?.data?.totalNumberOfPages).fill().map((_,i)=>i+1))
+      setPageNum({pageNum:response?.data?.pageNumber})
+
+      setNumOfRecords(response?.data?.totalNumberOfRecords)
+      setTotalNumberOfPages(response?.data?.totalNumberOfPages)
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
   const getFilteredProjects = useCallback(async () => {
@@ -61,33 +83,13 @@ const ProjectsList = () => {
   const { data: filteredProjects, loading: projectsLoading } =
     useFetch<getProjectsType>(getFilteredProjects);
 
-  const getProjects = async (params: UsersFilterOptions | null = null) => {
-    try {
-      setLoading(true);
-      const response = await axiosInstance.get(
-        PROJECTS_URLS.list , {
-          params : {
-            pageSize: params?.pageSize,
-            pageNumber: params?.pageNumber,
-          }
-        }
-      );
-      setProjectsData(response.data.data);
-      setArrayOfPages(Array(response?.data?.totalNumberOfPages).fill().map((_,i)=>i+1))
-      console.log(response.data);
-      setPageNum({pageNum:response?.data?.pageNumber})
 
-      setNumOfRecords(response?.data?.totalNumberOfRecords)
-      setTotalNumberOfPages(response?.data?.totalNumberOfPages)
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+
+
+    
 
   useEffect(() => {
-    getProjects({pageNumber:pageNum.get('pageNum')});
+    getProjects({pageNumber:pageNum.get('pageNum'),pageSize:5});
   }, []);
 
   const deleteProject = async () => {

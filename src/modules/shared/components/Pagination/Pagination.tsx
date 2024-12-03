@@ -6,14 +6,15 @@ interface paginationInfo {
     numberOfPages : number|string,
     paginatedListFunction: (UsersFilterOptions:{pageNumber:number,pageSize:number})=>void ,
     pageNumber:number,
-    numOfRecords:number
+    numOfRecords:number,
+    from:string
 
   }
   
 
 
 
-const Pagination:React.FC<paginationInfo> = ({totalNumberOfPages,paginatedListFunction,pageNumber,numOfRecords}) => {
+const Pagination:React.FC<paginationInfo> = ({totalNumberOfPages,paginatedListFunction,pageNumber,numOfRecords,from}) => {
 
 
 const nextBtn =(pageSize:number,pageNumber:number)=>{
@@ -53,10 +54,10 @@ const prevBtn =(pageSize:number,pageNumber:number)=>{
 
       </Dropdown.Toggle>
 
-      <Dropdown.Menu>
+      <Dropdown.Menu className='dropDownMenuStyle'>
 
         {
-          totalNumberOfPages?.map((page)=>       <Dropdown.Item key={page}  onClick={()=>paginatedListFunction({pageNumber:page,pageSize:5})} > 
+          totalNumberOfPages?.map((page)=>       <Dropdown.Item key={page}  onClick={()=>paginatedListFunction({pageNumber:page,pageSize:from=='users' ? 20 :5})} > 
 
           {page}
               
@@ -76,13 +77,13 @@ const prevBtn =(pageSize:number,pageNumber:number)=>{
         </div>
 
     <li className="page-item">
-      <a className={pageNumber == 1 ? "page-link pagniationLink disabledArrow" : "page-link pagniationLink "} onClick={()=>prevBtn(5,pageNumber-1)}   aria-label="Previous">
+      <a className={pageNumber == 1 ? "page-link pagniationLink disabledArrow" : "page-link pagniationLink "} onClick={()=>prevBtn(from=="user" ? 20 : 5,pageNumber-1)}   aria-label="Previous">
       <i className="fa-solid fa-chevron-left"></i>
       </a>
     </li>
     
     <li className="page-item">
-      <a className={pageNumber == totalNumberOfPages.length ? "page-link pagniationLink disabledArrow" : "page-link pagniationLink "}  onClick={()=>nextBtn (5,pageNumber+1)
+      <a className={pageNumber == totalNumberOfPages.length ? "page-link pagniationLink disabledArrow" : "page-link pagniationLink "}  onClick={()=>nextBtn (from=="user" ? 20 : 5,pageNumber+1)
       } aria-label="Next">
        
        
