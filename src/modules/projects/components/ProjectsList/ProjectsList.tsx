@@ -50,33 +50,29 @@ const ProjectsList = () => {
     setSelectedId(id);
     setView(true);
   };
-
   const getProjects = async (params: UsersFilterOptions | null = null) => {
     try {
-      setLoading(true);
-      const response = await axiosInstance.get(PROJECTS_URLS.list, {
-        params: {
-          pageSize: params?.pageSize,
-          pageNumber: params?.pageNumber,
-          title: searchParams.get("name"),
-        },
-      });
-      setProjectsData(response.data.data);
-      setArrayOfPages(
-        Array(response?.data?.totalNumberOfPages)
-          .fill(0)
-          .map((_, i) => i + 1)
+      const response = await axiosInstance.get(
+        PROJECTS_URLS.list , {
+          params : {
+            pageSize: params?.pageSize,
+            pageNumber: params?.pageNumber,
+          }
+        }
       );
-      console.log(response.data);
-      setPageNum({ pageNum: response?.data?.pageNumber });
-      setNumOfRecords(response?.data?.totalNumberOfRecords);
-      setTotalNumberOfPages(response?.data?.totalNumberOfPages);
+      setProjectsData(response.data.data);
+      setArrayOfPages(Array(response?.data?.totalNumberOfPages).fill().map((_,i)=>i+1))
+      setPageNum({pageNum:response?.data?.pageNumber})
+
+      setNumOfRecords(response?.data?.totalNumberOfRecords)
+      setTotalNumberOfPages(response?.data?.totalNumberOfPages)
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
   };
+
 
   const getFilteredProjects = useCallback(async () => {
     const response = await axiosInstance.get<getProjectsType>(
@@ -93,6 +89,9 @@ const ProjectsList = () => {
   }, [searchParams]);
   const { data: filteredProjects, loading: projectsLoading } =
     useFetch<getProjectsType>(getFilteredProjects);
+  useEffect(() => {
+    getProjects({pageNumber:pageNum.get('pageNum'),pageSize:5});
+  }, []);
 
   const deleteProject = async () => {
     try {

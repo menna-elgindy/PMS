@@ -62,6 +62,8 @@ const UsersList = () => {
           .fill(0)
           .map((_, i) => i + 1)
       );
+      console.log(response.data);
+      
       setNumOfRecords(response?.data?.totalNumberOfRecords);
       setUsersList(response.data?.data);
       setTotalNumberOfPages(response?.data?.totalNumberOfPages);
@@ -79,8 +81,8 @@ const UsersList = () => {
       USERS_URLS.FILTER_USERS,
       {
         params: {
-          pageSize: 5,
-          pageNumber: Number(searchParams.get("pageNum")),
+          pageSize: 20,
+          pageNumber: Number(pageNum.get('pageNum')),
           userName: searchParams.get("name") || null,
           email: searchParams.get("email") || null,
           country: searchParams.get("country") || null,
@@ -118,7 +120,8 @@ const UsersList = () => {
   };
 
   useEffect(() => {
-    getAllUsers({ pageNumber: Number(pageNum.get("pageNum")) });
+    getAllUsers({pageNumber:pageNum.get('pageNum'),pageSize:20})
+    
   }, []);
   const viewUser = useCallback(async () => {
     const response = await axiosInstance.get<UsersListResponse>(
@@ -137,7 +140,7 @@ const UsersList = () => {
   return (
     <>
       <div className="pt-5 w-100 ms-5 me-2 mx-auto">
-        <TableHeader title="USERS" url="" />
+        <TableHeader title="USERS" url="" from="user" />
 
         {loading ? (
           <div className="d-flex justify-content-center">
@@ -241,6 +244,7 @@ const UsersList = () => {
                   numOfRecords={numOfRecords}
                   totalNumberOfPages={arrayOfPages}
                   paginatedListFunction={getAllUsers}
+                  from="users"
                 />
               </>
             ) : (
