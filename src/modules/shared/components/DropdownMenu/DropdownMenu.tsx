@@ -20,15 +20,13 @@ const DropdownMenu = () => {
         menuVariant="light"
         className=""
       >
-        <NavDropdown.Item>
-          <Link to="/change-password" className={style["dropdown-link"]}>
-            Change Password
-          </Link>
+        <NavDropdown.Item as={Link} to="/change-password">
+          Change Password
         </NavDropdown.Item>
         <NavDropdown.Item
           className={style["dropdown-item "]}
           onClick={() => {
-            localStorage.clear()
+            localStorage.clear();
             setLoginData(null);
           }}
         >
