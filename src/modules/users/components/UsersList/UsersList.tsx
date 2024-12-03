@@ -20,7 +20,6 @@ import ViewDetailsModal from "../../../shared/components/ViewDetailsModal/ViewDe
 
 const UsersList = () => {
   const [pageNum, setPageNum] = useSearchParams();
-
   const [usersList, setUsersList] = useState<UsersListResponse[]>([]);
   const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
   const [numOfRecords, setNumOfRecords] = useState<number>(0);
@@ -224,7 +223,7 @@ const UsersList = () => {
                                   to=""
                                   state={{ type: "edit" }}
                                   className="dropdown-item text-success"
-                                  onClick={() => handleView(user.id)}
+                                  onClick={() => handleView(+user.id)}
                                 >
                                   <i className="fa fa-eye mx-2"></i>
                                   View

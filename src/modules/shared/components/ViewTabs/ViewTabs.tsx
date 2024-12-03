@@ -5,13 +5,15 @@ import { getProjectTypes } from "../../../../interface/Projects/Projects";
 import { UsersListResponse } from "../../../../interface/users/ApiResponseForUser";
 import { useLocation } from "react-router-dom";
 import profileImg from "../../../../assets/images/no-profile-picture.jpg";
+import { getTaskTypes } from "../../../tasks/components/TasksList/TasksList";
 
 interface ProjectTabsProps {
   project?: getProjectTypes | null;
   user?: UsersListResponse | null;
+  task?: getTaskTypes | null;
   loading: boolean;
 }
-const ViewTabs = ({ project, user, loading }: ProjectTabsProps) => {
+const ViewTabs = ({ project, user, task, loading }: ProjectTabsProps) => {
   const { pathname } = useLocation();
   return (
     <>
@@ -112,6 +114,54 @@ const ViewTabs = ({ project, user, loading }: ProjectTabsProps) => {
                 <span> {user!.userName}</span>
                 <span className={styles["email"]}>{user!.email}</span>
                 <span>{user!.isActivated}</span>
+              </div>
+            </div>
+          </Tab>
+        </Tabs>
+      )}
+      {!loading && task && pathname.includes("tasks") && (
+        <Tabs defaultActiveKey="overview" id="project-tabs" className="mb-3">
+          <Tab
+            eventKey="overview"
+            title="Overview"
+            tabClassName={`${styles.customTab}`}
+          >
+            <p>
+              <strong>Name:</strong> {task!.title}
+            </p>
+            <p>
+              <strong>Description:</strong>
+              {task!.description}
+            </p>
+            <p>
+              <strong>Creation Date:</strong> {task!.creationDate}
+            </p>
+          </Tab>
+          <Tab
+            eventKey="project"
+            title="Project"
+            tabClassName={`${styles.customTab}`}
+          >
+            <span>{task.project.title}</span>
+          </Tab>
+          <Tab
+            eventKey="employee"
+            title="Employee"
+            tabClassName={`${styles.customTab}`}
+          >
+            <div className="d-flex p-2 gap-2 ">
+              <img
+                src={
+                  task.employee!.imagePath
+                    ? IMAGE_URL + task.employee!.imagePath
+                    : profileImg
+                }
+                alt="Manager"
+                className={`img-fluid rounded-circle  ${styles["manager-img"]}`}
+              />
+              <div className="d-flex flex-column">
+                <span> {task!.employee.userName}</span>
+                <span className={styles["email"]}>{task!.employee.email}</span>
               </div>
             </div>
           </Tab>
