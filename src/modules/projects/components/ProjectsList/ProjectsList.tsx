@@ -7,6 +7,7 @@ import { formatDate } from "../../../../helpers";
 import { ProjectsType } from "../../../../interface/Projects/Projects";
 import TableHeader from "../../../shared/components/TableHeader/TableHeader";
 import TableActions from "../../../shared/components/TableActions/TableActions";
+import NoData from "../../../shared/components/NoData/NoData";
 
 const ProjectsList = () => {
   const [projectsData, setProjectsData] = useState([]);
@@ -81,7 +82,7 @@ const ProjectsList = () => {
   //   }
   // };
 
-  const projectsList = projectsData?.map((project: ProjectsType) => (
+  const projectsList = projectsData.length >0 ? (projectsData.map((project: ProjectsType) => (
     <tr key={project.id}>
       <td className="table-data">{project.title}</td>
       <td className="table-data">{project.description}</td>
@@ -96,7 +97,13 @@ const ProjectsList = () => {
         />
       </td>
     </tr>
-  ));
+  ))):(
+    <tr>
+      <td colSpan="6">
+        <NoData />
+      </td>
+    </tr>
+  )
 
   return (
     <div className="pt-5 w-100 ms-5 me-2 mx-auto">
