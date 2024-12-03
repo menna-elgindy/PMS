@@ -1,75 +1,66 @@
-:root{
-    --form-bg:#FFFFFF;
-    --label-color:#4F4F4F;
-    --placeholder-color: #C1C1C1;
-    --btn-dark-text: #0E382F;
-    --btn-ligth-bg: #EF9B28;
-
-
-
-
-
+:root {
+  --form-bg: #ffffff;
+  --label-color: #4f4f4f;
+  --placeholder-color: #c1c1c1;
+  --btn-dark-text: #0e382f;
+  --btn-ligth-bg: #ef9b28;
 }
-.add-project-wrapper{
-    width: 100%;
-    position: relative;
-    margin-inline: auto;
+.add-project-wrapper {
+  width: 100%;
+  position: relative;
+  margin-inline: auto;
 }
 
-.form-wrapper{
- background-color: var(--form-bg);
- margin-inline: auto ;
- margin-top: 2.25rem;
- width: 70%;
- border-radius: 16px;
- padding-inline: 2rem;
- padding-bottom: 3.2rem;
-
+.form-wrapper {
+  background-color: var(--form-bg);
+  margin-inline: auto;
+  margin-top: 2.25rem;
+  width: 70%;
+  border-radius: 16px;
+  padding-inline: 2rem;
+  padding-bottom: 3.2rem;
 }
-.input-group label{
-    font-family: Quicksand;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20px;
-    color:var(--label-color);
-    padding-top: 3.5rem;
-    
+.input-group label {
+  font-family: Quicksand;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--label-color);
+  padding-top: 3.5rem;
 }
 
-.form-input{
-    border: 1px solid #ECECEC;
-    width: 100%;
-    padding: 1rem;
-    border-radius: 16px;
-    color: var(--label-color);
-
+.form-input {
+  border: 1px solid #ececec;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 16px;
+  color: var(--label-color);
 }
 
-.form-input::placeholder{
-    color:var(--placeholder-color)
+.form-input::placeholder {
+  color: var(--placeholder-color);
 }
 
-.save-btn{
- background-color: var(--btn-ligth-bg);
- padding: 1rem;
- border-radius: 24px;
- border: none;
- color: var(--form-bg);
+.save-btn {
+  background-color: var(--btn-ligth-bg);
+  padding: 1rem;
+  border-radius: 24px;
+  border: none;
+  color: var(--form-bg);
 }
 
-.cancle-btn{
- text-decoration: none;
- border: 1px solid #000000;
- padding: 1rem;
- color: var(--btn-dark-text);
- border-radius: 24px;
-
+.cancle-btn {
+  text-decoration: none;
+  border: 1px solid #000000;
+  padding: 1rem;
+  color: var(--btn-dark-text);
+  border-radius: 24px;
 }
 
-.btns-wrapper{
-    display: flex;
-    justify-content: space-between;
-    border-top: 0.5px solid #D9D9D9;
-    margin-top: 2.75rem;
-    padding-top: 1.625rem;
+.btns-wrapper {
+  display: flex;
+  justify-content: space-between;
+  border-top: 0.5px solid #d9d9d9;
+  margin-top: 2.75rem;
+  padding-top: 1.625rem;
 }

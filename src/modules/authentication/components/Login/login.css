@@ -29,33 +29,33 @@
     font-weight: bold;
     font-size: 30px;
 }
-form label{
+.login-container form label{
     color: rgba(239, 155, 40, 1);
     margin-bottom: 5px;
     display: block;
 }
-form .input-group{
+.login-container form .input-group{
     background-color: rgba(49, 89, 81, 0.9) !important;
     border-bottom: 1px solid white; 
 }
-.input-group>.form-control{
+.login-container .input-group>.form-control{
     background-color: rgba(49, 89, 81, 0.9) !important;
     border: none !important; 
     border-radius: 0px; 
     color:rgba(255, 255, 255, 1) ;
 }
-.input-group>.form-control:focus {
+.login-container .input-group>.form-control:focus {
     outline: none  !important;
 
  }
-form input::placeholder{
+ .login-container form input::placeholder{
     color:rgb(246, 244, 244) !important;
 }
-form .eye-btn{
+.login-container form .eye-btn{
     background: none;
     border: none;
 }
-form .eye-btn i{
+.login-container form .eye-btn i{
     color:rgba(255, 255, 255, 1);
 }
 .links a{
