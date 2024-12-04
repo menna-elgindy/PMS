@@ -1,5 +1,5 @@
 export interface ApiResponseForUser {
-  pageNumber?: number;
+  pageNumber?: number|string[]|undefined;
   data: UsersListResponse[];
   totalNumberOfPages: number;
   totalNumberOfRecords: number;

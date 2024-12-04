@@ -6,7 +6,6 @@ import { AxiosError } from "axios";
 import NoData from "../../../shared/components/NoData/NoData";
 import { Link, useSearchParams } from "react-router-dom";
 import {
-  ApiResponseForUser,
   getFilterUsersType,
   UsersFilterOptions,
   UsersListResponse,
@@ -20,6 +19,8 @@ import ViewDetailsModal from "../../../shared/components/ViewDetailsModal/ViewDe
 
 const UsersList = () => {
   const [pageNum, setPageNum] = useSearchParams();
+
+  
   const [usersList, setUsersList] = useState<UsersListResponse[]>([]);
   const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
   const [numOfRecords, setNumOfRecords] = useState<number>(0);
@@ -43,7 +44,7 @@ const UsersList = () => {
       setCounterLoadind(1);
     }
     try {
-      const response = await axiosInstance.get<ApiResponseForUser>(
+      const response = await axiosInstance.get(
         USERS_URLS.getAllUsersUrl,
         {
           params: {
@@ -64,7 +65,7 @@ const UsersList = () => {
       
       setNumOfRecords(response?.data?.totalNumberOfRecords);
       setUsersList(response.data?.data);
-      setPageNum({pageNum:response?.data?.pageNumber})
+      setPageNum({pageNum:response?.data?.pageNumber});
     } catch (error) {
       const axiosError = error as AxiosError<AxiosErrorResponse>;
       toast.error(axiosError.response?.data.message);
@@ -72,6 +73,21 @@ const UsersList = () => {
       setLoading(false);
     }
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   const getFilteredUsers = useCallback(async () => {
     const response = await axiosInstance.get<getFilterUsersType>(
       USERS_URLS.FILTER_USERS,
