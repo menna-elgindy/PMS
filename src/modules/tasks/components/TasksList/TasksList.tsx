@@ -11,6 +11,8 @@ import useFetch from "../../../../hooks/useFetch";
 import DeleteConfirmation from "../../../shared/components/DeleteConfirmation/DeleteConfirmation";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
+import { useSearchParams } from "react-router-dom";
+import Pagination from "../../../shared/components/Pagination/Pagination";
 
 export interface getTaskTypes {
   id: number;
@@ -35,6 +37,9 @@ const [view, setView] = useState<boolean>(false);
 const [showDelete, setShowDelete] = useState(false);
 const handleCloseDetails = () => setView(false);
 const handleClose = () => setShowDelete(false);
+const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
+const [numOfRecords, setNumOfRecords] = useState<number>(0);
+const [pageNum, setPageNum] = useSearchParams();
 
 const handleView = (id: number) => {
   setSelectedId(id);
@@ -89,6 +94,14 @@ let getTasksList= async(params :ParamsType | null = null) =>{
       )
     
       setTasksList(response.data.data)
+      setArrayOfPages(
+        Array(response.data.totalNumberOfPages)
+          .fill(0)
+          .map((_, i) => i + 1)
+      );
+      
+      setNumOfRecords(response?.data?.totalNumberOfRecords);
+      setPageNum({pageNum:response?.data?.pageNumber})
    
     } catch (error) {
       console.log(error)
@@ -163,6 +176,13 @@ let getTasksList= async(params :ParamsType | null = null) =>{
             {taskList}
          </tbody>
         </table>
+        <Pagination
+                  pageNumber={Number(pageNum.get("pageNum"))}
+                  numOfRecords={numOfRecords}
+                  totalNumberOfPages={arrayOfPages}
+                  paginatedListFunction={getTasksList}
+                  
+                />
       </div>
     )}
 

@@ -28,7 +28,6 @@ const ProjectsList = () => {
   const [view, setView] = useState(false);
   const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
   const [numberOfRecords, setNumOfRecords] = useState(0);
-  const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
   const [searchParams] = useSearchParams();
 
   const navigate = useNavigate();
@@ -66,7 +65,6 @@ const ProjectsList = () => {
       setPageNum({pageNum:response?.data?.pageNumber})
 
       setNumOfRecords(response?.data?.totalNumberOfRecords)
-      setTotalNumberOfPages(response?.data?.totalNumberOfPages)
     } catch (error) {
       console.log(error);
     } finally {
