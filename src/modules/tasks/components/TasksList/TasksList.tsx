@@ -79,7 +79,7 @@ const { data: selectedTask, loading: taskLoading } =
 
 ////////////////////getTasksList///////////////////////////////////////////////
   
-let getTasksList= async(params :ParamsType | null = null) =>{
+const getTasksList= async(params :ParamsType | null = null) =>{
     try {
       setLoading(true);
       const response =await axiosInstance.get(TASKS_URLS.get_All,
@@ -112,7 +112,7 @@ let getTasksList= async(params :ParamsType | null = null) =>{
   }
 
   useEffect(() => {
-    getTasksList()
+    getTasksList({pageNumber:pageNum.get('pageNum'),pageSize:5})
 
   },[])
 

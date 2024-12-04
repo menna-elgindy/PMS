@@ -61,7 +61,7 @@ const ProjectsList = () => {
         }
       );
       setProjectsData(response.data.data);
-      setArrayOfPages(Array(response?.data?.totalNumberOfPages).fill().map((_,i)=>i+1))
+      setArrayOfPages(Array(response?.data?.totalNumberOfPages).fill(0).map((_,i)=>i+1))
       setPageNum({pageNum:response?.data?.pageNumber})
 
       setNumOfRecords(response?.data?.totalNumberOfRecords)
@@ -90,7 +90,7 @@ const ProjectsList = () => {
     useFetch<getProjectsType>(getFilteredProjects);
   useEffect(() => {
     getProjects({pageNumber:pageNum.get('pageNum'),pageSize:5});
-  }, []);
+  });
 
   const deleteProject = async () => {
     try {
@@ -122,9 +122,7 @@ const ProjectsList = () => {
   const { data: selectedProject, loading: projectLoading } =
     useFetch<getProjectTypes>(viewProject);
 
-  useEffect(() => {
-    getProjects({ pageNumber: Number(pageNum.get("pageNum")) });
-  }, []);
+
 
   const projectsListToDisplay =
     filteredProjects !== null && !projectsLoading && filteredProjects

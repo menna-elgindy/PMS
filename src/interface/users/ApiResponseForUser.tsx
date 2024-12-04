@@ -24,7 +24,7 @@ export interface UsersFilterOptions {
   country?: string;
   groups?: 1 | 2;
   pageSize?: number;
-  pageNumber?: number;
+  pageNumber?: number|string|null;
 }
 export interface getFilterUsersType {
   pageNumber?: string;
