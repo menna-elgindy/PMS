@@ -17,5 +17,5 @@
     title?: string;
     status?: "ToDo" | "InProgress" | "Done" ;
     pageSize?: number;
-    pageNumber?: number;
+    pageNumber?: number|string|null;
   }

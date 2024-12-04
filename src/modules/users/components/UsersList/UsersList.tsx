@@ -19,7 +19,7 @@ import Pagination from "../../../shared/components/Pagination/Pagination";
 import ViewDetailsModal from "../../../shared/components/ViewDetailsModal/ViewDetailsModal";
 
 const UsersList = () => {
-  const [pageNum, setPageNum] : [URLSearchParams, ()=>void]= useSearchParams();
+  const [pageNum, setPageNum] = useSearchParams();
   const [usersList, setUsersList] = useState<UsersListResponse[]>([]);
   const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
   const [numOfRecords, setNumOfRecords] = useState<number>(0);
@@ -65,7 +65,6 @@ const UsersList = () => {
       setNumOfRecords(response?.data?.totalNumberOfRecords);
       setUsersList(response.data?.data);
       setPageNum({pageNum:response?.data?.pageNumber})
-      // setPageNum({ pageNum: response?.data?.pageNumber?.toString() });
     } catch (error) {
       const axiosError = error as AxiosError<AxiosErrorResponse>;
       toast.error(axiosError.response?.data.message);
