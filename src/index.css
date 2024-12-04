@@ -32,6 +32,8 @@
   --color-username: #101418;
   --bg-sidebar: rgba(14, 56, 47, 1);
   --light-color: #ffffff;
+  --placeholder-color: #C1C1C1;
+
 }
 
 /* .Dark-mode {
@@ -437,3 +439,17 @@ td.table-data {
   height: 7.5rem ;
   overflow: auto;
 }
+
+/*********************** Add form *******************/
+
+/*.css-13cymwt-control {
+  border: 1px solid #ECECEC !important;
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 16px !important;
+}
+.css-19bb58m {
+  color: var( --placeholder-color) !important;
+  overflow-x: hidden;
+ 
+}*/
