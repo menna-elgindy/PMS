@@ -27,11 +27,7 @@ const DoughnutChart = ({
       },
     ],
   };
-  return (
-    // <div className="w-100 d-flex  justify-content-center">
-    <Doughnut data={data} />
-    // </div>
-  );
+  return <Doughnut data={data} />;
 };
 
 export default DoughnutChart;

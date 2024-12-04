@@ -1,0 +1,22 @@
+:root {
+  --form-bg: #ffffff;
+  --label-color: #c8c6c6;
+  --placeholder-color: #c1c1c1;
+  --btn-dark-text: #0e382f;
+  --btn-ligth-bg: #ef9b28;
+}
+
+.input {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border-color: var(--label-color) !important;
+  color: var(--label-color) !important;
+}
+.input::placeholder {
+  color: var(--label-color) !important;
+}
+.icon {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-color: var(--label-color) !important;
+}
