@@ -148,7 +148,7 @@ const ProjectsList = () => {
     </tr>
   ))):(
     <tr>
-      <td colSpan="6">
+      <td colSpan={6}>
         <NoData />
       </td>
     </tr>
