@@ -19,11 +19,10 @@ import Pagination from "../../../shared/components/Pagination/Pagination";
 import ViewDetailsModal from "../../../shared/components/ViewDetailsModal/ViewDetailsModal";
 
 const UsersList = () => {
-  const [pageNum, setPageNum] = useSearchParams();
+  const [pageNum, setPageNum] : [URLSearchParams, ()=>void]= useSearchParams();
   const [usersList, setUsersList] = useState<UsersListResponse[]>([]);
   const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
   const [numOfRecords, setNumOfRecords] = useState<number>(0);
-  const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [counterLoading, setCounterLoadind] = useState<number>(0);
   const [selectedId, setSelectedId] = useState<number>(0);
@@ -62,12 +61,10 @@ const UsersList = () => {
           .fill(0)
           .map((_, i) => i + 1)
       );
-      console.log(response.data);
       
       setNumOfRecords(response?.data?.totalNumberOfRecords);
       setUsersList(response.data?.data);
-      setTotalNumberOfPages(response?.data?.totalNumberOfPages);
-      setPageNum({ pageNum: Number(response?.data?.pageNumber).toString() });
+      setPageNum({pageNum:response?.data?.pageNumber})
       // setPageNum({ pageNum: response?.data?.pageNumber?.toString() });
     } catch (error) {
       const axiosError = error as AxiosError<AxiosErrorResponse>;

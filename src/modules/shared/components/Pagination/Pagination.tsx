@@ -2,12 +2,12 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 interface paginationInfo {
     totalNumberOfPages:number[],
-    currentPage : number|string,
-    numberOfPages : number|string,
-    paginatedListFunction: (UsersFilterOptions:{pageNumber:number,pageSize:number})=>void ,
+    currentPage ?: number|string,
+    numberOfPages? : number|string,
+    paginatedListFunction:(UsersFilterOptions:{pageNumber:number,pageSize:number})=>void ,
     pageNumber:number,
     numOfRecords:number,
-    from:string
+    from?:string
 
   }
   
