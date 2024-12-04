@@ -90,7 +90,7 @@ const ProjectsList = () => {
     useFetch<getProjectsType>(getFilteredProjects);
   useEffect(() => {
     getProjects({pageNumber:pageNum.get('pageNum'),pageSize:5});
-  });
+  }, []);
 
   const deleteProject = async () => {
     try {
@@ -122,7 +122,9 @@ const ProjectsList = () => {
   const { data: selectedProject, loading: projectLoading } =
     useFetch<getProjectTypes>(viewProject);
 
-
+  useEffect(() => {
+    getProjects({ pageNumber: Number(pageNum.get("pageNum")) });
+  }, []);
 
   const projectsListToDisplay =
     filteredProjects !== null && !projectsLoading && filteredProjects
