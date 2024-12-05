@@ -14,8 +14,9 @@
   }
  */
   export interface ParamsType {
-    title?: string;
+    title?: string | null;
     status?: "ToDo" | "InProgress" | "Done" ;
     pageSize?: number;
     pageNumber?: number|string|null;
   }
+ 

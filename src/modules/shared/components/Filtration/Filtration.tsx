@@ -1,5 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import styles from "./Filtration.module.css";
+import { FilterIcon } from "../SvgIcons/SvgIcons";
 
 type FiltrationProps = {
   pageName: string;
@@ -25,9 +26,19 @@ const Filtration = ({ pageName }: FiltrationProps) => {
     const value = e.target.value;
     setSearchParams({ ...Object.fromEntries(searchParams), groups: value });
   };
+  const getStatusValue = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSearchParams({ ...Object.fromEntries(searchParams), status: value });
+  };
   return (
-    <div className="row mx-0 gap-lg-0 gap-3  py-3 px-2 bg-white mt-3">
-      <div className="col-md-3">
+    <div className="row mx-0 gap-lg-0 gap-3  py-3 px-2 bg-white mt-3 align-items-center">
+      <div
+        className={`${
+          pageName === "projects" || pageName === "users"
+            ? "col-md-3"
+            : "col-md-2"
+        }`}
+      >
         <div
           className={` ${
             pageName !== "projects" ? "col" : "col-md-3"
@@ -104,6 +115,28 @@ const Filtration = ({ pageName }: FiltrationProps) => {
             </div>
           </div>
         </>
+      )}
+      {pageName === "tasks" && (
+        <div className="col-md-1">
+          <div className="input-group  pb-2  ">
+            <span
+              className={`input-group-text border-end-0 bg-white ${styles["icon"]} ps-2 pe-0`}
+              id="input-group-left-example"
+            >
+              <FilterIcon />
+            </span>
+            <select
+              className={`form-control border-start-0 ${styles["input"]}   `}
+              onChange={getStatusValue}
+              value={searchParams.get("status") || ""}
+            >
+              <option value="">Filter</option>
+              <option value={"ToDo"}>ToDo</option>
+              <option value={"InProgress"}>InProgress</option>
+              <option value={"Done"}>Done</option>
+            </select>
+          </div>
+        </div>
       )}
     </div>
   );

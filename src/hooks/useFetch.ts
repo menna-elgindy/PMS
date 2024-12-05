@@ -6,7 +6,7 @@ interface FetchState<T>{
     error: string | null    
 }
 
-const useFetch = <T>(fetchFun: ()  => Promise<T>):FetchState<T> => {
+const useFetch = <T>(fetchFun: ()  => Promise<T>,pageNum?:string| null):FetchState<T> => {
     const [data,setData] = useState<T | null>(null)
     const [loading,setLoading] = useState<boolean>(true)
     const [error,setError] =useState<string|null>(null)
@@ -44,7 +44,7 @@ const useFetch = <T>(fetchFun: ()  => Promise<T>):FetchState<T> => {
         return () => {
           mounted = false;
         };
-    },[fetchFun])
+    },[fetchFun,pageNum])
   return {data,loading,error};
 }
 
