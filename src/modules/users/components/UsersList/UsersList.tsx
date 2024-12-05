@@ -6,7 +6,6 @@ import { AxiosError } from "axios";
 import NoData from "../../../shared/components/NoData/NoData";
 import { Link, useSearchParams } from "react-router-dom";
 import {
-  ApiResponseForUser,
   getFilterUsersType,
   UsersFilterOptions,
   UsersListResponse,
@@ -20,10 +19,11 @@ import ViewDetailsModal from "../../../shared/components/ViewDetailsModal/ViewDe
 
 const UsersList = () => {
   const [pageNum, setPageNum] = useSearchParams();
+
+  
   const [usersList, setUsersList] = useState<UsersListResponse[]>([]);
   const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
   const [numOfRecords, setNumOfRecords] = useState<number>(0);
-  const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [counterLoading, setCounterLoadind] = useState<number>(0);
   const [selectedId, setSelectedId] = useState<number>(0);
@@ -44,7 +44,7 @@ const UsersList = () => {
       setCounterLoadind(1);
     }
     try {
-      const response = await axiosInstance.get<ApiResponseForUser>(
+      const response = await axiosInstance.get(
         USERS_URLS.getAllUsersUrl,
         {
           params: {
@@ -62,13 +62,10 @@ const UsersList = () => {
           .fill(0)
           .map((_, i) => i + 1)
       );
-      console.log(response.data);
       
       setNumOfRecords(response?.data?.totalNumberOfRecords);
       setUsersList(response.data?.data);
-      setTotalNumberOfPages(response?.data?.totalNumberOfPages);
-      setPageNum({ pageNum: Number(response?.data?.pageNumber).toString() });
-      // setPageNum({ pageNum: response?.data?.pageNumber?.toString() });
+      setPageNum({pageNum:response?.data?.pageNumber});
     } catch (error) {
       const axiosError = error as AxiosError<AxiosErrorResponse>;
       toast.error(axiosError.response?.data.message);
@@ -76,6 +73,21 @@ const UsersList = () => {
       setLoading(false);
     }
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   const getFilteredUsers = useCallback(async () => {
     const response = await axiosInstance.get<getFilterUsersType>(
       USERS_URLS.FILTER_USERS,
