@@ -29,6 +29,7 @@ const UsersList = () => {
   const [counterLoading, setCounterLoadind] = useState<number>(0);
   const [selectedId, setSelectedId] = useState<number>(0);
   const [view, setView] = useState<boolean>(false);
+  
 
   const handleCloseDetails = () => setView(false);
   const [searchParams] = useSearchParams();

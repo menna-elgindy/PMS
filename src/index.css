@@ -86,7 +86,7 @@ body {
 .auth-container {
   background-position: center center;
   background-size: cover;
-  height: 100vh;
+  height: 120vh;
 }
 .auth-item {
   background-color: var(--bg-Authcolor);
@@ -121,7 +121,7 @@ label {
   box-shadow: unset;
 }
 
-/* .form-control {
+/* .Inputs {
     color: #fff !important;
     box-shadow: none !important;
   } */
