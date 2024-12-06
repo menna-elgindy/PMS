@@ -19,6 +19,7 @@ import Filtration from "../../../shared/components/Filtration/Filtration";
 import ViewDetailsModal from "../../../shared/components/ViewDetailsModal/ViewDetailsModal";
 import NoData from "../../../shared/components/NoData/NoData";
 import { AuthContext } from "../../../../context/AuthContext";
+import UpDownArrows from "../../../shared/components/SvgIcons/SvgIcons";
 
 const ProjectsList = () => {
   const [pageNum, setPageNum] = useSearchParams();
@@ -188,10 +189,10 @@ const ProjectsList = () => {
           <table className="table table-striped table-borderless">
             <thead>
               <tr>
-                <th className="table-header">Title</th>
-                <th className="table-header">Description</th>
-                <th className="table-header">Num Tasks</th>
-                <th className="table-header">Date Created</th>
+                <th className="table-header">Title <UpDownArrows/></th>
+                <th className="table-header">Description <UpDownArrows/></th>
+                <th className="table-header">Num Tasks <UpDownArrows/></th>
+                <th className="table-header">Date Created <UpDownArrows/></th>
                 <th className="table-header"></th>
               </tr>
             </thead>
