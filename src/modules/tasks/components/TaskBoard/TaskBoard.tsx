@@ -117,7 +117,9 @@ const Column = ({
             layoutId={id.toString()}
             draggable
             onDragStart={(e) => {
+               // @ts-ignore 
               e.dataTransfer.setData("taskId", id.toString());
+               // @ts-ignore 
               e.dataTransfer.setData("prevStatus", title);
             }}
             key={id}
