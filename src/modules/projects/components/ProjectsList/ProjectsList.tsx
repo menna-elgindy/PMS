@@ -130,15 +130,12 @@ const ProjectsList = () => {
   const { data: selectedProject, loading: projectLoading } =
     useFetch<getProjectTypes>(viewProject);
 
-  // useEffect(() => {
-  //   getProjects({ pageNumber: Number(pageNum.get("pageNum")) });
-  // }, []);
   useEffect(() => {
     getProjects({
       pageNumber: pageNum.get("pageNum"),
       pageSize: 5,
     });
-  }, []);
+  }, [loginData?.userGroup]);
   const projectsListToDisplay =
     filteredProjects !== null && !projectsLoading && filteredProjects
       ? filteredProjects!.data
