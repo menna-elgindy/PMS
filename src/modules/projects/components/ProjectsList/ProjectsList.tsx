@@ -97,6 +97,7 @@ const ProjectsList = () => {
     );
     return response?.data;
   }, [searchParams]);
+
   const { data: filteredProjects, loading: projectsLoading } =
     useFetch<getProjectsType>(getFilteredProjects);
 
@@ -121,24 +122,28 @@ const ProjectsList = () => {
     }
     handleClose();
   };
+
   const viewProject = useCallback(async () => {
     const response = await axiosInstance.get<getProjectTypes>(
       PROJECTS_URLS.GET_PROJECT(selectedId)
     );
     return response?.data;
   }, [selectedId]);
+
   const { data: selectedProject, loading: projectLoading } =
     useFetch<getProjectTypes>(viewProject);
 
   // useEffect(() => {
   //   getProjects({ pageNumber: Number(pageNum.get("pageNum")) });
   // }, []);
+
   useEffect(() => {
     getProjects({
       pageNumber: pageNum.get("pageNum"),
       pageSize: 5,
     });
   }, []);
+  
   const projectsListToDisplay =
     filteredProjects !== null && !projectsLoading && filteredProjects
       ? filteredProjects!.data
