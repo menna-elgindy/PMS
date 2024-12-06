@@ -294,6 +294,13 @@ body {
   .main-content {
     max-width: 74%;
   }
+  .paginateWrapper {
+    width: 600px;
+  }
+  .pagination   {
+    justify-content: flex-start !important;
+
+  }
 }
 
 /*************** Sidebar Style *********************/

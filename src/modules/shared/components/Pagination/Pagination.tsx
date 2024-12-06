@@ -14,7 +14,7 @@ interface paginationInfo {
 }
 
 const Pagination: React.FC<paginationInfo> = ({
-  totalNumberOfPages,
+  totalNumberOfPages, 
   paginatedListFunction,
   pageNumber,
   numOfRecords,
@@ -34,7 +34,7 @@ const Pagination: React.FC<paginationInfo> = ({
 
   return (
     <>
-      <div className="bg-white py-3">
+      <div className="bg-white py-3 paginateWrapper">
         <nav aria-label="Page navigation example">
           <ul className="pagination  align-items-center gap-3 justify-content-end">
             <span className="">showing</span>
