@@ -3,7 +3,7 @@ import useFetch from "../../../../hooks/useFetch";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import DeleteConfirmation from "../../../shared/components/DeleteConfirmation/DeleteConfirmation";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { formatDate } from "../../../../helpers";
 import {
   getProjectTypes,
@@ -18,8 +18,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import Filtration from "../../../shared/components/Filtration/Filtration";
 import ViewDetailsModal from "../../../shared/components/ViewDetailsModal/ViewDetailsModal";
 import NoData from "../../../shared/components/NoData/NoData";
-import { AuthContext } from "../../../../context/AuthContext";
-import UpDownArrows from "../../../shared/components/SvgIcons/SvgIcons";
 
 const ProjectsList = () => {
   const [pageNum, setPageNum] = useSearchParams();
@@ -33,12 +31,6 @@ const ProjectsList = () => {
   const [searchParams] = useSearchParams();
 
   const navigate = useNavigate();
-
-  const authContext = useContext(AuthContext);
-  if (!authContext) {
-    return null;
-  }
-  const { loginData } = authContext;
 
   const handleClose = () => setShowDelete(false);
 
@@ -61,28 +53,26 @@ const ProjectsList = () => {
   
   const getProjects = async (params: UsersFilterOptions | null = null) => {
     try {
-      const response = await axiosInstance.get(loginData?.userGroup === 'Manager' ? PROJECTS_URLS.LIST_MANAGER : PROJECTS_URLS.LIST_EMPLOYEE, {
-        params: {
-          pageSize: params?.pageSize,
-          pageNumber: params?.pageNumber,
-          // title: searchParams.get("name"),
-        },
-      });
-      setProjectsData(response.data.data);
-      setArrayOfPages(
-        Array(response?.data?.totalNumberOfPages)
-          .fill(0)
-          .map((_, i) => i + 1)
+      const response = await axiosInstance.get(
+        PROJECTS_URLS.list , {
+          params : {
+            pageSize: params?.pageSize,
+            pageNumber: params?.pageNumber,
+          }
+        }
       );
-      setPageNum({ pageNum: response?.data?.pageNumber });
+      setProjectsData(response.data.data);
+      setArrayOfPages(Array(response?.data?.totalNumberOfPages).fill(0).map((_,i)=>i+1))
+      setPageNum({pageNum:response?.data?.pageNumber})
 
-      setNumOfRecords(response?.data?.totalNumberOfRecords);
+      setNumOfRecords(response?.data?.totalNumberOfRecords)
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
   };
+
 
   const getFilteredProjects = useCallback(async () => {
     const response = await axiosInstance.get<getProjectsType>(
@@ -99,6 +89,9 @@ const ProjectsList = () => {
   }, [searchParams]);
   const { data: filteredProjects, loading: projectsLoading } =
     useFetch<getProjectsType>(getFilteredProjects);
+  useEffect(() => {
+    getProjects({pageNumber:pageNum.get('pageNum'),pageSize:5});
+  }, []);
 
   const deleteProject = async () => {
     try {
@@ -130,45 +123,37 @@ const ProjectsList = () => {
   const { data: selectedProject, loading: projectLoading } =
     useFetch<getProjectTypes>(viewProject);
 
-  // useEffect(() => {
-  //   getProjects({ pageNumber: Number(pageNum.get("pageNum")) });
-  // }, []);
   useEffect(() => {
-    getProjects({
-      pageNumber: pageNum.get("pageNum"),
-      pageSize: 5,
-    });
+    getProjects({ pageNumber: Number(pageNum.get("pageNum")) });
   }, []);
+
   const projectsListToDisplay =
     filteredProjects !== null && !projectsLoading && filteredProjects
       ? filteredProjects!.data
       : projectsData;
 
-  const projectsList =
-    projectsData.length > 0 ? (
-      projectsListToDisplay.map((project: ProjectsType) => (
-        <tr key={project.id}>
-          <td className="table-data">{project.title}</td>
-          <td className="table-data">{project.description}</td>
-          <td className="table-data">{project.task.length}</td>
-          <td className="table-data">{formatDate(project.creationDate)}</td>
-          {loginData?.userGroup === 'Manager' && <td className="table-data cursor-pointer">
-            <TableActions
-              handleShowDelete={() => handleShowDelete(project.id)}
-              handleShowEdit={() => handleShowEdit(project.id)}
-              handleShow={() => handleView(project.id)}
-              itemName={project.title}
-            />
-          </td>}
-        </tr>
-      ))
-    ) : (
-      <tr>
-        <td colSpan={6}>
-          <NoData />
-        </td>
-      </tr>
-    );
+  const projectsList = projectsData.length >0 ? (projectsData.map((project: ProjectsType) => (
+    <tr key={project.id}>
+      <td className="table-data">{project.title}</td>
+      <td className="table-data">{project.description}</td>
+      <td className="table-data">{project.task.length}</td>
+      <td className="table-data">{formatDate(project.creationDate)}</td>
+      <td className="table-data cursor-pointer">
+        <TableActions
+          handleShowDelete={() => handleShowDelete(project.id)}
+          handleShowEdit={() => handleShowEdit(project.id)}
+          handleShow={() => handleView(project.id)}
+          itemName={project.title}
+        />
+      </td>
+    </tr>
+  ))):(
+    <tr>
+      <td colSpan={6}>
+        <NoData />
+      </td>
+    </tr>
+  )
 
   return (
     <div className="pt-5 w-100 ms-5 me-2 mx-auto">
@@ -176,7 +161,6 @@ const ProjectsList = () => {
         title="Projects"
         btnTitle="Add New Project"
         url="new-project"
-        from={loginData?.userGroup}
       />
       <Filtration pageName="projects" />
       {loading ? (
@@ -190,10 +174,10 @@ const ProjectsList = () => {
           <table className="table table-striped table-borderless">
             <thead>
               <tr>
-                <th className="table-header">Title <UpDownArrows/></th>
-                <th className="table-header">Description <UpDownArrows/></th>
-                <th className="table-header">Num Tasks <UpDownArrows/></th>
-                <th className="table-header">Date Created <UpDownArrows/></th>
+                <th className="table-header">Title</th>
+                <th className="table-header">Description</th>
+                <th className="table-header">Num Tasks</th>
+                <th className="table-header">Date Created</th>
                 <th className="table-header"></th>
               </tr>
             </thead>
