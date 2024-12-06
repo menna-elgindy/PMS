@@ -58,6 +58,7 @@ const ProjectsList = () => {
     setSelectedId(id);
     setView(true);
   };
+  
   const getProjects = async (params: UsersFilterOptions | null = null) => {
     try {
       const response = await axiosInstance.get(loginData?.userGroup === 'Manager' ? PROJECTS_URLS.LIST_MANAGER : PROJECTS_URLS.LIST_EMPLOYEE, {
