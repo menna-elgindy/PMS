@@ -150,7 +150,7 @@ const UsersList = () => {
             </div>
           </div>
         ) : (
-          <div className="table-responsive p-5">
+          <div className="table-responsive ">
             <Filtration pageName="users" />
             {usersListToDisplay!.length > 0 ? (
               <>
