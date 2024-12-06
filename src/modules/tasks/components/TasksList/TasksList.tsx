@@ -194,6 +194,7 @@ const TasksList = () => {
 
   return (
     <div className="pt-5 w-100 ms-5 me-2 mx-auto">
+      {" "}
       <TableHeader title="Tasks" btnTitle="Add New Task" url="new-task" />
       <Filtration pageName="tasks" />
       {loading ? (
@@ -225,7 +226,6 @@ const TasksList = () => {
           />
         </div>
       )}
-
       <div>
         <DeleteConfirmation
           deleteItem={"Task"}

@@ -1,0 +1,59 @@
+:root {
+  --title-color: #4f4f4f;
+  --header-bg: white;
+  --cards-bg: #315951e5;
+  --card-color: #ef9b28;
+}
+
+.title {
+  color: var(--title-color);
+  font-family: Montserrat;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 34.13px;
+}
+.title-wrapper {
+  padding-inline: 2.5rem;
+  padding-block: 1.5rem;
+  background-color: var(--header-bg);
+}
+.task-board {
+  padding-block: 4rem;
+  padding-inline: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+.column {
+  flex: 1;
+}
+.column-title {
+  color: var(--title-color);
+
+  font-family: Montserrat;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 26.82px;
+  margin-bottom: 2.5rem;
+}
+
+.cards-wrapper {
+  background-color: var(--cards-bg);
+  border-radius: 1rem;
+  padding-inline: 1rem;
+  padding-block: 3.125rem;
+  min-height: 20rem;
+  display: flex;
+  flex-direction: column;
+  gap:1rem
+}
+
+.card {
+  background-color: var(--card-color);
+  color: var(--header-bg);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21.94px;
+}

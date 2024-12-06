@@ -1,5 +1,5 @@
 import style from "./TaskForm.module.css";
-import { useForm } from "react-hook-form";
+import {  useForm } from "react-hook-form";
 import AddFormHeader from "../../../shared/components/AddFormHeader/AddFormHeader";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { AddTaskPayload } from "../../../../interface/Add&EditResponse/Add&EditResponse";
@@ -18,6 +18,7 @@ import {
   UsersListResponse,
 } from "../../../../interface/users/ApiResponseForUser";
 
+
 //import Select from "react-select";
 
 const TaskForm = () => {
@@ -26,7 +27,6 @@ const TaskForm = () => {
 
   const {
     register,
-
     formState: { errors, isSubmitting },
     setValue,
     handleSubmit,
@@ -144,24 +144,27 @@ const TaskForm = () => {
               name="employeeId"
               control={control}
               rules={{ required: "User is required" }}
-              render={({ field, fieldState: { error } }) => (
+              render={({ field, fieldState: { error } }) => {
+                const selectedValue = usersList.find((option) => option.id === field.value); 
+                return(
                 <>
                   <Select
+                    {...field}
                      options={usersList?.map(({ id, userName }) => ({
                         value: id,
                         label: userName,
                       })) as { value: number; label: string }[]}
-                    value={usersList.find(option => option.id === field.value) || null}
+                    value={selectedValue && { value: selectedValue.id, label: selectedValue.userName } }
                     placeholder="No Users Selected"
                     onChange={(selectedOption) =>
-                      field.onChange(selectedOption?.id)
+                      field.onChange(selectedOption?.value)
                     }
                   />
                   {error && (
                     <span className="text-danger">{error.message}</span>
                   )}
                 </>
-              )}
+              )}}
             />*/}
 
             <select
