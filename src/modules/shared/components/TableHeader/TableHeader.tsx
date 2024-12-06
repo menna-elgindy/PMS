@@ -12,11 +12,11 @@ const TableHeader: React.FC<tableHeader> = ({ title, btnTitle, url, from }) => {
     <>
       <div className="tableHeaderContainer bg-white d-flex justify-content-between">
         <h3>{title}</h3>
-        {from != "user" ? (
+        {from != "Employee" ? (
           <Link to={`${url}`} className="tableHeaderBtn text-decoration-none">
             <span className="mx-2">
               <i className="fa-solid fa-plus"></i>
-            </span>{" "}
+            </span>
             {btnTitle}
           </Link>
         ) : (

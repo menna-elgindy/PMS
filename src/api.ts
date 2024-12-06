@@ -59,7 +59,8 @@ const USERS_URLS={
 
 // projects endpoints
 export const PROJECTS_URLS = {
-  list: 'Project/manager',
+  LIST_MANAGER: 'Project/manager',
+  LIST_EMPLOYEE: 'Project/employee',
   DELETE_PROJECT: (id:number) => `Project/${id}`,
   ADD_PROJECT:`/Project`,
   GET_PROJECT:(id:number)=>`Project/${id}`,

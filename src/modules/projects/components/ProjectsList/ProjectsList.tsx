@@ -3,7 +3,7 @@ import useFetch from "../../../../hooks/useFetch";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import DeleteConfirmation from "../../../shared/components/DeleteConfirmation/DeleteConfirmation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { formatDate } from "../../../../helpers";
 import {
   getProjectTypes,
@@ -18,6 +18,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import Filtration from "../../../shared/components/Filtration/Filtration";
 import ViewDetailsModal from "../../../shared/components/ViewDetailsModal/ViewDetailsModal";
 import NoData from "../../../shared/components/NoData/NoData";
+import { AuthContext } from "../../../../context/AuthContext";
 
 const ProjectsList = () => {
   const [pageNum, setPageNum] = useSearchParams();
@@ -31,6 +32,12 @@ const ProjectsList = () => {
   const [searchParams] = useSearchParams();
 
   const navigate = useNavigate();
+
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    return null;
+  }
+  const { loginData } = authContext;
 
   const handleClose = () => setShowDelete(false);
 
@@ -52,7 +59,7 @@ const ProjectsList = () => {
   };
   const getProjects = async (params: UsersFilterOptions | null = null) => {
     try {
-      const response = await axiosInstance.get(PROJECTS_URLS.list, {
+      const response = await axiosInstance.get(loginData?.userGroup === 'Manager' ? PROJECTS_URLS.LIST_MANAGER : PROJECTS_URLS.LIST_EMPLOYEE, {
         params: {
           pageSize: params?.pageSize,
           pageNumber: params?.pageNumber,
@@ -143,14 +150,14 @@ const ProjectsList = () => {
           <td className="table-data">{project.description}</td>
           <td className="table-data">{project.task.length}</td>
           <td className="table-data">{formatDate(project.creationDate)}</td>
-          <td className="table-data cursor-pointer">
+          {loginData?.userGroup === 'Manager' && <td className="table-data cursor-pointer">
             <TableActions
               handleShowDelete={() => handleShowDelete(project.id)}
               handleShowEdit={() => handleShowEdit(project.id)}
               handleShow={() => handleView(project.id)}
               itemName={project.title}
             />
-          </td>
+          </td>}
         </tr>
       ))
     ) : (
@@ -167,6 +174,7 @@ const ProjectsList = () => {
         title="Projects"
         btnTitle="Add New Project"
         url="new-project"
+        from={loginData?.userGroup}
       />
       <Filtration pageName="projects" />
       {loading ? (
