@@ -14,7 +14,7 @@ interface paginationInfo {
 }
 
 const Pagination: React.FC<paginationInfo> = ({
-  totalNumberOfPages,
+  totalNumberOfPages, 
   paginatedListFunction,
   pageNumber,
   numOfRecords,
