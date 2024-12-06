@@ -10,6 +10,7 @@ interface paginationInfo {
   }) => void;
   pageNumber: number;
   numOfRecords: number;
+  from?: string;
 }
 
 const Pagination: React.FC<paginationInfo> = ({
@@ -17,6 +18,7 @@ const Pagination: React.FC<paginationInfo> = ({
   paginatedListFunction,
   pageNumber,
   numOfRecords,
+  from,
 }) => {
   const nextBtn = (pageSize: number, pageNumber: number) => {
     if (pageNumber <= totalNumberOfPages.length) {
@@ -45,12 +47,15 @@ const Pagination: React.FC<paginationInfo> = ({
                 {pageNumber} <i className="fa-solid fa-chevron-down"></i>
               </Dropdown.Toggle>
 
-              <Dropdown.Menu>
+              <Dropdown.Menu className="dropDownMenuStyle">
                 {totalNumberOfPages?.map((page) => (
                   <Dropdown.Item
                     key={page}
                     onClick={() =>
-                      paginatedListFunction({ pageNumber: page, pageSize: 5 })
+                      paginatedListFunction({
+                        pageNumber: page,
+                        pageSize: from == "users" ? 20 : 5,
+                      })
                     }
                   >
                     {page}
@@ -73,7 +78,9 @@ const Pagination: React.FC<paginationInfo> = ({
                     ? "page-link pagniationLink disabledArrow"
                     : "page-link pagniationLink "
                 }
-                onClick={() => prevBtn(5, pageNumber - 1)}
+                onClick={() =>
+                  prevBtn(from == "users" ? 20 : 5, pageNumber - 1)
+                }
                 aria-label="Previous"
               >
                 <i className="fa-solid fa-chevron-left"></i>
@@ -87,7 +94,9 @@ const Pagination: React.FC<paginationInfo> = ({
                     ? "page-link pagniationLink disabledArrow"
                     : "page-link pagniationLink "
                 }
-                onClick={() => nextBtn(5, pageNumber + 1)}
+                onClick={() =>
+                  nextBtn(from == "users" ? 20 : 5, pageNumber + 1)
+                }
                 aria-label="Next"
               >
                 <i className="fa-solid fa-chevron-right "></i>

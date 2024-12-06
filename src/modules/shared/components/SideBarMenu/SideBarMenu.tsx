@@ -81,18 +81,33 @@ const SideBarMenu = () => {
             Projects
           </MenuItem>
 
-          <MenuItem
-            icon={
-              <TasksIcon
-                color={
-                  !isCollapsed && pathname === "/tasks" ? "#ef9b28" : "#fff"
-                }
-              />
-            }
-            component={<NavLink to="tasks" />}
-          >
-            Tasks
-          </MenuItem>
+          {loginData?.userGroup === "Manager" ? (
+            <MenuItem
+              icon={
+                <TasksIcon
+                  color={
+                    !isCollapsed && pathname === "/tasks" ? "#ef9b28" : "#fff"
+                  }
+                />
+              }
+              component={<NavLink to="tasks" />}
+            >
+              Tasks
+            </MenuItem>
+          ) : (
+            <MenuItem
+              icon={
+                <TasksIcon
+                  color={
+                    !isCollapsed && pathname === "/tasks" ? "#ef9b28" : "#fff"
+                  }
+                />
+              }
+              component={<NavLink to="tasks-board" />}
+            >
+              Tasks
+            </MenuItem>
+          )}
         </Menu>
       </Sidebar>
       <div

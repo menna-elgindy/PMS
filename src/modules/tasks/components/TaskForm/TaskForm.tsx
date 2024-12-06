@@ -1,5 +1,5 @@
 import style from "./TaskForm.module.css";
-import { useForm } from "react-hook-form";
+import {  useForm } from "react-hook-form";
 import AddFormHeader from "../../../shared/components/AddFormHeader/AddFormHeader";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { AddTaskPayload } from "../../../../interface/Add&EditResponse/Add&EditResponse";
@@ -18,6 +18,9 @@ import {
   UsersListResponse,
 } from "../../../../interface/users/ApiResponseForUser";
 
+
+//import Select from "react-select";
+
 const TaskForm = () => {
   const [projectsData, setProjectsData] = useState([]);
   const [usersList, setUsersList] = useState<UsersListResponse[]>([]);
@@ -35,7 +38,7 @@ const TaskForm = () => {
   const onSubmit = async (data: AddTaskPayload) => {
     const parsedId = parseInt(taskId!, 10);
     try {
-     let res= await axiosInstance[isNewTask ? "post" : "put"](
+      let res = await axiosInstance[isNewTask ? "post" : "put"](
         isNewTask ? TASKS_URLS.ADD_Task : TASKS_URLS.EDIT_TASK(parsedId),
         data,
         HEADERS
@@ -43,7 +46,7 @@ const TaskForm = () => {
       isNewTask
         ? toast.success("Task added successfully")
         : toast.success("Task updated successfully");
-        console.log(res.data)
+      console.log(res.data);
       navigate("/tasks");
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
@@ -54,7 +57,7 @@ const TaskForm = () => {
     const getProjects = async () => {
       try {
         const response = await axiosInstance.get(
-          `${PROJECTS_URLS.list}?pageSize=10&pageNumber=1`
+          `${PROJECTS_URLS.list}?pageSize=10000&pageNumber=1`
         );
         setProjectsData(response.data.data);
       } catch (error) {
@@ -66,7 +69,7 @@ const TaskForm = () => {
     const getUsers = async () => {
       try {
         const response = await axiosInstance.get<ApiResponseForUser>(
-          `${USERS_URLS.getAllUsersUrl}?pageSize=10&pageNumber=1`
+          `${USERS_URLS.getAllUsersUrl}?pageSize=10000&pageNumber=1`
         );
         setUsersList(response.data.data);
       } catch (error) {
@@ -94,7 +97,7 @@ const TaskForm = () => {
   }, []);
 
   return (
-    <div className={style["add-project-wrapper"]}>
+    <div className="pt-5 w-100 ms-5 me-2 mx-auto">
       <AddFormHeader title="Task" link="Tasks" />
       <form className={style["form-wrapper"]} onSubmit={handleSubmit(onSubmit)}>
         {/*title */}
@@ -137,6 +140,33 @@ const TaskForm = () => {
           <div className={style["selector-group"]}>
             <label>User</label>
 
+            {/*<Controller
+              name="employeeId"
+              control={control}
+              rules={{ required: "User is required" }}
+              render={({ field, fieldState: { error } }) => {
+                const selectedValue = usersList.find((option) => option.id === field.value); 
+                return(
+                <>
+                  <Select
+                    {...field}
+                     options={usersList?.map(({ id, userName }) => ({
+                        value: id,
+                        label: userName,
+                      })) as { value: number; label: string }[]}
+                    value={selectedValue && { value: selectedValue.id, label: selectedValue.userName } }
+                    placeholder="No Users Selected"
+                    onChange={(selectedOption) =>
+                      field.onChange(selectedOption?.value)
+                    }
+                  />
+                  {error && (
+                    <span className="text-danger">{error.message}</span>
+                  )}
+                </>
+              )}}
+            />*/}
+
             <select
               className={style["form-input"]}
               {...register("employeeId", {
@@ -155,13 +185,36 @@ const TaskForm = () => {
               ))}
             </select>
             {errors.employeeId && (
-              <span className="text-danger ">{errors.employeeId.message}</span>
+              <span className="text-danger">{errors.employeeId.message}</span>
             )}
           </div>
 
           {/*Project */}
           <div className={style["selector-group"]}>
             <label>Project</label>
+
+            {/*<Controller
+              name="projectId"
+              control={control}
+              rules={{ required: "Project is required" }}
+              render={({ field, fieldState: { error } }) => (
+                <>
+                  <Select
+                    options={projectsData?.map(({ id, title }) => ({
+                      value: id,
+                      label: title,
+                    }))}
+                    placeholder="No Status Selected"
+                    onChange={(selectedOption) =>
+                      field.onChange(selectedOption?.value)
+                    }
+                  />
+                  {error && (
+                    <span className="text-danger">{error.message}</span>
+                  )}
+                </>
+              )}
+            />*/}
 
             <select
               className={style["form-input"]}
@@ -181,13 +234,13 @@ const TaskForm = () => {
               ))}
             </select>
             {errors.projectId && (
-              <span className="text-danger ">{errors.projectId.message}</span>
+              <span className="text-danger">{errors.projectId.message}</span>
             )}
           </div>
         </div>
 
         <div className={style["btns-wrapper"]}>
-          <Link to="/projects" className={style["cancle-btn"]}>
+          <Link to="/tasks" className={style["cancle-btn"]}>
             Cancle
           </Link>
           <button

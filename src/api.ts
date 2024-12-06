@@ -41,7 +41,10 @@ const TASKS_URLS = {
   get_All : `Task/manager`,
   ADD_Task:`/Task`,
   GET_Task:(id:number)=>`/Task/${id}`,
-  EDIT_TASK:(id:number)=>`/Task/${id}`
+  EDIT_TASK:(id:number)=>`/Task/${id}`,
+  DELETE_TASK:(id:number)=>`/Task/${id}`,
+  CHANGE_STATUS:(id:number)=>`/Task/${id}/change-status`,
+  GET_ASSIGNED_TASKS:`/Task`
 }
 
 // users_enpoints
@@ -58,7 +61,8 @@ const USERS_URLS={
 
 // projects endpoints
 export const PROJECTS_URLS = {
-  list: 'Project/manager',
+  LIST_MANAGER: 'Project/manager',
+  LIST_EMPLOYEE: 'Project/employee',
   DELETE_PROJECT: (id:number) => `Project/${id}`,
   ADD_PROJECT:`/Project`,
   GET_PROJECT:(id:number)=>`Project/${id}`,

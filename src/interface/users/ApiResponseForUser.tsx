@@ -1,5 +1,5 @@
 export interface ApiResponseForUser {
-  pageNumber?: number;
+  pageNumber?: number | string[] | undefined;
   data: UsersListResponse[];
   totalNumberOfPages: number;
   totalNumberOfRecords: number;
@@ -24,7 +24,8 @@ export interface UsersFilterOptions {
   country?: string;
   groups?: 1 | 2;
   pageSize?: number;
-  pageNumber?: number;
+  pageNumber?: number | string | null;
+  title?: string | null;
 }
 export interface getFilterUsersType {
   pageNumber?: string;

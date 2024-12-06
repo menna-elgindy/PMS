@@ -6,7 +6,6 @@ import { AxiosError } from "axios";
 import NoData from "../../../shared/components/NoData/NoData";
 import { Link, useSearchParams } from "react-router-dom";
 import {
-  ApiResponseForUser,
   getFilterUsersType,
   UsersFilterOptions,
   UsersListResponse,
@@ -22,10 +21,10 @@ import UpDownArrows from "../../../shared/components/SvgIcons/SvgIcons";
 const UsersList = () => {
   const [pageNum, setPageNum] = useSearchParams();
 
+  
   const [usersList, setUsersList] = useState<UsersListResponse[]>([]);
   const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
   const [numOfRecords, setNumOfRecords] = useState<number>(0);
-  const [totalNumberOfPages, setTotalNumberOfPages] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [counterLoading, setCounterLoadind] = useState<number>(0);
   const [selectedId, setSelectedId] = useState<number>(0);
@@ -47,7 +46,7 @@ const UsersList = () => {
       setCounterLoadind(1);
     }
     try {
-      const response = await axiosInstance.get<ApiResponseForUser>(
+      const response = await axiosInstance.get(
         USERS_URLS.getAllUsersUrl,
         {
           params: {
@@ -65,11 +64,10 @@ const UsersList = () => {
           .fill(0)
           .map((_, i) => i + 1)
       );
+      
       setNumOfRecords(response?.data?.totalNumberOfRecords);
       setUsersList(response.data?.data);
-      setTotalNumberOfPages(response?.data?.totalNumberOfPages);
-      setPageNum({ pageNum: Number(response?.data?.pageNumber).toString() });
-      // setPageNum({ pageNum: response?.data?.pageNumber?.toString() });
+      setPageNum({pageNum:response?.data?.pageNumber});
     } catch (error) {
       const axiosError = error as AxiosError<AxiosErrorResponse>;
       toast.error(axiosError.response?.data.message);
@@ -77,13 +75,15 @@ const UsersList = () => {
       setLoading(false);
     }
   };
+
+  
   const getFilteredUsers = useCallback(async () => {
     const response = await axiosInstance.get<getFilterUsersType>(
       USERS_URLS.FILTER_USERS,
       {
         params: {
-          pageSize: 5,
-          pageNumber: Number(searchParams.get("pageNum")),
+          pageSize: 20,
+          pageNumber: Number(pageNum.get('pageNum')),
           userName: searchParams.get("name") || null,
           email: searchParams.get("email") || null,
           country: searchParams.get("country") || null,
@@ -121,7 +121,8 @@ const UsersList = () => {
   };
 
   useEffect(() => {
-    getAllUsers({ pageNumber: Number(pageNum.get("pageNum")) });
+    getAllUsers({pageNumber:pageNum.get('pageNum'),pageSize:20})
+    
   }, []);
   const viewUser = useCallback(async () => {
     const response = await axiosInstance.get<UsersListResponse>(
@@ -140,7 +141,7 @@ const UsersList = () => {
   return (
     <>
       <div className="pt-5 w-100 ms-5 me-2 mx-auto">
-        <TableHeader title="USERS" url="" />
+        <TableHeader title="USERS" url="" from="user" />
 
         {loading ? (
           <div className="d-flex justify-content-center">
@@ -226,7 +227,7 @@ const UsersList = () => {
                                   to=""
                                   state={{ type: "edit" }}
                                   className="dropdown-item text-success"
-                                  onClick={() => handleView(user.id)}
+                                  onClick={() => handleView(+user.id)}
                                 >
                                   <i className="fa fa-eye mx-2"></i>
                                   View
@@ -244,6 +245,7 @@ const UsersList = () => {
                   numOfRecords={numOfRecords}
                   totalNumberOfPages={arrayOfPages}
                   paginatedListFunction={getAllUsers}
+                  from="users"
                 />
               </>
             ) : (
