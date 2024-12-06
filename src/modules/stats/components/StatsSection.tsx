@@ -28,6 +28,7 @@ const StatsSection = () => {
     return response?.data;
   }, []);
   const countUsers = useCallback(async () => {
+    if (loginData?.userGroup !== "Manager") return {} as countUsersType;
     const response = await axiosInstance.get<countUsersType>(
       USERS_URLS.COUNT_USERS
     );
@@ -158,7 +159,6 @@ const StatsSection = () => {
           )}
         </div>
       )}
-
     </div>
   );
 };

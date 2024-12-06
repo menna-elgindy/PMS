@@ -35,9 +35,9 @@ const ProjectsList = () => {
   const navigate = useNavigate();
 
   const authContext = useContext(AuthContext);
-  if (!authContext) {
-    return null;
-  }
+  // if (!authContext) { // this will return error for all used hooks
+  //   return null;
+  // }
   const { loginData } = authContext;
 
   const handleClose = () => setShowDelete(false);
@@ -58,16 +58,21 @@ const ProjectsList = () => {
     setSelectedId(id);
     setView(true);
   };
-  
+
   const getProjects = async (params: UsersFilterOptions | null = null) => {
     try {
-      const response = await axiosInstance.get(loginData?.userGroup === 'Manager' ? PROJECTS_URLS.LIST_MANAGER : PROJECTS_URLS.LIST_EMPLOYEE, {
-        params: {
-          pageSize: params?.pageSize,
-          pageNumber: params?.pageNumber,
-          // title: searchParams.get("name"),
-        },
-      });
+      const response = await axiosInstance.get(
+        loginData?.userGroup === "Manager"
+          ? PROJECTS_URLS.LIST_MANAGER
+          : PROJECTS_URLS.LIST_EMPLOYEE,
+        {
+          params: {
+            pageSize: params?.pageSize,
+            pageNumber: params?.pageNumber,
+            // title: searchParams.get("name"),
+          },
+        }
+      );
       setProjectsData(response.data.data);
       setArrayOfPages(
         Array(response?.data?.totalNumberOfPages)
@@ -86,7 +91,9 @@ const ProjectsList = () => {
 
   const getFilteredProjects = useCallback(async () => {
     const response = await axiosInstance.get<getProjectsType>(
-      PROJECTS_URLS.FILTER_PROJECTS,
+      loginData?.userGroup === "Manager"
+        ? PROJECTS_URLS.LIST_MANAGER
+        : PROJECTS_URLS.LIST_EMPLOYEE,
       {
         params: {
           pageSize: 5,
@@ -124,6 +131,7 @@ const ProjectsList = () => {
   };
 
   const viewProject = useCallback(async () => {
+    if (loginData?.userGroup !== "Manager") return {} as getProjectTypes;
     const response = await axiosInstance.get<getProjectTypes>(
       PROJECTS_URLS.GET_PROJECT(selectedId)
     );
@@ -133,15 +141,13 @@ const ProjectsList = () => {
   const { data: selectedProject, loading: projectLoading } =
     useFetch<getProjectTypes>(viewProject);
 
-
-
   useEffect(() => {
     getProjects({
       pageNumber: pageNum.get("pageNum"),
       pageSize: 5,
     });
   }, [loginData?.userGroup]);
-  
+
   const projectsListToDisplay =
     filteredProjects !== null && !projectsLoading && filteredProjects
       ? filteredProjects!.data
@@ -155,14 +161,16 @@ const ProjectsList = () => {
           <td className="table-data">{project.description}</td>
           <td className="table-data">{project.task.length}</td>
           <td className="table-data">{formatDate(project.creationDate)}</td>
-          {loginData?.userGroup === 'Manager' && <td className="table-data cursor-pointer">
-            <TableActions
-              handleShowDelete={() => handleShowDelete(project.id)}
-              handleShowEdit={() => handleShowEdit(project.id)}
-              handleShow={() => handleView(project.id)}
-              itemName={project.title}
-            />
-          </td>}
+          {loginData?.userGroup === "Manager" && (
+            <td className="table-data cursor-pointer">
+              <TableActions
+                handleShowDelete={() => handleShowDelete(project.id)}
+                handleShowEdit={() => handleShowEdit(project.id)}
+                handleShow={() => handleView(project.id)}
+                itemName={project.title}
+              />
+            </td>
+          )}
         </tr>
       ))
     ) : (
@@ -193,10 +201,18 @@ const ProjectsList = () => {
           <table className="table table-striped table-borderless">
             <thead>
               <tr>
-                <th className="table-header">Title <UpDownArrows/></th>
-                <th className="table-header">Description <UpDownArrows/></th>
-                <th className="table-header">Num Tasks <UpDownArrows/></th>
-                <th className="table-header">Date Created <UpDownArrows/></th>
+                <th className="table-header">
+                  Title <UpDownArrows />
+                </th>
+                <th className="table-header">
+                  Description <UpDownArrows />
+                </th>
+                <th className="table-header">
+                  Num Tasks <UpDownArrows />
+                </th>
+                <th className="table-header">
+                  Date Created <UpDownArrows />
+                </th>
                 <th className="table-header"></th>
               </tr>
             </thead>
