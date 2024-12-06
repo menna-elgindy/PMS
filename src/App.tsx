@@ -11,17 +11,16 @@ import Dashboard from "./modules/Dashboard/components/Dashboard";
 import MasterLayout from "./modules/shared/components/MasterLayout/MasterLayout";
 import ProjectsList from "./modules/projects/components/ProjectsList/ProjectsList";
 import ProjectForm from "./modules/projects/components/ProjectForm/ProjectForm";
-import TasksList from "./modules/tasks/components/TasksList/TasksList";
 import UsersList from "./modules/users/components/UsersList/UsersList";
 import ChangePassword from "./modules/authentication/components/ChangePassword/ChangePassword";
-import ProtectedComponent from './modules/shared/components/ProtectedComponent/ProtectedComponent';
-
+import ProtectedComponent from "./modules/shared/components/ProtectedComponent/ProtectedComponent";
 
 import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 import TaskForm from "./modules/tasks/components/TaskForm/TaskForm";
-
+import TasksList from "./modules/tasks/components/TasksList/TasksList";
+import TaskBoard from "./modules/tasks/components/TaskBoard/TaskBoard";
 
 function App() {
   const routes = createBrowserRouter([
@@ -41,11 +40,11 @@ function App() {
     },
     {
       path: "",
-      element:(
-			  <ProtectedComponent >
-				<MasterLayout />
-			  </ProtectedComponent>
-			) ,
+      element: (
+        <ProtectedComponent>
+          <MasterLayout />
+        </ProtectedComponent>
+      ),
       children: [
         {
           path: "dashboard",
@@ -76,6 +75,10 @@ function App() {
           element: <TaskForm />,
         },
         {
+          path: "tasks-board",
+          element: <TaskBoard />,
+        },
+        {
           path: "users",
           element: <UsersList />,
         },
@@ -86,7 +89,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer position="top-center"  style={{zIndex:9999999}}/>
+      <ToastContainer position="top-center" style={{ zIndex: 9999999 }} />
       <RouterProvider router={routes}></RouterProvider>
     </>
   );
