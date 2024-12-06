@@ -17,6 +17,7 @@ import Filtration from "../../../shared/components/Filtration/Filtration";
 import useFetch from "../../../../hooks/useFetch";
 import Pagination from "../../../shared/components/Pagination/Pagination";
 import ViewDetailsModal from "../../../shared/components/ViewDetailsModal/ViewDetailsModal";
+import UpDownArrows from "../../../shared/components/SvgIcons/SvgIcons";
 
 const UsersList = () => {
   const [pageNum, setPageNum] = useSearchParams();
@@ -156,22 +157,22 @@ const UsersList = () => {
                   <thead className="table-dark">
                     <tr>
                       <th className="table-header" scope="col">
-                        User Name
+                        User Name <UpDownArrows/>
                       </th>
                       <th className="table-header" scope="col">
-                        Status
+                        Status <UpDownArrows/>
                       </th>
                       <th className="table-header" scope="col">
-                        Phone Number
+                        Phone Number <UpDownArrows/>
                       </th>
                       <th className="table-header" scope="col">
-                        Email
+                        Email <UpDownArrows/>
                       </th>
                       <th className="table-header" scope="col">
-                        Date Created
+                        Date Created <UpDownArrows/>
                       </th>
                       <th className="table-header" scope="col">
-                        Actions
+                        Actions <UpDownArrows/>
                       </th>
                     </tr>
                   </thead>
