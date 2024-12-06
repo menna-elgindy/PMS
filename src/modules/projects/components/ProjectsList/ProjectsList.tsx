@@ -53,7 +53,7 @@ const ProjectsList = () => {
   
   const getProjects = async (params: UsersFilterOptions | null = null) => {
     try {
-      const response = await axiosInstance.get(
+      const response = await axiosInstance.get( 
         PROJECTS_URLS.list , {
           params : {
             pageSize: params?.pageSize,
