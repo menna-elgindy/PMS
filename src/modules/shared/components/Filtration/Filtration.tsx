@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import styles from "./Filtration.module.css";
 import { FilterIcon } from "../SvgIcons/SvgIcons";
+import useThemeContext from "../../../../hooks/useThemeContext";
 
 type FiltrationProps = {
   pageName: string;
@@ -8,7 +9,7 @@ type FiltrationProps = {
 
 const Filtration = ({ pageName }: FiltrationProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const { theme } = useThemeContext();
   const getNameValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchParams({ ...Object.fromEntries(searchParams), name: value });
@@ -126,7 +127,7 @@ const Filtration = ({ pageName }: FiltrationProps) => {
               className={`input-group-text border-end-0 bg-white ${styles["icon"]} ps-2 pe-0`}
               id="input-group-left-example"
             >
-              <FilterIcon />
+              <FilterIcon color={theme === "dark" ? "#ffffff" : "#000000"} />
             </span>
             <select
               className={`form-control border-start-0 ${styles["input"]}   `}

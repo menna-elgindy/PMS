@@ -34,4 +34,5 @@
   border-color: var(--label-color) !important;
   background-color: var(--filter-input-bg) !important;
   color: var(--label-color) !important;
+  fill: var(--label-color) !important;
 }

@@ -1,15 +1,8 @@
-import { useContext } from "react";
-import { ThemeContext } from "../../../../context/ThemeContext";
 import styles from "./ThemeToggle.module.css";
+import useThemeContext from "../../../../hooks/useThemeContext";
 
 const ThemeToggle = () => {
-  const context = useContext(ThemeContext);
-
-  if (context === undefined) {
-    throw new Error("ThemeContext is undefined");
-  }
-
-  const { theme, toggleTheme } = context;
+  const { theme, toggleTheme } = useThemeContext();
   const handleClick = () => {
     toggleTheme();
   };
