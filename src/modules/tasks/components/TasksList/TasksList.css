@@ -1,32 +1,38 @@
+:root {
+  --status-todo: rgba(228, 225, 245, 1);
+}
+[theme="dark"] {
+  --status-todo: rgb(195, 193, 210);
+}
 .table-data .status-todo {
-    background: rgba(228, 225, 245, 1);
-    color: rgba(255, 255, 255, 1);
-    padding: 8px 18px;
-    border-radius: 25px;
-    Width:60px;
-    Height:27px;
-    font-size: 12px;
-    font-weight: 400;
-  }
-  
-  .status-inprogress {
-    background: rgba(239, 155, 40, 0.64);
-    color: rgba(255, 255, 255, 1);
-    padding: 8px 18px;
-    border-radius: 25px;
-    Width:95px;
-    Height:27px;
-    font-size: 12px;
-    font-weight: 400;
-  }
-  
-  .status-done {
-    background: rgba(0, 146, 71, 1);
-    color: rgba(255, 255, 255, 1);
-    padding: 8px 18px;
-    border-radius: 25px;
-    Width:32px;
-    Height:15px;
-    font-size: 12px;
-    font-weight: 400;
-  }
+  background: var(--status-todo);
+  color: rgba(255, 255, 255, 1);
+  padding: 8px 18px;
+  border-radius: 25px;
+  width: 60px;
+  height: 27px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.status-inprogress {
+  background: rgba(239, 155, 40, 0.64);
+  color: rgba(255, 255, 255, 1);
+  padding: 8px 18px;
+  border-radius: 25px;
+  width: 95px;
+  height: 27px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.status-done {
+  background: rgba(0, 146, 71, 1);
+  color: rgba(255, 255, 255, 1);
+  padding: 8px 18px;
+  border-radius: 25px;
+  width: 32px;
+  height: 15px;
+  font-size: 12px;
+  font-weight: 400;
+}

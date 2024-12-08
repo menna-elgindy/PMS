@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import styles from "./TableHeader.module.css";
 
 interface tableHeader {
   btnTitle?: string;
@@ -10,7 +11,9 @@ interface tableHeader {
 const TableHeader: React.FC<tableHeader> = ({ title, btnTitle, url, from }) => {
   return (
     <>
-      <div className="tableHeaderContainer bg-white d-flex justify-content-between">
+      <div
+        className={`tableHeaderContainer d-flex justify-content-between  ${styles["header-container"]}`}
+      >
         <h3>{title}</h3>
         {from != "Employee" ? (
           <Link to={`${url}`} className="tableHeaderBtn text-decoration-none">

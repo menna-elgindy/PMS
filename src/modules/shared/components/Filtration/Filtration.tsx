@@ -31,7 +31,10 @@ const Filtration = ({ pageName }: FiltrationProps) => {
     setSearchParams({ ...Object.fromEntries(searchParams), status: value });
   };
   return (
-    <div className="row mx-0 gap-lg-0 gap-3  py-3 px-2 bg-white mt-3 align-items-center">
+    <div
+      className={`row mx-0 gap-lg-0 gap-3  py-3 px-2 mt-3 align-items-center
+         ${styles["filtration-container"]}`}
+    >
       <div
         className={`${
           pageName === "projects" || pageName === "users"
