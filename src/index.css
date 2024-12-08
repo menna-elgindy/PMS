@@ -38,6 +38,7 @@
   --table-odd: #f2f2f2;
   --table-even: #ffffff;
   --disabled-arrow: gray;
+  --pagination-bg: #f8f9fa;
 }
 
 /* dark mode */
@@ -61,17 +62,14 @@
   --dark-color: #fff;
   --App-color: #101418;
   --bd-table: rgba(14, 56, 47, 1);
-  /* --bg-sidebar: #101418; */
   --bg-sidebar: #101e19;
-  /* --bg-Mastercolor: #142520; */
   --bg-Mastercolor: #142520;
-  /* --bg-Mastercolor: #414f4b; */
-  /* --header-bg: #414f4b; */
   --header-bg: #2e544c;
   --text-color: #ffffff;
   --table-odd: #f2f2f2;
   --table-even: #ffffff;
   --disabled-arrow: #ffffff;
+  --pagination-bg: #101e19;
 }
 
 body {
@@ -429,6 +427,10 @@ body {
   color: var(--disabled-arrow) !important;
   border-radius: 6px;
 }
+/* .pagniationLink .page-link:hover {
+  background-color: red;
+  color: #000000 !important;
+} */
 /*********************** Table *******************/
 th.table-header {
   background-color: #315951e5;
@@ -453,6 +455,13 @@ td.table-data {
   outline: unset !important;
   border: unset !important;
   color: var(--disabled-arrow);
+}
+
+.enabledArrow {
+  background-color: var(--pagination-bg) !important;
+}
+.enabledArrow:hover {
+  background-color: unset !important;
 }
 .disabledArrow:hover {
   background-color: unset !important;

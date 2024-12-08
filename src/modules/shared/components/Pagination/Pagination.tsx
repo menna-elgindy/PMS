@@ -92,7 +92,7 @@ const Pagination: React.FC<paginationInfo> = ({
                 className={
                   pageNumber == totalNumberOfPages.length
                     ? "page-link pagniationLink disabledArrow"
-                    : "page-link pagniationLink "
+                    : "page-link pagniationLink enabledArrow "
                 }
                 onClick={() =>
                   nextBtn(from == "users" ? 20 : 5, pageNumber + 1)
