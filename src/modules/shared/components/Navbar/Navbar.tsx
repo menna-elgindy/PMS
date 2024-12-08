@@ -11,6 +11,7 @@ const Navbar = () => {
     return null;
   }
   const { loginData } = authContext;
+
   return (
     <div
       className={`${styles["navbar"]} bg-white shadow-sm  position-fixed d-flex 
