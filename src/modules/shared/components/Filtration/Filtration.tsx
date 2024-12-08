@@ -32,7 +32,7 @@ const Filtration = ({ pageName }: FiltrationProps) => {
   };
   return (
     <div
-      className={`row mx-0 gap-lg-0 gap-3  py-3 px-2 mt-3 align-items-center
+      className={`row mx-0 gap-lg-0 gap-3  py-3 px-2 mt-3 align-items-center 
          ${styles["filtration-container"]}`}
     >
       <div
@@ -82,7 +82,7 @@ const Filtration = ({ pageName }: FiltrationProps) => {
             </div>
           </div>
           <div className="col-md-3">
-            <div className="input-group h-25 ">
+            <div className="input-group pb-2 ">
               <span
                 className={`input-group-text border-end-0 bg-white ${styles["icon"]}`}
                 id="input-group-left-example"
@@ -99,7 +99,7 @@ const Filtration = ({ pageName }: FiltrationProps) => {
             </div>
           </div>
           <div className="col-md-3">
-            <div className="input-group  h-25">
+            <div className="input-group  pb-2">
               <span
                 className={`input-group-text border-end-0 bg-white ${styles["icon"]}`}
                 id="input-group-left-example"
