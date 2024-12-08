@@ -1,7 +1,6 @@
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { useContext } from "react";
-import { ThemeContext } from "../../../context/ThemeContext";
+import useThemeContext from "../../../hooks/useThemeContext";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 type chartProps = {
@@ -20,11 +19,7 @@ const darkBorderColor = [
 ];
 
 const DoughnutChart = ({ label, values }: chartProps) => {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error("ThemeContext is undefined");
-  }
-  const { theme } = context;
+  const { theme } = useThemeContext();
 
   const data = {
     labels: label,
