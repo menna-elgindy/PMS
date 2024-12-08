@@ -34,7 +34,7 @@ const Pagination: React.FC<paginationInfo> = ({
 
   return (
     <>
-      <div className="bg-white py-3">
+      <div className=" py-3 paginateWrapper">
         <nav aria-label="Page navigation example">
           <ul className="pagination  align-items-center gap-3 justify-content-end">
             <span className="">showing</span>
@@ -99,7 +99,7 @@ const Pagination: React.FC<paginationInfo> = ({
                 }
                 aria-label="Next"
               >
-                <i className="fa-solid fa-chevron-right "></i>
+                <i className="fa-solid fa-chevron-right " color="white"></i>
               </a>
             </li>
           </ul>

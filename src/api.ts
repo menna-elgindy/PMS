@@ -66,7 +66,6 @@ export const PROJECTS_URLS = {
   DELETE_PROJECT: (id:number) => `Project/${id}`,
   ADD_PROJECT:`/Project`,
   GET_PROJECT:(id:number)=>`Project/${id}`,
-  FILTER_PROJECTS:'Project/manager',
   EDIT_PROJECT:(id:number)=>`/Project/${id}`
 }
 

@@ -1,14 +1,25 @@
+:root {
+  --nav-bg: #ffffff;
+}
+[theme="dark"] {
+  --nav-bg: #101e19;
+}
+
 .navbar {
   position: relative;
   top: 0;
   left: 0;
   right: 0;
   z-index: 101;
+  background-color: var(--nav-bg);
 }
 
 .logo {
   width: 166px;
   height: 43px;
+}
+.profile {
+  color: var(--text-color);
 }
 .email {
   max-width: 80px;
@@ -23,7 +34,7 @@
   width: 100%;
 }
 .bell {
-  color: #ef9b28;
+  color: var(--main-colr);
   font-size: 20px;
 }
 @media (max-width: 540px) {

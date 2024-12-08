@@ -1,5 +1,5 @@
 import style from "./TaskForm.module.css";
-import {  useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import AddFormHeader from "../../../shared/components/AddFormHeader/AddFormHeader";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { AddTaskPayload } from "../../../../interface/Add&EditResponse/Add&EditResponse";
@@ -18,7 +18,6 @@ import {
   UsersListResponse,
 } from "../../../../interface/users/ApiResponseForUser";
 
-
 //import Select from "react-select";
 
 const TaskForm = () => {
@@ -31,21 +30,22 @@ const TaskForm = () => {
     setValue,
     handleSubmit,
   } = useForm<AddTaskPayload>({ mode: "onChange" });
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const { taskId } = useParams<{ taskId: string }>();
   const isNewTask: boolean = !taskId;
 
   const onSubmit = async (data: AddTaskPayload) => {
     const parsedId = parseInt(taskId!, 10);
     try {
-      let res = await axiosInstance[isNewTask ? "post" : "put"](
+      const res = await axiosInstance[isNewTask ? "post" : "put"](
         isNewTask ? TASKS_URLS.ADD_Task : TASKS_URLS.EDIT_TASK(parsedId),
         data,
         HEADERS
       );
-      isNewTask
-        ? toast.success("Task added successfully")
-        : toast.success("Task updated successfully");
+      const message = isNewTask
+        ? "Task added successfully"
+        : "Task updated successfully";
+      toast.success(message);
       console.log(res.data);
       navigate("/tasks");
     } catch (error: any) {
@@ -57,7 +57,7 @@ const TaskForm = () => {
     const getProjects = async () => {
       try {
         const response = await axiosInstance.get(
-          `${PROJECTS_URLS.list}?pageSize=10000&pageNumber=1`
+          `${PROJECTS_URLS.LIST_MANAGER}?pageSize=10000&pageNumber=1`
         );
         setProjectsData(response.data.data);
       } catch (error) {
@@ -97,7 +97,7 @@ const TaskForm = () => {
   }, []);
 
   return (
-    <div className="pt-5 w-100 ms-5 me-2 mx-auto">
+    <div className="pt-5 w-100 ms-5 me-2 mx-auto ">
       <AddFormHeader title="Task" link="Tasks" />
       <form className={style["form-wrapper"]} onSubmit={handleSubmit(onSubmit)}>
         {/*title */}
