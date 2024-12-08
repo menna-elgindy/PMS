@@ -1,6 +1,5 @@
 .header-container {
-  background: url("../src/assets/images/backgd-dashboard.png") no-repeat center
-    center;
+  background: url("../src/assets/images/backgd-dashboard.png");
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 20px;
