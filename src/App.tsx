@@ -11,17 +11,17 @@ import Dashboard from "./modules/Dashboard/components/Dashboard";
 import MasterLayout from "./modules/shared/components/MasterLayout/MasterLayout";
 import ProjectsList from "./modules/projects/components/ProjectsList/ProjectsList";
 import ProjectForm from "./modules/projects/components/ProjectForm/ProjectForm";
-import TasksList from "./modules/tasks/components/TasksList/TasksList";
 import UsersList from "./modules/users/components/UsersList/UsersList";
 import ChangePassword from "./modules/authentication/components/ChangePassword/ChangePassword";
-import ProtectedComponent from './modules/shared/components/ProtectedComponent/ProtectedComponent';
-
+import ProtectedComponent from "./modules/shared/components/ProtectedComponent/ProtectedComponent";
+import EmployeeProtectedRoute from "./modules/shared/components/EmployeeProtectedRoute/EmployeeProtectedRoute"
 
 import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 import TaskForm from "./modules/tasks/components/TaskForm/TaskForm";
-
+import TasksList from "./modules/tasks/components/TasksList/TasksList";
+import TaskBoard from "./modules/tasks/components/TaskBoard/TaskBoard";
 
 function App() {
   const routes = createBrowserRouter([
@@ -41,11 +41,11 @@ function App() {
     },
     {
       path: "",
-      element:(
-			  <ProtectedComponent >
-				<MasterLayout />
-			  </ProtectedComponent>
-			) ,
+      element: (
+        <ProtectedComponent>
+          <MasterLayout />
+        </ProtectedComponent>
+      ),
       children: [
         {
           path: "dashboard",
@@ -57,27 +57,31 @@ function App() {
         },
         {
           path: "projects/new-project",
-          element: <ProjectForm />,
+          element: <EmployeeProtectedRoute><ProjectForm /></EmployeeProtectedRoute> ,
         },
         {
           path: "projects/:projectId",
-          element: <ProjectForm />,
+          element: <EmployeeProtectedRoute><ProjectForm /></EmployeeProtectedRoute>,
         },
         {
           path: "tasks",
-          element: <TasksList />,
+          element: <EmployeeProtectedRoute><TasksList /></EmployeeProtectedRoute>,
         },
         {
           path: "tasks/new-task",
-          element: <TaskForm />,
+          element:<EmployeeProtectedRoute><TaskForm /></EmployeeProtectedRoute> ,
         },
         {
           path: "tasks/:taskId",
-          element: <TaskForm />,
+          element: <EmployeeProtectedRoute><TaskForm /></EmployeeProtectedRoute> ,
+        },
+        {
+          path: "tasks-board",
+          element: <TaskBoard />,
         },
         {
           path: "users",
-          element: <UsersList />,
+          element: <EmployeeProtectedRoute><UsersList /></EmployeeProtectedRoute>,
         },
       ],
       errorElement: <NotFound />,
@@ -86,7 +90,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer position="top-center"  style={{zIndex:9999999}}/>
+      <ToastContainer position="top-center" style={{ zIndex: 9999999 }} />
       <RouterProvider router={routes}></RouterProvider>
     </>
   );

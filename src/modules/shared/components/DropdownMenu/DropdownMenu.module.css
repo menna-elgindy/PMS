@@ -1,12 +1,19 @@
-:root{
-    --dark-color: #101418;
+:root {
+  --dark-color: #101418;
+  --bs-body-bg: #ffffff;
 }
-.dropdown-link{
-    text-decoration:none;
-    color:var(--dark-color);
 
+[theme="dark"] {
+  --bs-body-bg: #101e19;
+  --dark-color: #ffffff;
 }
-.dropdown-item{
-    color:var(--dark-color);
-
+.nav-dropdown-menu .dropdown-menu.show {
+  background-color: var(--bs-body-bg) !important;
+}
+.dropdown-link {
+  text-decoration: none;
+  color: var(--dark-color);
+}
+.dropdown-item {
+  color: var(--dark-color);
 }

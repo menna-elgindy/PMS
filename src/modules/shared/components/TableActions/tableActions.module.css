@@ -1,8 +1,19 @@
-.dropdownToggle:active{
+:root {
+  --dark-color: #101418;
+}
+
+[theme="dark"] {
+  --dark-color: #ffffff;
+}
+.dropdown-item {
+  color: var(--dark-color);
+}
+
+.dropdownToggle:active {
   border: unset !important;
   outline: unset !important;
 }
-.dropdownToggle:focus{
+.dropdownToggle:focus {
   border: unset !important;
   outline: unset !important;
 }

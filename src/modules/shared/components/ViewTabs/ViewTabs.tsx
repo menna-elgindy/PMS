@@ -16,7 +16,7 @@ interface ProjectTabsProps {
 const ViewTabs = ({ project, user, task, loading }: ProjectTabsProps) => {
   const { pathname } = useLocation();
   return (
-    <>
+    <div className={styles["tabs-container"]}>
       {!loading && project && pathname.includes("projects") && (
         <Tabs defaultActiveKey="overview" id="project-tabs" className="mb-3">
           <Tab
@@ -167,7 +167,7 @@ const ViewTabs = ({ project, user, task, loading }: ProjectTabsProps) => {
           </Tab>
         </Tabs>
       )}
-    </>
+    </div>
   );
 };
 

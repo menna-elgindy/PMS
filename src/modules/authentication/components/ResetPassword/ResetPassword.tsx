@@ -82,7 +82,7 @@ function ResetPassword() {
                         <input
                          id="Info-Input"
                           type="text"
-                          className="form-control"
+                          className="Inputs form-control"
                           placeholder="Enter your E-mail"
                           {...register("email", emailValidation)}
                         />
@@ -101,7 +101,7 @@ function ResetPassword() {
                         <input
                           id="Info-Input"
                           type="text"
-                          className="form-control"
+                          className="Inputs form-control"
                           placeholder="Enter Verification"
                           {...register("seed", RequiredField("OTP"))}
                         />

@@ -4,6 +4,7 @@ import { UsersListResponse } from "../../../../interface/users/ApiResponseForUse
 import { useLocation } from "react-router-dom";
 import ViewTabs from "../ViewTabs/ViewTabs";
 import { getTaskTypes } from "../../../tasks/components/TasksList/TasksList";
+import styles from "./ViewDetailsModal.module.css";
 
 type ViewDetailsModalProps = {
   toggleShow: boolean;
@@ -26,7 +27,13 @@ const ViewDetailsModal = ({
   return (
     <>
       {!loading && (
-        <Modal show={toggleShow} onHide={handleCloseDetails} size="lg" centered>
+        <Modal
+          show={toggleShow}
+          onHide={handleCloseDetails}
+          size="lg"
+          centered
+          className={styles["view-modal"]}
+        >
           <Modal.Header closeButton>
             <Modal.Title className="fs-3">
               {pathname.includes("projects")

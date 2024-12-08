@@ -15,6 +15,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import Pagination from "../../../shared/components/Pagination/Pagination";
 import TableActions from "../../../shared/components/TableActions/TableActions";
 import Filtration from "../../../shared/components/Filtration/Filtration";
+import UpDownArrows from "../../../shared/components/SvgIcons/SvgIcons";
 
 export interface getTaskTypes {
   id: number;
@@ -194,6 +195,7 @@ const TasksList = () => {
 
   return (
     <div className="pt-5 w-100 ms-5 me-2 mx-auto">
+      {" "}
       <TableHeader title="Tasks" btnTitle="Add New Task" url="new-task" />
       <Filtration pageName="tasks" />
       {loading ? (
@@ -207,11 +209,11 @@ const TasksList = () => {
           <table className="table table-striped table-borderless">
             <thead>
               <tr>
-                <th className="table-header">Title</th>
-                <th className="table-header">Statues</th>
-                <th className="table-header">User</th>
-                <th className="table-header">Project</th>
-                <th className="table-header">Date Created</th>
+                <th className="table-header">Title <UpDownArrows/> </th>
+                <th className="table-header">Statues <UpDownArrows/></th>
+                <th className="table-header">User <UpDownArrows/></th>
+                <th className="table-header">Project <UpDownArrows/></th>
+                <th className="table-header">Date Created <UpDownArrows/></th>
                 <th className="table-header"></th>
               </tr>
             </thead>
@@ -225,7 +227,6 @@ const TasksList = () => {
           />
         </div>
       )}
-
       <div>
         <DeleteConfirmation
           deleteItem={"Task"}

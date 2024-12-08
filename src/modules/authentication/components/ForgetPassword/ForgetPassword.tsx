@@ -76,7 +76,7 @@ function ForgetPassword() {
                         <input
                         id="Info-Input"
                           type="text"
-                          className="form-control"
+                          className="Inputs form-control"
                           placeholder="Enter your E-mail"
                           aria-label="email"
                           {...register("email", emailValidation)}
