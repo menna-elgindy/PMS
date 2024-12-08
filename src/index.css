@@ -37,6 +37,7 @@
   --text-color: #000000;
   --table-odd: #f2f2f2;
   --table-even: #ffffff;
+  --disabled-arrow: gray;
 }
 
 /* dark mode */
@@ -70,6 +71,7 @@
   --text-color: #ffffff;
   --table-odd: #f2f2f2;
   --table-even: #ffffff;
+  --disabled-arrow: #ffffff;
 }
 
 body {
@@ -424,6 +426,8 @@ body {
 .pagniationLink {
   border: unset;
   cursor: pointer;
+  color: var(--disabled-arrow) !important;
+  border-radius: 6px;
 }
 /*********************** Table *******************/
 th.table-header {
@@ -441,21 +445,18 @@ td.table-data {
   padding: 16px;
   vertical-align: middle;
 }
-.pagniationLink {
-  color: black;
-}
 
 .disabledArrow {
-  color: gray;
+  color: var(--disabled-arrow);
 }
 .disabledArrow:focus {
   outline: unset !important;
   border: unset !important;
-  color: gray;
+  color: var(--disabled-arrow);
 }
 .disabledArrow:hover {
   background-color: unset !important;
-  color: gray !important;
+  color: var(--disabled-arrow) !important;
   cursor: default;
 }
 

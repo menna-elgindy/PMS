@@ -99,7 +99,7 @@ const Pagination: React.FC<paginationInfo> = ({
                 }
                 aria-label="Next"
               >
-                <i className="fa-solid fa-chevron-right "></i>
+                <i className="fa-solid fa-chevron-right " color="white"></i>
               </a>
             </li>
           </ul>
