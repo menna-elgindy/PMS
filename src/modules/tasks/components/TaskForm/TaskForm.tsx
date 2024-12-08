@@ -97,7 +97,7 @@ const TaskForm = () => {
   }, []);
 
   return (
-    <div className="pt-5 w-100 ms-5 me-2 mx-auto">
+    <div className="pt-5 w-100 ms-5 me-2 mx-auto ">
       <AddFormHeader title="Task" link="Tasks" />
       <form className={style["form-wrapper"]} onSubmit={handleSubmit(onSubmit)}>
         {/*title */}

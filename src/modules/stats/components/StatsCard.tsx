@@ -17,7 +17,7 @@ const StatsCard = ({ title, icon, data }: StatsCardProps) => {
           : title === "Tasks Number" || title === "inactive"
           ? styles["stats-card-tasks"]
           : styles["stats-card"]
-      }  p-3   `}
+      }  p-3  `}
     >
       <div
         className={`${
@@ -32,9 +32,7 @@ const StatsCard = ({ title, icon, data }: StatsCardProps) => {
       </div>
       <span className={styles["title"]}>{title}</span>
       <h4>{data}</h4>
-      
     </div>
-    
   );
 };
 

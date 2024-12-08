@@ -59,9 +59,7 @@ const StatsSection = () => {
       <div className=" col-md-5 ">
         {!tasksLoading && tasks && (
           <div>
-            <div
-              className={`${styles["border-container "]} bg-white py-3 rounded-3  `}
-            >
+            <div className={`${styles["border-container"]} py-3 rounded-3  `}>
               <div className={`${styles["border-element"]}`}></div>
               <div className="pb-3 px-3">
                 <h3 className="m-0">Tasks</h3>
@@ -93,16 +91,16 @@ const StatsSection = () => {
             <div className={` ${styles["doughnut-chart"]} pt-3`}>
               <DoughnutChart
                 label={["Progress", "Tasks", "Projects"]}
-                backgroundColor={[
-                  "rgba(229, 230, 244, 1)",
-                  "rgba(244, 244, 229, 1)",
-                  "rgba(244, 229, 237, 1)",
-                ]}
-                borderColor={[
-                  "rgba(207, 209, 236, 1)",
-                  "rgba(228, 228, 188, 1)",
-                  "rgba(231, 195, 215, 1)",
-                ]}
+                // backgroundColor={[
+                //   "rgba(229, 230, 244, 1)",
+                //   "rgba(244, 244, 229, 1)",
+                //   "rgba(244, 229, 237, 1)",
+                // ]}
+                // borderColor={[
+                //   "rgba(207, 209, 236, 1)",
+                //   "rgba(228, 228, 188, 1)",
+                //   "rgba(231, 195, 215, 1)",
+                // ]}
                 values={[tasks!.inProgress, tasks!.toDo, tasks!.done]}
               />
             </div>
@@ -116,14 +114,14 @@ const StatsSection = () => {
           {!usersLoading && users && (
             <div>
               <div
-                className={`${styles["border-container "]} bg-white py-3 rounded-3  `}
+                className={`${styles["border-container"]}  py-3 rounded-3  `}
               >
                 <div className={`${styles["border-element"]}`}></div>
                 <div className="pb-3 px-3">
                   <h3>Users</h3>
                   <span>Lorem ipsum dolor sit amet,consecteture</span>
                 </div>
-                <div className="d-flex flex-wrap gap-3 pb-3 px-3">
+                <div className="d-flex flex-wrap gap-3 pb-2 px-3">
                   <StatsCard
                     icon={<ProgressIcon />}
                     title="active"
@@ -141,14 +139,14 @@ const StatsSection = () => {
               <div className={` ${styles["doughnut-chart"]} pt-2 pb-5`}>
                 <DoughnutChart
                   label={["active", "inactive"]}
-                  backgroundColor={[
-                    "rgba(229, 230, 244, 1)",
-                    "rgba(244, 244, 229, 1)",
-                  ]}
-                  borderColor={[
-                    "rgba(207, 209, 236, 1)",
-                    "rgba(228, 228, 188, 1)",
-                  ]}
+                  // backgroundColor={[
+                  //   "rgba(229, 230, 244, 1)",
+                  //   "rgba(244, 244, 229, 1)",
+                  // ]}
+                  // borderColor={[
+                  //   "rgba(207, 209, 236, 1)",
+                  //   "rgba(228, 228, 188, 1)",
+                  // ]}
                   values={[
                     users!.activatedEmployeeCount,
                     users!.deactivatedEmployeeCount,
