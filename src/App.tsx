@@ -14,6 +14,7 @@ import ProjectForm from "./modules/projects/components/ProjectForm/ProjectForm";
 import UsersList from "./modules/users/components/UsersList/UsersList";
 import ChangePassword from "./modules/authentication/components/ChangePassword/ChangePassword";
 import ProtectedComponent from "./modules/shared/components/ProtectedComponent/ProtectedComponent";
+import EmployeeProtectedRoute from "./modules/shared/components/EmployeeProtectedRoute/EmployeeProtectedRoute"
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -56,23 +57,23 @@ function App() {
         },
         {
           path: "projects/new-project",
-          element: <ProjectForm />,
+          element: <EmployeeProtectedRoute><ProjectForm /></EmployeeProtectedRoute> ,
         },
         {
           path: "projects/:projectId",
-          element: <ProjectForm />,
+          element: <EmployeeProtectedRoute><ProjectForm /></EmployeeProtectedRoute>,
         },
         {
           path: "tasks",
-          element: <TasksList />,
+          element: <EmployeeProtectedRoute><TasksList /></EmployeeProtectedRoute>,
         },
         {
           path: "tasks/new-task",
-          element: <TaskForm />,
+          element:<EmployeeProtectedRoute><TaskForm /></EmployeeProtectedRoute> ,
         },
         {
           path: "tasks/:taskId",
-          element: <TaskForm />,
+          element: <EmployeeProtectedRoute><TaskForm /></EmployeeProtectedRoute> ,
         },
         {
           path: "tasks-board",
@@ -80,7 +81,7 @@ function App() {
         },
         {
           path: "users",
-          element: <UsersList />,
+          element: <EmployeeProtectedRoute><UsersList /></EmployeeProtectedRoute>,
         },
       ],
       errorElement: <NotFound />,
