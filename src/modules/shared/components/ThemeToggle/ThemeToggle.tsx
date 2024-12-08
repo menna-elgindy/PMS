@@ -8,13 +8,19 @@ const ThemeToggle = () => {
   };
 
   return (
-    <div onClick={handleClick} className="rounded ">
+    <button onClick={handleClick} className="btn border-0">
       {theme === "dark" ? (
-        <i className={`fa-solid fa-moon  ${styles["moon"]}`} />
+        <>
+          <span className="sr-only">click to active dark mode</span>
+          <i className={`fa-solid fa-moon  ${styles["moon"]}`} />
+        </>
       ) : (
-        <i className={`fa-solid fa-sun  ${styles["sun"]}`} />
+        <>
+          <span className="sr-only">click to active light mode</span>
+          <i className={`fa-solid fa-sun  ${styles["sun"]}`} />
+        </>
       )}
-    </div>
+    </button>
   );
 };
 
