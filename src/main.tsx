@@ -10,6 +10,7 @@ import ThemeContextProvider from "./context/ThemeContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
+    
     <AuthContextProvider>
       <ThemeContextProvider>
         <App />
