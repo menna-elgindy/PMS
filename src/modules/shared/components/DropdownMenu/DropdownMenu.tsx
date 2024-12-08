@@ -35,7 +35,6 @@ const DropdownMenu = () => {
         >
           Logout
         </NavDropdown.Item>
-        <NavDropdown.Divider />
       </NavDropdown>
     </Nav>
   );
