@@ -91,16 +91,6 @@ const StatsSection = () => {
             <div className={` ${styles["doughnut-chart"]} pt-3`}>
               <DoughnutChart
                 label={["Progress", "Tasks", "Projects"]}
-                // backgroundColor={[
-                //   "rgba(229, 230, 244, 1)",
-                //   "rgba(244, 244, 229, 1)",
-                //   "rgba(244, 229, 237, 1)",
-                // ]}
-                // borderColor={[
-                //   "rgba(207, 209, 236, 1)",
-                //   "rgba(228, 228, 188, 1)",
-                //   "rgba(231, 195, 215, 1)",
-                // ]}
                 values={[tasks!.inProgress, tasks!.toDo, tasks!.done]}
               />
             </div>
@@ -139,14 +129,6 @@ const StatsSection = () => {
               <div className={` ${styles["doughnut-chart"]} pt-2 pb-5`}>
                 <DoughnutChart
                   label={["active", "inactive"]}
-                  // backgroundColor={[
-                  //   "rgba(229, 230, 244, 1)",
-                  //   "rgba(244, 244, 229, 1)",
-                  // ]}
-                  // borderColor={[
-                  //   "rgba(207, 209, 236, 1)",
-                  //   "rgba(228, 228, 188, 1)",
-                  // ]}
                   values={[
                     users!.activatedEmployeeCount,
                     users!.deactivatedEmployeeCount,
