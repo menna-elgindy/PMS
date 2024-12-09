@@ -34,20 +34,6 @@
     margin-bottom: 5px;
     display: block;
 }
-.login-container form .input-group{
-    background-color: rgba(49, 89, 81, 0.9) !important;
-    border-bottom: 1px solid white; 
-}
-.login-container .input-group>.form-control{
-    background-color: rgba(49, 89, 81, 0.9) !important;
-    border: none !important; 
-    border-radius: 0px; 
-    color:rgba(255, 255, 255, 1) ;
-}
-.login-container .input-group>.form-control:focus {
-    outline: none  !important;
-
- }
  .login-container form input::placeholder{
     color:rgb(246, 244, 244) !important;
 }
@@ -73,4 +59,36 @@
 .login-btn{
     margin: auto;
     text-align: center;
+}
+.login-container .input-custom{
+    border: unset;
+    border-radius: unset;
+    background-color: transparent;
+    border-bottom: 0.3px solid rgba(255, 255, 255, 0.405);
+    padding-inline: unset !important;
+    padding-bottom: 0.7rem;
+}
+.input-custom:focus{
+    outline: none;
+    box-shadow: unset;
+    background-color: transparent;
+    color: white;
+    border-color: rgba(239, 155, 40, 1)
+}
+
+@media (max-width: 800px){ 
+    .login-container{
+        width: auto;
+    }
+    .links{
+        gap: 50px;
+    } 
+}
+
+@media (max-width: 400px){
+    .links{
+        gap: 20px;
+    }
+    
+
 }
