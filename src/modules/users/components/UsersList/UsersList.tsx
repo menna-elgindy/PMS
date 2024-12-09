@@ -133,7 +133,6 @@ const UsersList = () => {
 
   const { data: selectedUser, loading: userLoading } =
     useFetch<UsersListResponse>(viewUser);
-  console.log("selecteduser", selectedUser);
   const usersListToDisplay =
     filteredUsers !== null && !usersLoading && filteredUsers
       ? filteredUsers!.data
