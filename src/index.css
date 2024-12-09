@@ -408,9 +408,6 @@ body {
   padding-inline: 2rem;
   background-color: var(--header-bg);
   color: var(--text-color);
-  position: sticky;
-  top: 60px; 
-  z-index: 1000; 
 }
 .tableHeaderIcon {
   color: rgba(14, 56, 47, 1);
