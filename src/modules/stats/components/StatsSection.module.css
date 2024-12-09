@@ -1,3 +1,13 @@
+:root {
+  --stats-card-bg: #ffffff;
+  --stats-text: #000000;
+}
+
+[theme="dark"] {
+  --stats-card-bg: #101e19;
+  --stats-text: #ffffff;
+  /* --stats-card-bg: #2e544c; */
+}
 .doughnut-chart {
   max-width: 300px;
   /* min-height: 300px; */
@@ -5,9 +15,11 @@
 }
 .border-container {
   position: relative;
-  background-color: white;
-  padding: 20px;
+  /* padding: 18px; */
+  min-height: 200px;
   border-radius: 8px;
+  background-color: var(--stats-card-bg);
+  color: var(--stats-text);
 }
 .border-element {
   position: absolute;
