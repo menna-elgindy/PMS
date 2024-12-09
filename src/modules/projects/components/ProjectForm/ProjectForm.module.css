@@ -5,7 +5,14 @@
   --btn-dark-text: #0e382f;
   --btn-ligth-bg: #ef9b28;
 }
-
+[theme="dark"] {
+  --form-bg: #101e19;
+  --form-input-bg: #101e19;
+  --form-border-color: #383737;
+  --border-top-color: #383737;
+  --button-border-color: #383737;
+  --label-color: #ffffff;
+}
 /*.add-project-wrapper {
   width: 100%;
   position: relative;
@@ -31,11 +38,12 @@
 }
 
 .form-input {
-  border: 1px solid #ececec;
+  border: 1px solid var(--form-border-color);
   width: 100%;
   padding: 1rem;
   border-radius: 16px;
   color: var(--label-color);
+  background-color: var(--form-input-bg) !important;
 }
 
 .form-input::placeholder {
@@ -52,7 +60,7 @@
 
 .cancle-btn {
   text-decoration: none;
-  border: 1px solid #000000;
+  border: 1px solid var(--button-border-color);
   padding: 1rem;
   color: var(--btn-dark-text);
   border-radius: 24px;
@@ -62,14 +70,14 @@
 .btns-wrapper {
   display: flex;
   justify-content: space-between;
-  border-top: 0.5px solid #d9d9d9;
+  border-top: 0.5px solid var(--border-top-color);
   margin-top: 2.75rem;
   padding-top: 1.625rem;
 }
 
 @media (max-width: 500px) {
-    .btns-wrapper{
-        flex-direction: column;
-        gap:2rem
-    }
+  .btns-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+  }
 }

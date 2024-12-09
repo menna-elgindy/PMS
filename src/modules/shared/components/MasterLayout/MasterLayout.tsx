@@ -9,7 +9,6 @@ const MasterLayout = () => {
       <SideBarMenu />
       <div className="main-content d-flex  mt-5 w-auto ">
         <Outlet />
-        
       </div>
     </div>
   );

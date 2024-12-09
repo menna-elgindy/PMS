@@ -1,6 +1,7 @@
 import { UseFormRegisterReturn } from "react-hook-form";
 import useToggle from "../../../../hooks/useToggle";
 import styles from "./passwordInput.module.css";
+
 export default function PasswordInput({
   label,
   placeholder,

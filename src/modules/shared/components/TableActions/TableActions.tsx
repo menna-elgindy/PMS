@@ -27,7 +27,10 @@ const TableActions: React.FC<tableActionsData> = ({
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item onClick={handleShow}>
+            <Dropdown.Item
+              onClick={handleShow}
+              className={styles["dropdown-item"]}
+            >
               {" "}
               <i className="fa-solid fa-eye option-icons"></i>View
               <span className="sr-only">click to view {itemName}</span>
@@ -36,6 +39,7 @@ const TableActions: React.FC<tableActionsData> = ({
               onClick={() => {
                 handleShowEdit();
               }}
+              className={styles["dropdown-item"]}
             >
               <i className="fa-solid fa-pen-to-square option-icons "></i>Edit
               <span className="sr-only">click to edit {itemName}</span>
@@ -45,6 +49,7 @@ const TableActions: React.FC<tableActionsData> = ({
               onClick={() => {
                 handleShowDelete();
               }}
+              className={styles["dropdown-item"]}
             >
               <i className="fa-solid fa-trash-can option-icons"></i>Delete
               <span className="sr-only">click to delete {itemName}</span>

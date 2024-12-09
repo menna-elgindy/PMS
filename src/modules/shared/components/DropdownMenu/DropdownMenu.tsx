@@ -2,7 +2,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Nav from "react-bootstrap/Nav";
 import { ArrowIcon } from "../SvgIcons/SvgIcons";
 import { Link } from "react-router-dom";
-import style from "./DropdownMenu.module.css";
+import styles from "./DropdownMenu.module.css";
 import { AuthContext } from "../../../../context/AuthContext";
 import { useContext } from "react";
 const DropdownMenu = () => {
@@ -13,18 +13,21 @@ const DropdownMenu = () => {
   const { setLoginData } = authContext;
 
   return (
-    <Nav className="">
+    <Nav className={styles["nav-dropdown-menu"]}>
       <NavDropdown
         id="nav-dropdown-dark-example"
         title={<ArrowIcon />}
         menuVariant="light"
-        className=""
       >
-        <NavDropdown.Item as={Link} to="/change-password">
+        <NavDropdown.Item
+          as={Link}
+          to="/change-password"
+          className={styles["dropdown-item"]}
+        >
           Change Password
         </NavDropdown.Item>
         <NavDropdown.Item
-          className={style["dropdown-item "]}
+          className={styles["dropdown-item"]}
           onClick={() => {
             localStorage.clear();
             setLoginData(null);
@@ -32,7 +35,6 @@ const DropdownMenu = () => {
         >
           Logout
         </NavDropdown.Item>
-        <NavDropdown.Divider />
       </NavDropdown>
     </Nav>
   );

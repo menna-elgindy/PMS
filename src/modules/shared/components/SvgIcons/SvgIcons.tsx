@@ -143,8 +143,26 @@ export const BackArrow = () => (
     />
   </svg>
 );
+export default function UpDownArrows() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="none"
+      viewBox="0 0 16 16"
+    >
+      <path
+        fill="#fff"
+        fillRule="evenodd"
+        d="M3.646 9.146a.5.5 0 01.708 0L8 12.793l3.646-3.647a.5.5 0 01.708.708l-4 4a.5.5 0 01-.708 0l-4-4a.5.5 0 010-.708zM3.646 6.854a.5.5 0 00.708 0L8 3.207l3.646 3.647a.5.5 0 00.708-.708l-4-4a.5.5 0 00-.708 0l-4 4a.5.5 0 000 .708z"
+        clipRule="evenodd"
+      ></path>
+    </svg>
+  );
+}
 
-export const FilterIcon = () => (
+export const FilterIcon = ({ color }: { color: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="16"
@@ -153,7 +171,7 @@ export const FilterIcon = () => (
     viewBox="0 0 16 16"
   >
     <path
-      fill="#000"
+      fill={color}
       d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5M4 7.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M2 4.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"
     ></path>
   </svg>
