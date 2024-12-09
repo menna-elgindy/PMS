@@ -61,6 +61,7 @@ const ProjectsList = () => {
 
   const getProjects = async (params: UsersFilterOptions | null = null) => {
     try {
+      setLoading(true);
       const response = await axiosInstance.get(
         loginData?.userGroup === "Manager"
           ? PROJECTS_URLS.LIST_MANAGER
