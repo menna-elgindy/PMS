@@ -126,7 +126,6 @@ const UsersList = () => {
 
   const { data: selectedUser, loading: userLoading } =
     useFetch<UsersListResponse>(viewUser);
-  console.log("selecteduser", selectedUser);
   const usersListToDisplay =
     filteredUsers !== null && !usersLoading && filteredUsers
       ? filteredUsers!.data
@@ -148,7 +147,7 @@ const UsersList = () => {
             {usersListToDisplay!.length > 0 ? (
               <>
                 <table className="table table-striped table-borderless ">
-                  <thead className="table-dark">
+                  <thead className="table-dark ">
                     <tr>
                       <th className="table-header" scope="col">
                         User Name <UpDownArrows />
