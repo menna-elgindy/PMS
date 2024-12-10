@@ -26,7 +26,6 @@ const Pagination: React.FC<paginationInfo> = ({
     }
   };
   const prevBtn = (pageSize: number, pageNumber: number) => {
-    console.log(pageNumber);
     if (pageNumber >= 1) {
       paginatedListFunction({ pageNumber: pageNumber, pageSize: pageSize });
     }
@@ -44,13 +43,17 @@ const Pagination: React.FC<paginationInfo> = ({
                 className="paginationDropDownStyle"
                 id="dropdown-basic"
               >
-                {pageNumber} <i className="fa-solid fa-chevron-down"></i>
+                {pageNumber} {totalNumberOfPages.length < 2 ? '' :  <i className="fa-solid fa-chevron-down"></i>}
+
               </Dropdown.Toggle>
 
-              <Dropdown.Menu className="dropDownMenuStyle">
+          {totalNumberOfPages.length < 2 ? '' :     <Dropdown.Menu className="dropDownMenuStyle">
+ 
                 {totalNumberOfPages?.map((page) => (
+                 
                   <Dropdown.Item
                     key={page}
+                   
                     onClick={() =>
                       paginatedListFunction({
                         pageNumber: page,
@@ -58,20 +61,25 @@ const Pagination: React.FC<paginationInfo> = ({
                       })
                     }
                   >
+          
                     {page}
+                
                   </Dropdown.Item>
                 ))}
-              </Dropdown.Menu>
+              </Dropdown.Menu>}
             </Dropdown>
 
             <span> of {numOfRecords} Results</span>
 
             <div>
-              <span>Page {pageNumber}</span>
+              <span>Page {pageNumber}</span>  
               <span className="mx-2">of {totalNumberOfPages?.length}</span>
             </div>
 
-            <li className="page-item">
+
+{
+  numOfRecords < 10 ? '' : <>
+       <li className="page-item">
               <a
                 className={
                   pageNumber == 1
@@ -102,6 +110,9 @@ const Pagination: React.FC<paginationInfo> = ({
                 <i className="fa-solid fa-chevron-right " color="white"></i>
               </a>
             </li>
+  </>
+}
+       
           </ul>
         </nav>
       </div>

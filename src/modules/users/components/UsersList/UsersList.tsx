@@ -147,7 +147,7 @@ const UsersList = () => {
             {usersListToDisplay!.length > 0 ? (
               <>
                 <table className="table table-striped table-borderless ">
-                  <thead className="table-dark">
+                  <thead className="table-dark ">
                     <tr>
                       <th className="table-header" scope="col">
                         User Name <UpDownArrows />

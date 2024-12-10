@@ -495,3 +495,8 @@ td.table-data {
   overflow-x: hidden;
  
 }*/
+
+.is-sticky {
+position: sticky !important;
+top: 0;
+}
