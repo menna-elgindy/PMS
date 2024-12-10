@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
 import logo from "../../../../assets/images/logo.png";
@@ -8,6 +8,7 @@ import { AUTH_URLS, axiosInstance } from "../../../../api";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../../context/AuthContext";
 import { LoginFormData } from "../../../../interface/AuthResponse/AuthResponse";
+import PasswordInput from "../../../shared/components/PasswordInput/PasswordInput";
 
 const Login = () => {
   const { saveLoginData } = useContext(AuthContext);
@@ -35,7 +36,7 @@ const Login = () => {
     }
   };
 
-  const [isVisible, setIsVisible] = useState(false);
+
   return (
     <div className="Auth-container">
       <div className="container-fluid">
@@ -53,7 +54,7 @@ const Login = () => {
               </div>
               <form onSubmit={handleSubmit(onSubmitData)}>
                 <label>E-mail</label>
-                <div className="input-group">
+                <div className="input-group mb-4">
                   <input
                     type="text"
                     className="form-control input-custom"
@@ -69,34 +70,8 @@ const Login = () => {
                   </span>
                 )}
 
-                <label className="mt-3">Password</label>
-                <div className="input-group">
-                  <input
-                    type={isVisible ? "text" : "password"}
-                    className="form-control input-custom"
-                    placeholder="Enter your password"
-                    aria-label="password "
-                    {...register("password", PasswordValidation)}
-                  />
+                <PasswordInput label="password" placeholder="Enter your password" registerInput={register('password',PasswordValidation)}/>
 
-                  <button
-                    type="button"
-                    onMouseDown={(e) => e.preventDefault()}
-                    onMouseUp={(e) => e.preventDefault()}
-                    onClick={() => setIsVisible(!isVisible)}
-                    className="input-group-text eye-btn"
-                    id="basic-addon1"
-                  >
-                    {isVisible ? (
-                      <i className="fa-solid fa-eye-slash"></i>
-                    ) : (
-                      <i className="fa-solid fa-eye"></i>
-                    )}
-                  </button>
-                </div>
-                <h4 className="mt-2 sr-only">
-                  {isVisible ? "Hide Password" : "Show Password"}
-                </h4>
                 {errors.password && (
                   <span className="text-danger">
                     {errors.password?.message?.toString()}
