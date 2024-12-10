@@ -28,6 +28,7 @@ const UsersList = () => {
   const [counterLoading, setCounterLoadind] = useState<number>(0);
   const [selectedId, setSelectedId] = useState<number>(0);
   const [view, setView] = useState<boolean>(false);
+  const [isActive, setIsActive] = useState<boolean>();
 
   const handleCloseDetails = () => setView(false);
   const [searchParams] = useSearchParams();
@@ -86,7 +87,7 @@ const UsersList = () => {
       }
     );
     return response?.data;
-  }, [searchParams]);
+  }, [searchParams,isActive]);
   // get with filter
   const { data: filteredUsers, loading: usersLoading } =
     useFetch<getFilterUsersType>(getFilteredUsers);
@@ -102,6 +103,7 @@ const UsersList = () => {
         }
       );
       getAllUsers();
+      setIsActive(response.data.isActivated)
       const { isActivated } = response.data;
       toast.success(
         `User has been ${
@@ -116,13 +118,13 @@ const UsersList = () => {
 
   useEffect(() => {
     getAllUsers({ pageNumber: pageNum.get("pageNum"), pageSize: 20 });
-  }, []);
+  }, [isActive]);
   const viewUser = useCallback(async () => {
     const response = await axiosInstance.get<UsersListResponse>(
       USERS_URLS.GetUserByIdUrl(selectedId)
     );
     return response?.data;
-  }, [selectedId]);
+  }, [selectedId,isActive]);
 
   const { data: selectedUser, loading: userLoading } =
     useFetch<UsersListResponse>(viewUser);
