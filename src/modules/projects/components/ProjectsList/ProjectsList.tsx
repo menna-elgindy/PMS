@@ -31,7 +31,7 @@ const ProjectsList = () => {
   const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
   const [numberOfRecords, setNumOfRecords] = useState(0);
   const [searchParams] = useSearchParams();
-
+  const [update, setUpdate] = useState(false);
   const navigate = useNavigate();
 
   const authContext = useContext(AuthContext);
@@ -104,7 +104,7 @@ const ProjectsList = () => {
       }
     );
     return response?.data;
-  }, [searchParams]);
+  }, [searchParams, loginData?.userGroup, update]);
 
   const { data: filteredProjects, loading: projectsLoading } =
     useFetch<getProjectsType>(getFilteredProjects);
@@ -117,6 +117,7 @@ const ProjectsList = () => {
       if (response?.data.affected !== 0) {
         toast.success("Project deleted successfully");
         // projectQuery?.triggerProjects(params.get("page") || 1);
+        setUpdate(!update);
         getProjects();
       } else {
         toast.error("Project not found");

@@ -49,6 +49,7 @@ const TasksList = () => {
   const [pageNum, setPageNum] = useSearchParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const [update, setUpdate] = useState(false);
 
   const handleShowDelete = (id: number) => {
     setSelectedId(id);
@@ -64,6 +65,7 @@ const TasksList = () => {
     setSelectedId(id);
     setView(true);
   };
+
   const getFilteredTasks = useCallback(async () => {
     const response = await axiosInstance.get<getTasks>(TASKS_URLS.get_All, {
       params: {
@@ -74,7 +76,8 @@ const TasksList = () => {
       },
     });
     return response?.data;
-  }, [pageNum, searchParams]);
+  }, [pageNum, searchParams, update]);
+
   const { data: filteredTasks, loading: tasksLoading } =
     useFetch<getTasks>(getFilteredTasks);
 
@@ -85,7 +88,7 @@ const TasksList = () => {
       );
       if (response?.data.affected !== 0) {
         toast.success("Task deleted successfully");
-        // taskQuery?.triggerTasks(params.get("page") || 1);
+        setUpdate(!update);
         getTasksList();
       } else {
         toast.error("Task not found");
@@ -99,6 +102,7 @@ const TasksList = () => {
     }
     handleClose();
   };
+
   const viewTask = useCallback(async () => {
     const response = await axiosInstance.get<getTaskTypes>(
       TASKS_URLS.GET_Task(selectedId)
@@ -147,7 +151,7 @@ const TasksList = () => {
       pageNumber: pageNum.get("pageNum"),
       pageSize: 5,
     });
-  }, []);
+  }, [pageNum]);
 
   const tasksListToDisplay =
     filteredTasks !== null && !tasksLoading && filteredTasks
@@ -209,11 +213,21 @@ const TasksList = () => {
           <table className="table table-striped table-borderless">
             <thead>
               <tr>
-                <th className="table-header">Title <UpDownArrows/> </th>
-                <th className="table-header">Statues <UpDownArrows/></th>
-                <th className="table-header">User <UpDownArrows/></th>
-                <th className="table-header">Project <UpDownArrows/></th>
-                <th className="table-header">Date Created <UpDownArrows/></th>
+                <th className="table-header">
+                  Title <UpDownArrows />{" "}
+                </th>
+                <th className="table-header">
+                  Statues <UpDownArrows />
+                </th>
+                <th className="table-header">
+                  User <UpDownArrows />
+                </th>
+                <th className="table-header">
+                  Project <UpDownArrows />
+                </th>
+                <th className="table-header">
+                  Date Created <UpDownArrows />
+                </th>
                 <th className="table-header"></th>
               </tr>
             </thead>
