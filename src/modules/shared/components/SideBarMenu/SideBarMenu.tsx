@@ -89,7 +89,13 @@ const SideBarMenu = () => {
                 }
               />
             }
-            component={<NavLink to="tasks" />}
+            component={
+              <NavLink
+                to={
+                  loginData?.userGroup === "Manager" ? "tasks" : "tasks-board"
+                }
+              />
+            }
           >
             Tasks
           </MenuItem>

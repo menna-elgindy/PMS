@@ -32,11 +32,17 @@
   --color-username: #101418;
   --bg-sidebar: rgba(14, 56, 47, 1);
   --light-color: #ffffff;
-  --placeholder-color: #C1C1C1;
-
+  --placeholder-color: #c1c1c1;
+  --header-bg: #ffffff;
+  --text-color: #000000;
+  --table-odd: #f2f2f2;
+  --table-even: #ffffff;
+  --disabled-arrow: gray;
+  --pagination-bg: #f8f9fa;
 }
 
-/* .Dark-mode {
+/* dark mode */
+[theme="dark"] {
   --main-colr: rgba(239, 155, 40, 1);
   --color-titledrag: rgba(255, 255, 255, 1);
   --color-username: rgba(255, 255, 255, 1);
@@ -56,8 +62,15 @@
   --dark-color: #fff;
   --App-color: #101418;
   --bd-table: rgba(14, 56, 47, 1);
-  --bg-sidebar: #101418;
-} */
+  --bg-sidebar: #101e19;
+  --bg-Mastercolor: #142520;
+  --header-bg: #2e544c;
+  --text-color: #ffffff;
+  --table-odd: #f2f2f2;
+  --table-even: #ffffff;
+  --disabled-arrow: #ffffff;
+  --pagination-bg: #101e19;
+}
 
 body {
   font-family: "Montserrat", sans-serif !important;
@@ -123,7 +136,7 @@ label {
   box-shadow: unset;
 }
 
-/* .form-control {
+/* .Inputs {
     color: #fff !important;
     box-shadow: none !important;
   } */
@@ -290,9 +303,20 @@ body {
   z-index: 2;
   width: auto;
 }
+/* *************** pagination style *************** */
+.paginateWrapper {
+  background-color: var(--header-bg);
+  color: var(--text-color);
+}
 @media only screen and (max-width: 500px) {
   .main-content {
     max-width: 74%;
+  }
+  .paginateWrapper {
+    width: 600px;
+  }
+  .pagination {
+    justify-content: flex-start !important;
   }
 }
 
@@ -382,6 +406,8 @@ body {
 .tableHeaderContainer {
   padding-block: 1.5rem;
   padding-inline: 2rem;
+  background-color: var(--header-bg);
+  color: var(--text-color);
 }
 .tableHeaderIcon {
   color: rgba(14, 56, 47, 1);
@@ -398,7 +424,13 @@ body {
 .pagniationLink {
   border: unset;
   cursor: pointer;
+  color: var(--disabled-arrow) !important;
+  border-radius: 6px;
 }
+/* .pagniationLink .page-link:hover {
+  background-color: red;
+  color: #000000 !important;
+} */
 /*********************** Table *******************/
 th.table-header {
   background-color: #315951e5;
@@ -415,29 +447,39 @@ td.table-data {
   padding: 16px;
   vertical-align: middle;
 }
-.pagniationLink {
-  color: black;
-}
 
 .disabledArrow {
-  color: gray;
+  color: var(--disabled-arrow);
 }
 .disabledArrow:focus {
   outline: unset !important;
   border: unset !important;
-  color: gray;
+  color: var(--disabled-arrow);
+}
+
+.enabledArrow {
+  background-color: var(--pagination-bg) !important;
+}
+.enabledArrow:hover {
+  background-color: unset !important;
 }
 .disabledArrow:hover {
   background-color: unset !important;
-  color: gray !important;
+  color: var(--disabled-arrow) !important;
   cursor: default;
-
-  
 }
 
 .dropDownMenuStyle {
-  height: 7.5rem ;
+  height: 7.5rem;
   overflow: auto;
+}
+/* change table style  */
+.table-striped tbody tr:nth-of-type(odd) td {
+  color: var(--text-color);
+}
+
+.table-striped tbody tr:nth-of-type(even) td {
+  color: var(--text-color);
 }
 
 /*********************** Add form *******************/
@@ -453,3 +495,52 @@ td.table-data {
   overflow-x: hidden;
  
 }*/
+
+
+/* user-dropdown-item */
+
+.dropdown-item:focus,
+.dropdown-item:active {
+  background-color: transparent !important; 
+  color: inherit !important; 
+  outline: none; 
+}
+
+
+.dropdown-item:hover {
+  background-color: #f8f9fa; 
+  color: #212529; 
+}
+
+.dropdown-item {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+
+
+table {
+  text-align: left;
+  position: relative;
+  border-collapse: collapse; 
+}
+th, td {
+  padding: 0.25rem;
+}
+tr.red th {
+  background: red;
+  color: white;
+}
+tr.green th {
+  background: green;
+  color: white;
+}
+tr.purple th {
+  background: purple;
+  color: white;
+}
+th {
+  background: white;
+  position: sticky;
+  top: 0; /* Don't forget this, required for the stickiness */
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}

@@ -3,7 +3,7 @@ import useFetch from "../../../../hooks/useFetch";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import DeleteConfirmation from "../../../shared/components/DeleteConfirmation/DeleteConfirmation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { formatDate } from "../../../../helpers";
 import {
   getProjectTypes,
@@ -18,6 +18,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import Filtration from "../../../shared/components/Filtration/Filtration";
 import ViewDetailsModal from "../../../shared/components/ViewDetailsModal/ViewDetailsModal";
 import NoData from "../../../shared/components/NoData/NoData";
+import { AuthContext } from "../../../../context/AuthContext";
+import UpDownArrows from "../../../shared/components/SvgIcons/SvgIcons";
 
 const ProjectsList = () => {
   const [pageNum, setPageNum] = useSearchParams();
@@ -29,8 +31,14 @@ const ProjectsList = () => {
   const [arrayOfPages, setArrayOfPages] = useState<number[]>([]);
   const [numberOfRecords, setNumOfRecords] = useState(0);
   const [searchParams] = useSearchParams();
-
+  const [update, setUpdate] = useState(false);
   const navigate = useNavigate();
+
+  const authContext = useContext(AuthContext);
+  // if (!authContext) { // this will return error for all used hooks
+  //   return null;
+  // }
+  const { loginData } = authContext;
 
   const handleClose = () => setShowDelete(false);
 
@@ -50,15 +58,22 @@ const ProjectsList = () => {
     setSelectedId(id);
     setView(true);
   };
+
   const getProjects = async (params: UsersFilterOptions | null = null) => {
     try {
-      const response = await axiosInstance.get(PROJECTS_URLS.list, {
-        params: {
-          pageSize: params?.pageSize,
-          pageNumber: params?.pageNumber,
-          // title: searchParams.get("name"),
-        },
-      });
+      setLoading(true);
+      const response = await axiosInstance.get(
+        loginData?.userGroup === "Manager"
+          ? PROJECTS_URLS.LIST_MANAGER
+          : PROJECTS_URLS.LIST_EMPLOYEE,
+        {
+          params: {
+            pageSize: params?.pageSize,
+            pageNumber: params?.pageNumber,
+            // title: searchParams.get("name"),
+          },
+        }
+      );
       setProjectsData(response.data.data);
       setArrayOfPages(
         Array(response?.data?.totalNumberOfPages)
@@ -77,7 +92,9 @@ const ProjectsList = () => {
 
   const getFilteredProjects = useCallback(async () => {
     const response = await axiosInstance.get<getProjectsType>(
-      PROJECTS_URLS.FILTER_PROJECTS,
+      loginData?.userGroup === "Manager"
+        ? PROJECTS_URLS.LIST_MANAGER
+        : PROJECTS_URLS.LIST_EMPLOYEE,
       {
         params: {
           pageSize: 5,
@@ -87,7 +104,8 @@ const ProjectsList = () => {
       }
     );
     return response?.data;
-  }, [searchParams]);
+  }, [searchParams, loginData?.userGroup, update]);
+
   const { data: filteredProjects, loading: projectsLoading } =
     useFetch<getProjectsType>(getFilteredProjects);
 
@@ -99,6 +117,7 @@ const ProjectsList = () => {
       if (response?.data.affected !== 0) {
         toast.success("Project deleted successfully");
         // projectQuery?.triggerProjects(params.get("page") || 1);
+        setUpdate(!update);
         getProjects();
       } else {
         toast.error("Project not found");
@@ -112,24 +131,25 @@ const ProjectsList = () => {
     }
     handleClose();
   };
+
   const viewProject = useCallback(async () => {
+    if (loginData?.userGroup !== "Manager") return {} as getProjectTypes;
     const response = await axiosInstance.get<getProjectTypes>(
       PROJECTS_URLS.GET_PROJECT(selectedId)
     );
     return response?.data;
   }, [selectedId]);
+
   const { data: selectedProject, loading: projectLoading } =
     useFetch<getProjectTypes>(viewProject);
 
-  // useEffect(() => {
-  //   getProjects({ pageNumber: Number(pageNum.get("pageNum")) });
-  // }, []);
   useEffect(() => {
     getProjects({
       pageNumber: pageNum.get("pageNum"),
       pageSize: 5,
     });
-  }, []);
+  }, [loginData?.userGroup]);
+
   const projectsListToDisplay =
     filteredProjects !== null && !projectsLoading && filteredProjects
       ? filteredProjects!.data
@@ -143,14 +163,16 @@ const ProjectsList = () => {
           <td className="table-data">{project.description}</td>
           <td className="table-data">{project.task.length}</td>
           <td className="table-data">{formatDate(project.creationDate)}</td>
-          <td className="table-data cursor-pointer">
-            <TableActions
-              handleShowDelete={() => handleShowDelete(project.id)}
-              handleShowEdit={() => handleShowEdit(project.id)}
-              handleShow={() => handleView(project.id)}
-              itemName={project.title}
-            />
-          </td>
+          {loginData?.userGroup === "Manager" && (
+            <td className="table-data cursor-pointer">
+              <TableActions
+                handleShowDelete={() => handleShowDelete(project.id)}
+                handleShowEdit={() => handleShowEdit(project.id)}
+                handleShow={() => handleView(project.id)}
+                itemName={project.title}
+              />
+            </td>
+          )}
         </tr>
       ))
     ) : (
@@ -167,6 +189,7 @@ const ProjectsList = () => {
         title="Projects"
         btnTitle="Add New Project"
         url="new-project"
+        from={loginData?.userGroup}
       />
       <Filtration pageName="projects" />
       {loading ? (
@@ -180,10 +203,18 @@ const ProjectsList = () => {
           <table className="table table-striped table-borderless">
             <thead>
               <tr>
-                <th className="table-header">Title</th>
-                <th className="table-header">Description</th>
-                <th className="table-header">Num Tasks</th>
-                <th className="table-header">Date Created</th>
+                <th className="table-header">
+                  Title <UpDownArrows />
+                </th>
+                <th className="table-header">
+                  Description <UpDownArrows />
+                </th>
+                <th className="table-header">
+                  Num Tasks <UpDownArrows />
+                </th>
+                <th className="table-header">
+                  Date Created <UpDownArrows />
+                </th>
                 <th className="table-header"></th>
               </tr>
             </thead>

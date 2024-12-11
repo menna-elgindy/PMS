@@ -15,6 +15,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import Pagination from "../../../shared/components/Pagination/Pagination";
 import TableActions from "../../../shared/components/TableActions/TableActions";
 import Filtration from "../../../shared/components/Filtration/Filtration";
+import UpDownArrows from "../../../shared/components/SvgIcons/SvgIcons";
 
 export interface getTaskTypes {
   id: number;
@@ -48,6 +49,7 @@ const TasksList = () => {
   const [pageNum, setPageNum] = useSearchParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const [update, setUpdate] = useState(false);
 
   const handleShowDelete = (id: number) => {
     setSelectedId(id);
@@ -63,19 +65,6 @@ const TasksList = () => {
     setSelectedId(id);
     setView(true);
   };
-  const getFilteredTasks = useCallback(async () => {
-    const response = await axiosInstance.get<getTasks>(TASKS_URLS.get_All, {
-      params: {
-        pageSize: 5,
-        pageNumber: pageNum.get("pageNum"),
-        title: searchParams.get("name") || null,
-        status: searchParams.get("status") || null,
-      },
-    });
-    return response?.data;
-  }, [pageNum, searchParams]);
-  const { data: filteredTasks, loading: tasksLoading } =
-    useFetch<getTasks>(getFilteredTasks);
 
   const deleteTask = async () => {
     try {
@@ -84,7 +73,7 @@ const TasksList = () => {
       );
       if (response?.data.affected !== 0) {
         toast.success("Task deleted successfully");
-        // taskQuery?.triggerTasks(params.get("page") || 1);
+        setUpdate(!update);
         getTasksList();
       } else {
         toast.error("Task not found");
@@ -98,6 +87,22 @@ const TasksList = () => {
     }
     handleClose();
   };
+
+  const getFilteredTasks = useCallback(async () => {
+    const response = await axiosInstance.get<getTasks>(TASKS_URLS.get_All, {
+      params: {
+        pageSize: 5,
+        pageNumber: pageNum.get("pageNum"),
+        title: searchParams.get("name") || null,
+        status: searchParams.get("status") || null,
+      },
+    });
+    return response?.data;
+  }, [pageNum, searchParams, update]);
+
+  const { data: filteredTasks, loading: tasksLoading } =
+    useFetch<getTasks>(getFilteredTasks);
+
   const viewTask = useCallback(async () => {
     const response = await axiosInstance.get<getTaskTypes>(
       TASKS_URLS.GET_Task(selectedId)
@@ -194,6 +199,7 @@ const TasksList = () => {
 
   return (
     <div className="pt-5 w-100 ms-5 me-2 mx-auto">
+      {" "}
       <TableHeader title="Tasks" btnTitle="Add New Task" url="new-task" />
       <Filtration pageName="tasks" />
       {loading ? (
@@ -207,11 +213,21 @@ const TasksList = () => {
           <table className="table table-striped table-borderless">
             <thead>
               <tr>
-                <th className="table-header">Title</th>
-                <th className="table-header">Statues</th>
-                <th className="table-header">User</th>
-                <th className="table-header">Project</th>
-                <th className="table-header">Date Created</th>
+                <th className="table-header">
+                  Title <UpDownArrows />{" "}
+                </th>
+                <th className="table-header">
+                  Statues <UpDownArrows />
+                </th>
+                <th className="table-header">
+                  User <UpDownArrows />
+                </th>
+                <th className="table-header">
+                  Project <UpDownArrows />
+                </th>
+                <th className="table-header">
+                  Date Created <UpDownArrows />
+                </th>
                 <th className="table-header"></th>
               </tr>
             </thead>
@@ -225,7 +241,6 @@ const TasksList = () => {
           />
         </div>
       )}
-
       <div>
         <DeleteConfirmation
           deleteItem={"Task"}
