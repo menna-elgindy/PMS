@@ -66,21 +66,6 @@ const TasksList = () => {
     setView(true);
   };
 
-  const getFilteredTasks = useCallback(async () => {
-    const response = await axiosInstance.get<getTasks>(TASKS_URLS.get_All, {
-      params: {
-        pageSize: 5,
-        pageNumber: pageNum.get("pageNum"),
-        title: searchParams.get("name") || null,
-        status: searchParams.get("status") || null,
-      },
-    });
-    return response?.data;
-  }, [pageNum, searchParams, update]);
-
-  const { data: filteredTasks, loading: tasksLoading } =
-    useFetch<getTasks>(getFilteredTasks);
-
   const deleteTask = async () => {
     try {
       const response = await axiosInstance.delete(
@@ -102,6 +87,21 @@ const TasksList = () => {
     }
     handleClose();
   };
+
+  const getFilteredTasks = useCallback(async () => {
+    const response = await axiosInstance.get<getTasks>(TASKS_URLS.get_All, {
+      params: {
+        pageSize: 5,
+        pageNumber: pageNum.get("pageNum"),
+        title: searchParams.get("name") || null,
+        status: searchParams.get("status") || null,
+      },
+    });
+    return response?.data;
+  }, [pageNum, searchParams, update]);
+
+  const { data: filteredTasks, loading: tasksLoading } =
+    useFetch<getTasks>(getFilteredTasks);
 
   const viewTask = useCallback(async () => {
     const response = await axiosInstance.get<getTaskTypes>(
@@ -151,7 +151,7 @@ const TasksList = () => {
       pageNumber: pageNum.get("pageNum"),
       pageSize: 5,
     });
-  }, [pageNum]);
+  }, []);
 
   const tasksListToDisplay =
     filteredTasks !== null && !tasksLoading && filteredTasks
